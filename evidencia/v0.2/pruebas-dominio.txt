@@ -1,0 +1,34 @@
+
+> moriarty@0.2.0 test
+> node tests/model.test.mjs && node tests/library.test.mjs
+
+✔ exportable project validates, including Unicode (5.579651ms)
+✔ rejects malformed structures and duplicate identities (0.356503ms)
+✔ restoring saves current text and uses an independent copy (0.617123ms)
+✔ stale review never overwrites an edited scene (0.60175ms)
+✔ historical reviews survive restoring a version without their scene (0.45504ms)
+✔ nested invalid scene text is rejected before import (0.154811ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16.413125
+✔ migrates V0.1 without modifying the legacy storage (7.280663ms)
+✔ separate books retain independent manuscripts, cards and reviews (0.970711ms)
+✔ saga ordering changes only members of that saga (3.93356ms)
+✔ book import adds a copy, remaps references and preserves versions (2.36158ms)
+✔ library backup/import preserves group membership without replacing existing data (1.581063ms)
+✔ invalid import is atomic and corrupted library does not silently fall back (0.359367ms)
+✔ HTML in all imported identities and historical scenes is rejected (0.512796ms)
+✔ library schema rejects duplicate books, missing active book and invalid saga IDs (0.344695ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 25.329934

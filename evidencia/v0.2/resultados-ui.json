@@ -1,0 +1,202 @@
+{
+  "browser": "154.0.8037.57",
+  "checks": [
+    {
+      "prueba": "Inicio en biblioteca",
+      "ok": true
+    },
+    {
+      "prueba": "Crear saga y estado vacío",
+      "ok": true
+    },
+    {
+      "prueba": "Crear libro en saga",
+      "ok": true
+    },
+    {
+      "prueba": "Regresión: renombrar escena actualiza selector y lateral",
+      "ok": true
+    },
+    {
+      "prueba": "Fichas independientes por libro",
+      "ok": true
+    },
+    {
+      "prueba": "Revisiones independientes por libro",
+      "ok": true
+    },
+    {
+      "prueba": "Biblioteca conserva cuatro libros",
+      "ok": true
+    },
+    {
+      "prueba": "Búsqueda de biblioteca",
+      "ok": true
+    },
+    {
+      "prueba": "Filtrar saga",
+      "ok": true
+    },
+    {
+      "prueba": "Reordenar saga",
+      "ok": true
+    },
+    {
+      "prueba": "Mover libro fuera de saga",
+      "ok": true
+    },
+    {
+      "prueba": "Cambiar libro recupera manuscrito",
+      "ok": true
+    },
+    {
+      "prueba": "Cambiar libro recupera fichas",
+      "ok": true
+    },
+    {
+      "prueba": "Cambiar libro recupera revisión",
+      "ok": true
+    },
+    {
+      "prueba": "Tablero renderiza tarjetas con iconos",
+      "ok": true
+    },
+    {
+      "prueba": "Tablero abre con teclado",
+      "ok": true
+    },
+    {
+      "prueba": "Recarga conserva libro activo",
+      "ok": true
+    },
+    {
+      "prueba": "Recarga conserva texto",
+      "ok": true
+    },
+    {
+      "prueba": "Versiones siguen recuperando",
+      "ok": true
+    },
+    {
+      "prueba": "Regresión: cronología ignora papelera al ordenar",
+      "ok": true
+    },
+    {
+      "prueba": "Respaldo completo",
+      "ok": true
+    },
+    {
+      "prueba": "Exportar libro compatible V0.1",
+      "ok": true
+    },
+    {
+      "prueba": "Importar libro añade copia sin reemplazar",
+      "ok": true
+    },
+    {
+      "prueba": "Importación inválida no cambia biblioteca",
+      "ok": true
+    },
+    {
+      "prueba": "Regresión: ID HTML rechazado sin ejecución",
+      "ok": true
+    },
+    {
+      "prueba": "Biblioteca y edición disponibles offline",
+      "ok": true
+    },
+    {
+      "prueba": "Migración conserva V0.1 y crea biblioteca",
+      "ok": true
+    },
+    {
+      "prueba": "Guardado ilegible protegido",
+      "ok": true
+    },
+    {
+      "prueba": "Importar biblioteca fusiona libros y sagas",
+      "ok": true
+    },
+    {
+      "prueba": "Crear libro en móvil",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde library a 320px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde write a 320px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde board a 320px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde archive a 320px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde timeline a 320px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde review a 320px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde library a 390px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde write a 390px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde board a 390px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde archive a 390px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde timeline a 390px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde review a 390px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde library a 768px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde write a 768px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde board a 768px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde archive a 768px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde timeline a 768px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin desborde review a 768px",
+      "ok": true
+    },
+    {
+      "prueba": "Sin errores JavaScript",
+      "ok": true
+    }
+  ],
+  "errors": []
+}

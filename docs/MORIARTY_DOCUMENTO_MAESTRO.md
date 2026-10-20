@@ -56,3 +56,23 @@ Pruebas de dominio: 6/6. Sintaxis: app.js, model.js y sw.js. No se realizó prue
 Se ejecutó la V0.1 recibida en Chromium 154 mediante HTTP local. Se verificaron los cinco espacios, persistencia, JSON/TXT, versiones, papelera de capítulos y fichas, revisión manual y bloqueo de conflictos, y recarga/escritura offline. Pruebas de dominio: 6/6. Recorrido principal: 35/36 comprobaciones; tres defectos confirmados en total al añadir casos dirigidos: HTML ejecutable en IDs importados (prioridad alta), orden de cronología con elementos en papelera y etiquetas de escena desactualizadas.
 
 Se guardaron 16 capturas reales, incluidos escritorio y móvil emulado; no constituyen prueba en un teléfono físico ni de instalación PWA. Informe y evidencia en `../../REVISION_V01.md` y `../../evidence/`. El código de la app no se modificó; los defectos siguen pendientes. La integración Drive/MCP para revisión IA permanece PENDIENTE por instrucción explícita. Este registro pertenece a la copia local de revisión; el archivo original en Drive no se modificó.
+
+## V0.2 — Biblioteca, sagas e iconos — 2026-10-19 UTC
+
+Solicitud de Admin: añadir iconos y permitir crear/navegar libros y agruparlos por saga. Admin confirmó una saga opcional por libro con orden de volúmenes; los demás libros son independientes.
+
+Implementado en una entrega separada:
+- Biblioteca como entrada: tarjetas con portada tipográfica, título, sinopsis, búsqueda y filtros de todos los libros, independientes y saga.
+- Creación y edición de sagas; creación/edición de libros; asignación o cambio de saga y orden de volúmenes mediante botones accesibles.
+- Cambio de libro conservando capítulos, escenas, fichas, cronología, versiones y revisiones propios.
+- Iconos SVG locales en navegación y acciones, sin fuentes externas.
+- Contenedor `moriarty-library` versión 1, guardado en `moriarty.library.v1`; migración desde `moriarty.project.v1` sin borrar el dato original.
+- Respaldo completo de biblioteca; exportación del libro activo compatible con V0.1; importación aditiva con nuevos IDs y referencias, sin reemplazar los libros existentes. La organización por saga y la sinopsis viajan en el respaldo completo.
+- Aviso y protección ante guardado ilegible, descarga del dato de recuperación y reinicio explícito.
+- Correcciones de los tres defectos confirmados en V0.1: IDs importados capaces de inyectar HTML, etiquetas desactualizadas al renombrar escenas y orden de cronología con eventos en papelera.
+
+Verificación final: 14/14 pruebas de dominio, sintaxis válida en seis módulos y 49/49 comprobaciones de navegador en Chromium 154.0.8037.57, sin errores JavaScript en el recorrido final. Se comprobó migración, independencia de libros, crear/editar/asignar/reordenar sagas y libros, búsqueda, importación/exportación, protección del guardado ilegible, versiones, correcciones V0.1 y funcionamiento offline. Interfaz revisada a 1440 px y móvil emulado a 320, 390 y 768 px. Siete capturas reales finales en `../../evidence/` dentro del ZIP V0.2.
+
+No se verificó teléfono físico, Safari/iOS, Firefox ni instalación PWA. No se incluyen borrado de libros/sagas, varias sagas por libro, portada personalizada, editor enriquecido ni sincronización. Esta entrega no publica la app ni modifica el ZIP anterior.
+
+**La integración Drive/MCP para revisión IA permanece PENDIENTE, sin implementar ni activar.**

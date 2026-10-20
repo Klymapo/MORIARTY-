@@ -1,19 +1,76 @@
-# MORIARTY V0.1
-Estudio personal de escritura. Sin dependencias ni APIs de pago.
+# MORIARTY V0.2
+
+Estudio personal de escritura con biblioteca de libros y sagas. Sin dependencias externas, cuentas obligatorias ni APIs de pago.
 
 ## Ejecutar
-Se requiere un navegador moderno. Desde esta carpeta: `python3 -m http.server 8080 --directory dist`, luego abrir http://localhost:8080. No abrir index.html con file://: los módulos y el modo offline requieren HTTP/HTTPS. Para uso en celular e instalación se necesita alojamiento HTTPS; esta entrega es código descargable y no incluye despliegue. La disponibilidad de instalación depende del navegador.
 
-## Funciones
-Capítulos, escenas, búsqueda, editor de texto plano, tablero ordenable y lienzo libre, fichas, cronología manual, versiones recuperables, papelera, exportación/importación JSON y manuscrito TXT. Revisión por propuesta pegada y solicitud JSON descargable. Enter o doble clic abre capítulos en tablero. Guardado local visible y modo enfoque.
+Desde esta carpeta:
 
-## Protección de archivos
-Exporta respaldos con frecuencia. localStorage puede ser borrado por el navegador y no sincroniza dispositivos. Abrir o crear otro proyecto solicita confirmación y descarga una copia del actual. Un archivo inválido se rechaza antes de reemplazarlo. Si el guardado inicial es ilegible se bloquea su sobrescritura. Recuperar una versión conserva también la anterior. Sin envío de textos a servidores.
+```sh
+python3 -m http.server 8080 --directory dist
+```
+
+Abrir http://localhost:8080 en un navegador moderno. No abrir `index.html` con `file://`: los módulos y el modo offline requieren HTTP/HTTPS. Para instalación o acceso desde celular se necesita un alojamiento HTTPS; este ZIP no publica la aplicación.
+
+## Biblioteca
+
+- Crear y abrir libros sin reemplazar los existentes.
+- Editar título y sinopsis, buscar libros y filtrar la biblioteca.
+- Crear y editar sagas; asignar cada libro a una saga opcional o dejarlo independiente.
+- Ordenar los volúmenes dentro de una saga con las flechas de sus tarjetas.
+- Volver a Biblioteca desde cualquier espacio para cambiar de libro.
+- Iconos SVG locales acompañan controles y navegación, con etiquetas accesibles.
+
+Cada libro conserva su propio manuscrito, capítulos, escenas, fichas, cronología, versiones y revisiones. Las portadas tipográficas se generan con el título y la saga; no son imágenes de portada personalizadas. No se incorporan borrado de libros, eliminación de sagas ni pertenencia a varias sagas en esta versión.
+
+## Escribir
+
+Se mantienen editor de texto plano, búsqueda de capítulos/contenido, conteo de palabras, modo enfoque, tablero ordenable y lienzo libre, fichas, cronología manual, versiones recuperables y papelera de capítulos/fichas/eventos. Enter o doble clic abre capítulos desde el tablero. Revisión manual por propuesta pegada y descarga de solicitud JSON; no hay generación IA incorporada.
+
+## Guardado, migración y respaldos
+
+La biblioteca se guarda en `localStorage` en este navegador y origen. No sincroniza dispositivos. Exporta con frecuencia y antes de mover o actualizar la app.
+
+Al abrir V0.2 en el mismo origen donde se usó V0.1, el proyecto anterior se incorpora a la biblioteca y se conserva la clave antigua como copia de seguridad. Cambiar de puerto, dominio, protocolo o navegador crea otro almacenamiento: en ese caso exporta desde V0.1 e importa el JSON en V0.2. No borres los datos del navegador antes de respaldarlos.
+
+En Biblioteca, **Respaldar biblioteca** descarga todos los libros, sagas y su orden. Dentro de un libro, **Exportar libro** descarga un proyecto compatible con el formato V0.1. **Descargar TXT** exporta el manuscrito activo.
+
+**Importar** acepta libros V0.1/V0.2 o bibliotecas V0.2 de hasta 25 MB. Añade copias independientes con nuevos identificadores sin reemplazar tus otros libros. Al importar repetidamente un archivo se crean copias adicionales; no hay sincronización ni deduplicación automática. Las sagas importadas también se añaden como copias. El formato individual de libro no contiene la sinopsis ni su pertenencia a una saga; usa el respaldo completo para conservar esa organización.
+
+Un archivo inválido se rechaza antes de modificar la biblioteca. Si el guardado es ilegible, se bloquea su sobrescritura y se ofrece descargar el dato original, importar un respaldo o iniciar explícitamente otra biblioteca. Si el almacenamiento está lleno o deshabilitado, aparece un aviso y puedes descargar el estado en memoria. Recuperar una versión conserva también la anterior.
+
+## Sin conexión
+
+Después de una primera carga satisfactoria en HTTP local o HTTPS, el service worker permite recargar y seguir escribiendo sin conexión. La V0.2 incluye en caché los módulos de biblioteca e iconos. La instalación PWA depende del navegador y no se ha verificado en dispositivos físicos.
+
+## Cambios respecto de V0.1
+
+Además de biblioteca, sagas e iconos, se corrigieron los tres defectos reproducidos durante la revisión: IDs importados que podían inyectar HTML, etiquetas de escena desactualizadas y reordenación de cronología que incluía eventos en papelera.
 
 ## Límites explícitos
-No hay conexión de Drive/MCP/IA, importación de respuestas JSON, resaltado de diferencias ni aceptación por cambio. No hay editor enriquecido, DOCX/PDF, conexiones gráficas entre fichas ni sincronización. Revisión manual de escena completa. Tablero libre tiene coordenadas independientes del orden. Cronología usa orden manual y fecha textual.
+
+**Drive/MCP para revisión IA permanece PENDIENTE.** No se ha implementado ni activado. Tampoco se incluyen importación de respuestas de revisión JSON, resaltado de diferencias, aceptación por cambio, editor enriquecido, DOCX/PDF, relaciones gráficas ni sincronización remota.
 
 ## Verificar
-`node --test tests/*.test.mjs`
 
-Responsable: Admin / Atátoriz. Código original MIT; ver LICENSE. Documentación en docs.
+```sh
+npm test
+```
+
+Las pruebas no requieren instalar dependencias. Los scripts de verificación en navegador y las capturas están en la carpeta `evidence` del paquete; esos scripts de QA requieren Python, Playwright y Chromium, no son dependencias de la aplicación.
+
+Responsable: Admin / Atátoriz. Código original MIT; ver LICENSE. Documento maestro y diseño V0.2 en `docs/`.
+
+---
+
+## Origen de este repositorio
+
+Migrado el 2026-10-20 desde los ZIP de Drive (Gaston, `APPS/MORIARTY`), conservando el historial en tres commits:
+
+1. `v0.1`: `MORIARTY_V0.1_2026-10-19.zip`.
+2. Revisión de V0.1 con tres defectos y su evidencia: `MORIARTY_V0.1_REVISION.zip` → `evidencia/v0.1-revision/`.
+3. `v0.2` (Biblioteca y sagas, con los tres defectos corregidos): `MORIARTY_V0.2_BIBLIOTECA_2026-10-19.zip` → evidencia en `evidencia/v0.2/`.
+
+El código no se modificó en la migración. El documento maestro vigente está en Drive (`MORIARTY_DOCUMENTO_MAESTRO_V02.md`) y es la fuente de verdad del Registro de cambios.
+
+> Repositorio **público**: no guardar aquí manuscritos ni chats privados.

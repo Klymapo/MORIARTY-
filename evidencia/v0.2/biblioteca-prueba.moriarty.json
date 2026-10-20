@@ -1,0 +1,210 @@
+{
+  "kind": "moriarty-library",
+  "schemaVersion": 1,
+  "activeBookId": "2b4af4bc-e76d-4b78-94f0-91cdbd53439e",
+  "books": [
+    {
+      "project": {
+        "schemaVersion": 1,
+        "id": "2586af2c-fc13-419b-8904-5dd46232f89b",
+        "title": "Mi primer libro",
+        "chapters": [
+          {
+            "id": "71dafcd3-da10-4d69-90e6-c4e477377f32",
+            "title": "Nuevo capítulo",
+            "act": 1,
+            "x": 40,
+            "y": 40,
+            "scenes": [
+              {
+                "id": "26867357-caa6-4725-b294-588458849fd2",
+                "title": "Nueva escena",
+                "text": ""
+              }
+            ],
+            "versions": [],
+            "trashed": false
+          }
+        ],
+        "entities": [],
+        "events": [],
+        "reviews": []
+      },
+      "sagaId": "",
+      "synopsis": ""
+    },
+    {
+      "project": {
+        "schemaVersion": 1,
+        "id": "2b4af4bc-e76d-4b78-94f0-91cdbd53439e",
+        "title": "La carta bajo la lluvia",
+        "chapters": [
+          {
+            "id": "3f67152a-45de-472c-804d-3af3dcd0c65e",
+            "title": "El sobre",
+            "act": 1,
+            "x": 40,
+            "y": 40,
+            "scenes": [
+              {
+                "id": "b51ae435-a5d0-455d-9fda-f160c61935eb",
+                "title": "Medianoche",
+                "text": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo una dirección y una hora: medianoche."
+              }
+            ],
+            "versions": [
+              {
+                "id": "c80fc251-391d-4fa3-9008-1160c1e75932",
+                "label": "Antes de revisión",
+                "date": "2026-10-19T22:43:32.831Z",
+                "scenes": [
+                  {
+                    "id": "b51ae435-a5d0-455d-9fda-f160c61935eb",
+                    "title": "Medianoche",
+                    "text": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo una dirección y una hora: medianoche."
+                  }
+                ]
+              },
+              {
+                "id": "10c91562-c945-4c3a-a2c3-cc1ebf09d860",
+                "label": "Versión de prueba",
+                "date": "2026-10-19T22:43:34.668Z",
+                "scenes": [
+                  {
+                    "id": "b51ae435-a5d0-455d-9fda-f160c61935eb",
+                    "title": "Medianoche",
+                    "text": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo una dirección y una hora: medianoche."
+                  }
+                ]
+              },
+              {
+                "id": "669b1828-d1df-48e7-ba88-94073aa88551",
+                "label": "Antes de recuperar",
+                "date": "2026-10-19T22:43:34.796Z",
+                "scenes": [
+                  {
+                    "id": "b51ae435-a5d0-455d-9fda-f160c61935eb",
+                    "title": "Medianoche",
+                    "text": "Cambio para recuperar"
+                  }
+                ]
+              }
+            ],
+            "trashed": false
+          }
+        ],
+        "entities": [
+          {
+            "id": "54057c4a-91ff-43fc-9753-d9b28ec42e6b",
+            "type": "Personaje",
+            "name": "Inés",
+            "notes": "Archivista. Reconoce un sello que no debería existir.",
+            "trashed": false
+          }
+        ],
+        "events": [
+          {
+            "id": "b2d95134-18a0-43fe-a066-90153c366d5c",
+            "title": "C",
+            "when": "",
+            "chapterId": "",
+            "trashed": false
+          },
+          {
+            "id": "ea1a0428-ed26-439f-b273-00bd18e98cf0",
+            "title": "B",
+            "when": "",
+            "chapterId": "",
+            "trashed": true
+          },
+          {
+            "id": "dbe07b77-1fd2-49c9-85f8-e84b91abd30c",
+            "title": "A",
+            "when": "",
+            "chapterId": "",
+            "trashed": false
+          }
+        ],
+        "reviews": [
+          {
+            "id": "e6b9a303-6b93-4ba2-834f-e4625f88a398",
+            "chapterId": "3f67152a-45de-472c-804d-3af3dcd0c65e",
+            "sceneId": "b51ae435-a5d0-455d-9fda-f160c61935eb",
+            "base": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo una dirección y una hora: medianoche.",
+            "proposal": "Texto propuesto para Inés.",
+            "instruction": "Revisión manual de prueba."
+          }
+        ]
+      },
+      "sagaId": "8c953fc6-4912-4ac4-96a8-17be51015682",
+      "synopsis": "Una archivista descubre que una carta sin firma puede cambiar el pasado de una ciudad."
+    },
+    {
+      "project": {
+        "schemaVersion": 1,
+        "id": "27ea07f7-cd80-4a7a-88b3-8d665b6a0cbd",
+        "title": "El atlas de las voces",
+        "chapters": [
+          {
+            "id": "8a078a88-0fa2-4605-919c-6e1b38d35946",
+            "title": "Nuevo capítulo",
+            "act": 1,
+            "x": 40,
+            "y": 40,
+            "scenes": [
+              {
+                "id": "65113ae7-928d-4709-8bfd-000d6d744849",
+                "title": "Nueva escena",
+                "text": "El segundo libro conserva su propia voz."
+              }
+            ],
+            "versions": [],
+            "trashed": false
+          }
+        ],
+        "entities": [],
+        "events": [],
+        "reviews": []
+      },
+      "sagaId": "8c953fc6-4912-4ac4-96a8-17be51015682",
+      "synopsis": "Un mapa imposible. Una voz en cada calle. El segundo viaje de Inés."
+    },
+    {
+      "project": {
+        "schemaVersion": 1,
+        "id": "8b348ce9-67dd-478f-a059-043f12cdd801",
+        "title": "El jardín de los días lentos",
+        "chapters": [
+          {
+            "id": "9f184ad5-206f-4456-941f-7b76eac508a3",
+            "title": "Nuevo capítulo",
+            "act": 1,
+            "x": 40,
+            "y": 40,
+            "scenes": [
+              {
+                "id": "6d52291a-260a-469a-93e5-48296370d86d",
+                "title": "Nueva escena",
+                "text": "En el jardín, todos los relojes llegaban tarde."
+              }
+            ],
+            "versions": [],
+            "trashed": false
+          }
+        ],
+        "entities": [],
+        "events": [],
+        "reviews": []
+      },
+      "sagaId": "",
+      "synopsis": "Una novela independiente sobre las pequeñas decisiones que cambian una vida."
+    }
+  ],
+  "sagas": [
+    {
+      "id": "8c953fc6-4912-4ac4-96a8-17be51015682",
+      "title": "Los archivos de la niebla",
+      "description": "Tres ciudades, una memoria compartida y secretos que se niegan a desaparecer."
+    }
+  ]
+}
