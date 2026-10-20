@@ -1,0 +1,14 @@
+✔ exportable project validates, including Unicode (1.499162ms)
+✔ rejects malformed structures and duplicate identities (0.327804ms)
+✔ restoring saves current text and uses an independent copy (0.518796ms)
+✔ stale review never overwrites an edited scene (0.156821ms)
+✔ historical reviews survive restoring a version without their scene (0.222909ms)
+✔ nested invalid scene text is rejected before import (0.139907ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 83.308108

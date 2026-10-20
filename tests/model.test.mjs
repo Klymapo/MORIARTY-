@@ -1,0 +1,9 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+const m=await import('../dist/model.js').catch(()=>({}));
+test('exportable project validates, including Unicode',()=>{assert.equal(typeof m.createProject,'function');const p=m.createProject('Novela áé');assert.equal(m.validate(JSON.parse(JSON.stringify(p))).title,'Novela áé');});
+test('rejects malformed structures and duplicate identities',()=>{assert.equal(typeof m.validate,'function');assert.throws(()=>m.validate({schemaVersion:1}));const p=m.createProject();p.chapters.push(structuredClone(p.chapters[0]));assert.throws(()=>m.validate(p));});
+test('restoring saves current text and uses an independent copy',()=>{assert.equal(typeof m.snapshot,'function');const c=m.createProject().chapters[0];c.scenes[0].text='uno';m.snapshot(c,'Primera');c.scenes[0].text='dos';m.restore(c,c.versions[0].id);assert.equal(c.scenes[0].text,'uno');assert.equal(c.versions.at(-1).scenes[0].text,'dos');c.scenes[0].text='tres';assert.equal(c.versions[0].scenes[0].text,'uno');});
+test('stale review never overwrites an edited scene',()=>{assert.equal(typeof m.applyReview,'function');const s={text:'actual'};assert.throws(()=>m.applyReview(s,{base:'viejo',proposal:'nuevo'}));assert.equal(s.text,'actual');m.applyReview(s,{base:'actual',proposal:'corregido'});assert.equal(s.text,'corregido');});
+test('historical reviews survive restoring a version without their scene',()=>{const p=m.createProject(),c=p.chapters[0];p.reviews.push({id:m.uid(),chapterId:c.id,sceneId:'historical-scene',base:'antes',proposal:'después',instruction:''});assert.equal(m.validate(p).reviews.length,1);});
+test('nested invalid scene text is rejected before import',()=>{const p=m.createProject();p.chapters[0].scenes[0].text={html:'bad'};assert.throws(()=>m.validate(p));});
