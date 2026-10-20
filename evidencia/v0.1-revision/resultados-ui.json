@@ -1,0 +1,187 @@
+{
+  "browser": "154.0.8037.57",
+  "checks": [
+    {
+      "prueba": "Arranque HTTP",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Título de escena actualizado en selector",
+      "resultado": "FALLO",
+      "detalle": "Nueva escena"
+    },
+    {
+      "prueba": "Búsqueda por contenido",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Navegar conserva texto",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Recargar conserva proyecto",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Modo enfoque",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Recuperación conserva estado anterior",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Ordenar capítulos",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Lienzo mueve sin reordenar",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Enter abre capítulo",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Papelera de fichas",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Ordenar cronología",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Descarga solicitud JSON",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Aplicar revisión y conservar versión",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Revisión obsoleta bloqueada",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Papelera de capítulos",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Exportación JSON completa",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Exportación TXT Unicode",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Importación inválida no reemplaza",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Reimportación conserva todo y crea respaldo",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Offline: recarga y escritura persistente",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Guardado ilegible bloquea sobrescritura",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Error de guardado visible",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Móvil 390: sin desborde en write",
+      "resultado": "OK",
+      "detalle": "{'ancho': 390, 'contenido': 390}"
+    },
+    {
+      "prueba": "Móvil 390: sin desborde en board",
+      "resultado": "OK",
+      "detalle": "{'ancho': 390, 'contenido': 390}"
+    },
+    {
+      "prueba": "Móvil 390: sin desborde en archive",
+      "resultado": "OK",
+      "detalle": "{'ancho': 390, 'contenido': 390}"
+    },
+    {
+      "prueba": "Móvil 390: sin desborde en timeline",
+      "resultado": "OK",
+      "detalle": "{'ancho': 390, 'contenido': 390}"
+    },
+    {
+      "prueba": "Móvil 390: sin desborde en review",
+      "resultado": "OK",
+      "detalle": "{'ancho': 390, 'contenido': 390}"
+    },
+    {
+      "prueba": "Móvil revisión: original visible y propuesta oculta",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Móvil revisión: pestaña propuesta",
+      "resultado": "OK",
+      "detalle": ""
+    },
+    {
+      "prueba": "Sin desborde editor ancho 320",
+      "resultado": "OK",
+      "detalle": "320"
+    },
+    {
+      "prueba": "Sin desborde editor ancho 360",
+      "resultado": "OK",
+      "detalle": "360"
+    },
+    {
+      "prueba": "Sin desborde editor ancho 560",
+      "resultado": "OK",
+      "detalle": "560"
+    },
+    {
+      "prueba": "Sin desborde editor ancho 768",
+      "resultado": "OK",
+      "detalle": "768"
+    },
+    {
+      "prueba": "Sin errores JavaScript",
+      "resultado": "OK",
+      "detalle": "[]"
+    },
+    {
+      "prueba": "Sin peticiones externas de la app",
+      "resultado": "OK",
+      "detalle": "[]"
+    }
+  ],
+  "pageerrors": [],
+  "external_requests": []
+}

@@ -49,3 +49,10 @@ Pruebas de dominio: 6/6. Sintaxis: app.js, model.js y sw.js. No se realizó prue
 2. Formato enriquecido y comparación con cambios individuales; UI contextual de fichas.
 3. Relaciones visuales y cronología gráfica.
 4. Integración Drive para revisión JSON: pendiente por instrucción explícita; no implementada.
+
+
+## Revisión posterior ejecutada — 2026-10-19 UTC
+
+Se ejecutó la V0.1 recibida en Chromium 154 mediante HTTP local. Se verificaron los cinco espacios, persistencia, JSON/TXT, versiones, papelera de capítulos y fichas, revisión manual y bloqueo de conflictos, y recarga/escritura offline. Pruebas de dominio: 6/6. Recorrido principal: 35/36 comprobaciones; tres defectos confirmados en total al añadir casos dirigidos: HTML ejecutable en IDs importados (prioridad alta), orden de cronología con elementos en papelera y etiquetas de escena desactualizadas.
+
+Se guardaron 16 capturas reales, incluidos escritorio y móvil emulado; no constituyen prueba en un teléfono físico ni de instalación PWA. Informe y evidencia en `../../REVISION_V01.md` y `../../evidence/`. El código de la app no se modificó; los defectos siguen pendientes. La integración Drive/MCP para revisión IA permanece PENDIENTE por instrucción explícita. Este registro pertenece a la copia local de revisión; el archivo original en Drive no se modificó.

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "kind": "review-request",
+  "id": "7764486f-b521-4d7a-b59b-d5affcde92d1",
+  "chapterId": "34d30abb-2fb3-4382-a07c-5d94c97584c7",
+  "sceneId": "387c994e-0e6a-4e20-9a66-212f6da1f05a",
+  "base": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo una dirección y una hora: medianoche. «¿Quién había vuelto?», se preguntó.\n\nGuardó el sobre en el bolsillo y apagó la lámpara.",
+  "proposal": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo contenía una dirección y una hora: medianoche. «¿Quién había vuelto?», se preguntó.\n\nGuardó el sobre en el bolsillo y apagó la lámpara.",
+  "instruction": "Corrige puntuación y conserva mi voz. Ejemplo manual de prueba."
+}

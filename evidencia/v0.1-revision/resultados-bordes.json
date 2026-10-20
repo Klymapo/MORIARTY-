@@ -1,0 +1,25 @@
+[
+  {
+    "caso": "Nombre de escena",
+    "selector": "Nueva escena",
+    "barra_lateral": "▱ Nueva escena",
+    "campo": "Nombre actualizado"
+  },
+  {
+    "caso": "Mover cronología con evento intermedio en papelera",
+    "antes": [
+      "A",
+      "C"
+    ],
+    "despues_de_subir_C": [
+      "A",
+      "C"
+    ],
+    "fallo": true
+  },
+  {
+    "caso": "Importación de ID con HTML",
+    "ejecucion_marcador_local": "1",
+    "sin_envio_externo": true
+  }
+]

@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "id": "579c214f-cfbc-4a8f-9f52-1901bb2e53f3",
+  "title": "MORIARTY · Proyecto de prueba",
+  "chapters": [
+    {
+      "id": "34d30abb-2fb3-4382-a07c-5d94c97584c7",
+      "title": "La carta bajo la lluvia",
+      "act": 1,
+      "x": 200,
+      "y": 140,
+      "scenes": [
+        {
+          "id": "387c994e-0e6a-4e20-9a66-212f6da1f05a",
+          "title": "El hallazgo",
+          "text": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo contenía una dirección y una hora: medianoche. «¿Quién había vuelto?», se preguntó.\n\nGuardó el sobre en el bolsillo y apagó la lámpara.\nCambio posterior protegido."
+        },
+        {
+          "id": "0cb9c5c2-8a95-4e87-9ba0-2920d996e782",
+          "title": "La decisión",
+          "text": "Inés salió a la calle. La ciudad seguía despierta."
+        }
+      ],
+      "versions": [
+        {
+          "id": "d66a316a-473f-46e7-842e-faf14783423c",
+          "label": "Punto de prueba",
+          "date": "2026-10-19T22:31:09.550Z",
+          "scenes": [
+            {
+              "id": "387c994e-0e6a-4e20-9a66-212f6da1f05a",
+              "title": "El hallazgo",
+              "text": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo una dirección y una hora: medianoche. «¿Quién había vuelto?», se preguntó.\n\nGuardó el sobre en el bolsillo y apagó la lámpara."
+            },
+            {
+              "id": "0cb9c5c2-8a95-4e87-9ba0-2920d996e782",
+              "title": "La decisión",
+              "text": "Inés salió a la calle. La ciudad seguía despierta."
+            }
+          ]
+        },
+        {
+          "id": "11648301-3904-4bdc-a4b3-94441c1ce633",
+          "label": "Antes de recuperar",
+          "date": "2026-10-19T22:31:09.693Z",
+          "scenes": [
+            {
+              "id": "387c994e-0e6a-4e20-9a66-212f6da1f05a",
+              "title": "El hallazgo",
+              "text": "Estado posterior de prueba"
+            },
+            {
+              "id": "0cb9c5c2-8a95-4e87-9ba0-2920d996e782",
+              "title": "La decisión",
+              "text": "Inés salió a la calle. La ciudad seguía despierta."
+            }
+          ]
+        },
+        {
+          "id": "65717954-8eb9-4ac6-a96a-afe2eec95fae",
+          "label": "Antes de revisión",
+          "date": "2026-10-19T22:31:10.975Z",
+          "scenes": [
+            {
+              "id": "387c994e-0e6a-4e20-9a66-212f6da1f05a",
+              "title": "El hallazgo",
+              "text": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo una dirección y una hora: medianoche. «¿Quién había vuelto?», se preguntó.\n\nGuardó el sobre en el bolsillo y apagó la lámpara."
+            },
+            {
+              "id": "0cb9c5c2-8a95-4e87-9ba0-2920d996e782",
+              "title": "La decisión",
+              "text": "Inés salió a la calle. La ciudad seguía despierta."
+            }
+          ]
+        },
+        {
+          "id": "a4903efa-ce2a-4934-bf62-027e81405690",
+          "label": "Antes de aplicar propuesta",
+          "date": "2026-10-19T22:31:11.175Z",
+          "scenes": [
+            {
+              "id": "387c994e-0e6a-4e20-9a66-212f6da1f05a",
+              "title": "El hallazgo",
+              "text": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo una dirección y una hora: medianoche. «¿Quién había vuelto?», se preguntó.\n\nGuardó el sobre en el bolsillo y apagó la lámpara."
+            },
+            {
+              "id": "0cb9c5c2-8a95-4e87-9ba0-2920d996e782",
+              "title": "La decisión",
+              "text": "Inés salió a la calle. La ciudad seguía despierta."
+            }
+          ]
+        },
+        {
+          "id": "ad3307c9-1248-4148-a5ab-03cea2d7d02f",
+          "label": "Antes de revisión",
+          "date": "2026-10-19T22:31:11.242Z",
+          "scenes": [
+            {
+              "id": "387c994e-0e6a-4e20-9a66-212f6da1f05a",
+              "title": "El hallazgo",
+              "text": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo contenía una dirección y una hora: medianoche. «¿Quién había vuelto?», se preguntó.\n\nGuardó el sobre en el bolsillo y apagó la lámpara."
+            },
+            {
+              "id": "0cb9c5c2-8a95-4e87-9ba0-2920d996e782",
+              "title": "La decisión",
+              "text": "Inés salió a la calle. La ciudad seguía despierta."
+            }
+          ]
+        }
+      ],
+      "trashed": false
+    },
+    {
+      "id": "77324426-9123-474d-80f3-d778637ede01",
+      "title": "La casa del reloj",
+      "act": 1,
+      "x": 240,
+      "y": 40,
+      "scenes": [
+        {
+          "id": "50eea35f-e6ec-4ab0-aec3-59932ea8cf0a",
+          "title": "Medianoche",
+          "text": "El reloj se detuvo justo antes de que alguien llamara a la puerta."
+        }
+      ],
+      "versions": [],
+      "trashed": false
+    }
+  ],
+  "entities": [
+    {
+      "id": "3f09630a-86e5-4f13-9b8b-56e260ec75f0",
+      "type": "Personaje",
+      "name": "Inés",
+      "notes": "Archivista. Reconoce el sello del sobre, pero duda en revelar su origen.\nDatos ficticios para verificar la interfaz.",
+      "trashed": false
+    }
+  ],
+  "events": [
+    {
+      "id": "728370fe-66d3-46e0-880d-b9a1b0f71c30",
+      "title": "Llega la carta",
+      "when": "Tres días antes",
+      "chapterId": "34d30abb-2fb3-4382-a07c-5d94c97584c7",
+      "trashed": false
+    },
+    {
+      "id": "57d69e53-7584-4f5f-922e-5a5135162ace",
+      "title": "La cita",
+      "when": "Medianoche",
+      "chapterId": "77324426-9123-474d-80f3-d778637ede01",
+      "trashed": false
+    }
+  ],
+  "reviews": [
+    {
+      "id": "7764486f-b521-4d7a-b59b-d5affcde92d1",
+      "chapterId": "34d30abb-2fb3-4382-a07c-5d94c97584c7",
+      "sceneId": "387c994e-0e6a-4e20-9a66-212f6da1f05a",
+      "base": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo una dirección y una hora: medianoche. «¿Quién había vuelto?», se preguntó.\n\nGuardó el sobre en el bolsillo y apagó la lámpara.",
+      "proposal": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo contenía una dirección y una hora: medianoche. «¿Quién había vuelto?», se preguntó.\n\nGuardó el sobre en el bolsillo y apagó la lámpara.",
+      "instruction": "Corrige puntuación y conserva mi voz. Ejemplo manual de prueba."
+    },
+    {
+      "id": "8457b3a2-9459-4004-b5fd-50085a44a361",
+      "chapterId": "34d30abb-2fb3-4382-a07c-5d94c97584c7",
+      "sceneId": "387c994e-0e6a-4e20-9a66-212f6da1f05a",
+      "base": "La lluvia golpeaba los cristales cuando Inés encontró la carta.\n\nNo llevaba firma. Solo contenía una dirección y una hora: medianoche. «¿Quién había vuelto?», se preguntó.\n\nGuardó el sobre en el bolsillo y apagó la lámpara.",
+      "proposal": "No debe sobrescribir",
+      "instruction": ""
+    }
+  ]
+}
