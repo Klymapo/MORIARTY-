@@ -966,7 +966,7 @@ label .field {
   transition:
     transform var(--t),
     box-shadow var(--t);
-  animation: fade-up 240ms var(--ease) both;
+  animation: fade-up 240ms var(--ease) backwards;
 }
 .book-card:hover {
   transform: translateY(-3px);
@@ -1274,7 +1274,7 @@ label .field {
   }
 }
 main > * {
-  animation: fade-up 220ms var(--ease) both;
+  animation: fade-up 220ms var(--ease) backwards;
 }
 ::view-transition-old(root) {
   animation: 120ms var(--ease) both fade-out;
@@ -1453,15 +1453,21 @@ main > * {
 }
 
 /* ---------- Ilustraciones (entrega de Argos, 2026-10-22) ---------- */
-body {
-  background-image: url('img/papel-claro.webp');
-  background-size: 512px;
-  background-blend-mode: multiply;
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url('img/papel-claro.webp') 0 0 / 512px;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
 }
 @media (prefers-color-scheme: dark) {
-  body {
+  body::before {
     background-image: url('img/papel-oscuro.webp');
-    background-blend-mode: soft-light;
+    opacity: 0.25;
+    mix-blend-mode: screen;
   }
 }
 .brand .logo {
@@ -1488,8 +1494,11 @@ body {
 #splash .mark {
   position: relative;
   z-index: 1;
-  padding: 22px 30px;
+  padding: 22px 34px;
   border-radius: 20px;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-lg);
 }
 .art {
   display: block;
@@ -1518,8 +1527,13 @@ body {
   text-align: center;
   padding: 8px 0 4px;
 }
-.library-empty .art {
-  opacity: 0.95;
+.art img {
+  mix-blend-mode: multiply;
+}
+@media (prefers-color-scheme: dark) {
+  .art img {
+    mix-blend-mode: screen;
+  }
 }
 .portrait-default {
   display: block;
@@ -1531,9 +1545,53 @@ body {
   height: 100%;
   object-fit: cover;
 }
+.book-cover.cover-default {
+  justify-content: flex-start;
+  gap: 10px;
+  background-position: center bottom;
+  min-height: 300px;
+}
 .book-cover.cover-default::after {
-  background: linear-gradient(180deg, rgb(0 0 0 / 0.35), rgb(0 0 0 / 0.1) 35%, rgb(0 0 0 / 0.55));
+  background: linear-gradient(180deg, rgb(0 0 0 / 0.15), transparent 40%);
+}
+.book-cover.cover-default .cover-kicker {
+  align-self: center;
+  margin-top: 6px;
 }
 .book-cover.cover-default .cover-title {
-  margin-top: auto;
+  align-self: center;
+  text-align: center;
+  font-size: 22px;
+  max-width: 78%;
+  margin-top: 8px;
+}
+.book-cover.cover-default .cover-bottom {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  header {
+    flex-wrap: nowrap;
+  }
+  .brand {
+    letter-spacing: 2px;
+    font-size: 16px;
+  }
+  #projectTitle,
+  #libraryTitle {
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
+  }
+  #saved {
+    font-size: 0;
+    gap: 0;
+  }
+  header .menu > button,
+  header > button {
+    padding: 7px;
+  }
 }
