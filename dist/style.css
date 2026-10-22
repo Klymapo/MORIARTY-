@@ -2658,33 +2658,6 @@ aside .scenes .scene { padding-left: 14px; }
 .menu-list button:disabled { opacity: 0.4; }
 .book-menu > button { padding: 8px 10px; }
 .book-menu .menu-list { min-width: 230px; }
-/* Celular: cualquier menú sube como hoja desde abajo, con filas grandes. */
-@media (max-width: 640px) {
-  .menu-list {
-    position: fixed;
-    left: 8px;
-    right: 8px;
-    top: auto;
-    bottom: calc(72px + env(safe-area-inset-bottom));
-    max-height: 70vh;
-    overflow: auto;
-    min-width: 0;
-    padding: 8px;
-    border-radius: 16px;
-    z-index: 40;
-    animation: sheet-up 180ms var(--ease);
-  }
-  .menu.open::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: rgb(0 0 0 / 0.28);
-    z-index: 39;
-  }
-  .menu-list button { min-height: 48px; font-size: 15px; padding: 10px 12px; }
-  .menu-list small { font-size: 12px; }
-  @keyframes sheet-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-}
 
 /* ---------- V0.4.5: menos botones ---------- */
 .title-row { display: flex; align-items: center; gap: 10px; }
@@ -2708,4 +2681,44 @@ body.focus .focus-exit:hover, body.focus .focus-exit:focus-visible { opacity: 1;
 @media (max-width: 640px) {
   .title-row #chapterMenuBtn span { display: none; }
   body.focus .focus-exit span { display: none; }
+}
+
+/* ---------- Menús flotantes (menus.js) ---------- */
+.menu-list.floating {
+  display: block;
+  position: fixed;
+  right: auto;
+  min-width: 260px;
+  max-width: min(340px, calc(100vw - 16px));
+  overflow: auto;
+  overscroll-behavior: contain;
+  z-index: 60;
+}
+.menu-list.floating > button { width: 100%; }
+.menu-backdrop { position: fixed; inset: 0; background: rgb(15 20 24 / 0.38); z-index: 55; animation: fade-in 160ms var(--ease); }
+.menu-backdrop[hidden] { display: none; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.menu-list.sheet {
+  left: 8px !important;
+  right: 8px;
+  top: auto !important;
+  bottom: calc(8px + env(safe-area-inset-bottom));
+  max-width: none;
+  min-width: 0;
+  max-height: 78vh;
+  padding: 6px 8px 10px;
+  border-radius: 18px;
+  animation: sheet-up 200ms var(--ease);
+}
+.menu-list.sheet::before { content: ''; display: block; width: 40px; height: 4px; border-radius: 2px; background: var(--line-strong); margin: 4px auto 8px; }
+.menu-list.sheet > button { min-height: 50px; font-size: 15px; padding: 10px 12px; border-radius: 12px; }
+.menu-list.sheet small { font-size: 12px; }
+@keyframes sheet-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+/* Resumen de "Detalles del capítulo" en una sola línea */
+.chapter-details summary { flex-wrap: nowrap; min-width: 0; }
+.chapter-details summary > span { white-space: nowrap; }
+.chapter-details summary .pov-hint { min-width: 0; overflow: hidden; text-overflow: ellipsis; flex-shrink: 1; }
+.chapter-details summary .chip { flex-shrink: 0; }
+@media (max-width: 640px) {
+  .chapter-details summary { flex-wrap: wrap; }
 }

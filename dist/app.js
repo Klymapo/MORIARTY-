@@ -33,6 +33,7 @@ import {LibraryView} from './library-view.js';
 import {icon, actionIcon, decorateIcons, art} from './icons.js';
 import {pickImage} from './media.js';
 import {loadStored, store, rawStored} from './storage.js';
+import {bindMenu, closeMenus} from './menus.js';
 import {askPersistence, backupNow, listBackups, readBackup, autoVersion} from './backup.js';
 import {toHtml, toggleWrap, toggleLine, insertBlock, autoReplace} from './markup.js';
 import {CHAPTER_TEMPLATES, ENTITY_TEMPLATES, chapterFrom, entityFrom} from './templates.js';
@@ -375,6 +376,7 @@ function chapterList() {
 
 /* ---------- Render con transiciones ---------- */
 function paint() {
+  closeMenus();
   const home = view === 'library';
   document.body.classList.remove('aside-open');
   document.body.classList.toggle('library-mode', home);
@@ -1343,25 +1345,12 @@ function pasteDialog() {
 
 /* ---------- Menús ---------- */
 function menu(id, triggerId) {
-  const m = $('#' + id),
-    t = $('#' + triggerId);
-  t.onclick = (e) => {
-    e.stopPropagation();
-    const open = m.classList.toggle('open');
-    t.setAttribute('aria-expanded', open);
-    $$('.menu').forEach((x) => x !== m && x.classList.remove('open'));
-  };
-  $$('.menu-list button', m).forEach((b) => {
-    if (!b.closest('[data-keep]')) b.addEventListener('click', () => m.classList.remove('open'));
-    else b.addEventListener('click', (e) => e.stopPropagation());
-  });
+  bindMenu($('#' + id), $('#' + triggerId));
 }
 menu('exportMenu', 'export');
 menu('importMenu', 'import');
-document.addEventListener('click', () => $$('.menu').forEach((x) => x.classList.remove('open')));
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
-    $$('.menu').forEach((x) => x.classList.remove('open'));
     if (document.body.classList.contains('focus') && !document.querySelector('dialog[open]')) document.body.classList.remove('focus');
   }
 });
@@ -1596,7 +1585,7 @@ requestAnimationFrame(() => {
   splash.classList.add('hide');
   setTimeout(() => splash.remove(), 400);
 });
-const APP_VERSION = '0.4.5';
+const APP_VERSION = '0.4.6';
 $('#appVersion').textContent = `Tienes la ${APP_VERSION}. Trae la última versión publicada.`;
 let swReg = null;
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {

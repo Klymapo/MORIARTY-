@@ -1,3 +1,4 @@
+import {bindMenu} from './menus.js';
 import {addBook, addSaga, moveBook, trashBook, restoreBook, purgeBook, liveBooks, removeSaga} from './library.js';
 import {icon, art, COVERS} from './icons.js';
 import {STATUSES, STATUS_LABEL} from './model.js';
@@ -112,16 +113,7 @@ export class LibraryView {
         (btn) =>
           (btn.onclick = () => this.bookDialog(lib.books.find((b) => b.project.id === btn.dataset.editBook))),
       );
-    grid.querySelectorAll('[data-book-menu]').forEach((btn) => {
-      const m = btn.closest('.menu');
-      btn.onclick = (e) => {
-        e.stopPropagation();
-        const open = m.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open);
-        document.querySelectorAll('.menu').forEach((x) => x !== m && x.classList.remove('open'));
-      };
-      m.querySelectorAll('.menu-list button').forEach((b) => b.addEventListener('click', () => m.classList.remove('open')));
-    });
+    grid.querySelectorAll('[data-book-menu]').forEach((btn) => bindMenu(btn.closest('.menu'), btn));
     grid
       .querySelectorAll('[data-export-book]')
       .forEach((btn) => (btn.onclick = () => this.callbacks.onExport?.(btn.dataset.exportBook)));
