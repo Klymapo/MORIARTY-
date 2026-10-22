@@ -1,9 +1,9 @@
 {
   "name": "moriarty",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "scripts": {
-    "test": "node tests/model.test.mjs && node tests/library.test.mjs"
+    "test": "node tests/model.test.mjs && node tests/library.test.mjs && node tests/v2.test.mjs"
   },
   "license": "MIT"
 }

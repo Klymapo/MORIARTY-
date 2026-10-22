@@ -1,10 +1,69 @@
 <!doctype html>
 <html lang="es-MX">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#182b38"><title>MORIARTY · Estudio de escritura</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"></head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#182b38" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1418" media="(prefers-color-scheme: dark)">
+<meta name="description" content="MORIARTY · Estudio personal de escritura. Local, sin cuentas.">
+<title>MORIARTY · Estudio de escritura</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="preload" href="fonts/literata.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="fonts/inter.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
 <body>
-<header><strong class="brand">MORIARTY</strong><span id="libraryTitle">Tu biblioteca</span><input id="projectTitle" aria-label="Título del libro" hidden><span id="saved" role="status">Cargando…</span><button id="export" data-icon="download">Respaldar biblioteca</button><button id="import" data-icon="upload">Importar</button><button id="new" data-icon="plus">Nuevo libro</button><input type="file" id="file" accept=".json" hidden></header>
-<nav aria-label="Espacios"><button data-view="library">Biblioteca</button><button data-view="write">Escribir</button><button data-view="board">Tablero</button><button data-view="archive">Archivo</button><button data-view="timeline">Cronología</button><button data-view="review">Revisiones</button></nav>
+<div id="splash" aria-hidden="true"><div class="mark"><svg class="logo" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 50V14l20 22 20-22v36"/><circle cx="32" cy="44" r="7"/><path d="M37 49l8 8"/></svg><span class="brand">MORIARTY</span><span class="bar"><i></i></span></div></div>
+
+<header>
+  <strong class="brand"><svg class="logo" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 50V14l20 22 20-22v36"/><circle cx="32" cy="44" r="7"/><path d="M37 49l8 8"/></svg>MORIARTY</strong>
+  <span id="libraryTitle">Tu biblioteca</span>
+  <input id="projectTitle" aria-label="Título del libro" hidden>
+  <span id="saved" role="status" class="busy">Cargando…</span>
+  <div class="menu" id="exportMenu">
+    <button id="export" data-icon="download" aria-haspopup="true" aria-expanded="false"><span>Exportar</span></button>
+    <div class="menu-list" role="menu">
+      <button id="backup" role="menuitem" data-icon="download"><div>Respaldar biblioteca<small>Todos los libros y sagas en un archivo</small></div></button>
+      <button id="exportBook" role="menuitem" data-icon="download"><div>Exportar este libro<small>Libro completo, compatible con V0.1/V0.2</small></div></button>
+      <button id="exportPack" role="menuitem" data-icon="pack"><div>Exportar paquete de fichas<small>Solo personajes, lugares, objetos y notas</small></div></button>
+      <div class="menu-sep"></div>
+      <button id="txt" role="menuitem" data-icon="text"><div>Descargar manuscrito TXT</div></button>
+    </div>
+  </div>
+  <div class="menu" id="importMenu">
+    <button id="import" data-icon="upload" aria-haspopup="true" aria-expanded="false"><span>Cargar</span></button>
+    <div class="menu-list" role="menu">
+      <button id="importFile" role="menuitem" data-icon="upload"><div>Abrir archivo JSON<small>Libro, biblioteca o paquete; se detecta solo</small></div></button>
+      <button id="pasteJson" role="menuitem" data-icon="clipboard"><div>Pegar JSON<small>Copiado desde un chat u otra app</small></div></button>
+      <div class="menu-sep"></div>
+      <small style="padding:4px 12px">También puedes arrastrar un archivo a la ventana.</small>
+    </div>
+  </div>
+  <button id="new" data-icon="plus"><span>Nuevo libro</span></button>
+  <input type="file" id="file" accept=".json,application/json" hidden>
+  <input type="file" id="imageFile" accept="image/*" hidden>
+</header>
+
+<nav aria-label="Espacios">
+  <button data-view="library">Biblioteca</button>
+  <button data-view="write">Escribir</button>
+  <button data-view="board">Tablero</button>
+  <button data-view="archive">Archivo</button>
+  <button data-view="timeline">Cronología</button>
+  <button data-view="review">Revisiones</button>
+</nav>
+
 <section id="recoveryBanner" class="notice" role="alert" hidden><strong>No se pudo leer el guardado.</strong> Conservamos el contenido original y bloqueamos su sobrescritura. Importa un respaldo o descarga el dato de recuperación antes de empezar de nuevo.<div class="toolbar"><button id="downloadRecovery" data-icon="download">Descargar dato de recuperación</button><button id="resetLibrary" data-icon="restore">Iniciar biblioteca nueva</button></div></section>
+
 <div class="shell"><aside id="sidebar"></aside><main id="main"></main></div>
-<footer><span id="words"></span><span>MORIARTY V0.2 · Tus historias, a tu manera</span><button id="txt" data-icon="text">Descargar TXT</button></footer><div id="toast" role="status"></div><script type="module" src="app.js"></script>
-</body></html>
+
+<footer><span id="words"></span><span>MORIARTY V0.3 · Tus historias, a tu manera</span><span id="footerHint" class="muted"></span></footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="busy" hidden role="status" aria-live="polite"><div class="panel"><div class="eyebrow">UN MOMENTO</div><p id="busyText" style="margin:8px 0 0">Cargando…</p><progress id="busyBar" max="100" value="0"></progress></div></div>
+<div id="drop" hidden>Suelta el archivo JSON aquí</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

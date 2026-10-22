@@ -1,6 +1,8 @@
-# MORIARTY V0.2
+# MORIARTY V0.3
 
 Estudio personal de escritura con biblioteca de libros y sagas. Sin dependencias externas, cuentas obligatorias ni APIs de pago.
+
+**Novedades V0.3 (2026-10-22):** base visual nueva (tokens, modo oscuro automático, tipografías Literata e Inter empaquetadas en local bajo OFL, transiciones entre espacios, pantalla de arranque, legibilidad del manuscrito con tamaño de letra ajustable), formato **JSON v2** (fichas con imagen, color, etiquetas, campos por tipo y relaciones; capítulos con resumen, punto de vista, estado y fichas vinculadas; acontecimientos ordenables), **carga por partes** (paquetes de fichas/capítulos/acontecimientos, pegar JSON, arrastrar y soltar), portadas e imágenes de ficha comprimidas en el navegador, guardado con pausa corta y vuelta al último espacio abierto. Especificación en `docs/MORIARTY_JSON_V2.md`. El Pizarrón visual (reemplazo de Tablero y Archivo) llega en V0.4.
 
 ## Ejecutar
 
@@ -35,7 +37,7 @@ Al abrir V0.2 en el mismo origen donde se usó V0.1, el proyecto anterior se inc
 
 En Biblioteca, **Respaldar biblioteca** descarga todos los libros, sagas y su orden. Dentro de un libro, **Exportar libro** descarga un proyecto compatible con el formato V0.1. **Descargar TXT** exporta el manuscrito activo.
 
-**Importar** acepta libros V0.1/V0.2 o bibliotecas V0.2 de hasta 25 MB. Añade copias independientes con nuevos identificadores sin reemplazar tus otros libros. Al importar repetidamente un archivo se crean copias adicionales; no hay sincronización ni deduplicación automática. Las sagas importadas también se añaden como copias. El formato individual de libro no contiene la sinopsis ni su pertenencia a una saga; usa el respaldo completo para conservar esa organización.
+**Cargar** acepta libros V0.1/V0.2/V0.3, bibliotecas y paquetes (`kind: moriarty-pack`) de hasta 25 MB; se detecta el tipo por el archivo. Los paquetes se incorporan al libro activo. También se puede pegar el JSON o arrastrar el archivo a la ventana. Añade copias independientes con nuevos identificadores sin reemplazar tus otros libros. Al importar repetidamente un archivo se crean copias adicionales; no hay sincronización ni deduplicación automática. Las sagas importadas también se añaden como copias. El formato individual de libro no contiene la sinopsis ni su pertenencia a una saga; usa el respaldo completo para conservar esa organización.
 
 Un archivo inválido se rechaza antes de modificar la biblioteca. Si el guardado es ilegible, se bloquea su sobrescritura y se ofrece descargar el dato original, importar un respaldo o iniciar explícitamente otra biblioteca. Si el almacenamiento está lleno o deshabilitado, aparece un aviso y puedes descargar el estado en memoria. Recuperar una versión conserva también la anterior.
 
@@ -51,13 +53,17 @@ Además de biblioteca, sagas e iconos, se corrigieron los tres defectos reproduc
 
 **Drive/MCP para revisión IA permanece PENDIENTE.** No se ha implementado ni activado. Tampoco se incluyen importación de respuestas de revisión JSON, resaltado de diferencias, aceptación por cambio, editor enriquecido, DOCX/PDF, relaciones gráficas ni sincronización remota.
 
+## Imágenes
+
+Las portadas y las imágenes de ficha se guardan dentro del JSON como data URL (base64), comprimidas al subirlas (512 px para fichas, 900 px para portadas, WebP o JPEG). Los SVG con código se rechazan.
+
 ## Verificar
 
 ```sh
 npm test
 ```
 
-Las pruebas no requieren instalar dependencias. Los scripts de verificación en navegador y las capturas están en la carpeta `evidence` del paquete; esos scripts de QA requieren Python, Playwright y Chromium, no son dependencias de la aplicación.
+Las pruebas no requieren instalar dependencias (21 de dominio y biblioteca). La verificación en navegador V0.3 está en `evidencia/v0.3/verificar_v03.py` (23/23 comprobaciones en Chromium 141, escritorio, oscuro, 320/390 px y sin conexión); esos scripts de QA requieren Python, Playwright y Chromium, no son dependencias de la aplicación.
 
 Responsable: Admin / Atátoriz. Código original MIT; ver LICENSE. Documento maestro y diseño V0.2 en `docs/`.
 
@@ -73,4 +79,4 @@ Migrado el 2026-10-20 desde los ZIP de Drive (Gaston, `APPS/MORIARTY`), conserva
 
 El código no se modificó en la migración. El documento maestro vigente está en Drive (`MORIARTY_DOCUMENTO_MAESTRO_V02.md`) y es la fuente de verdad del Registro de cambios.
 
-> Repositorio **público**: no guardar aquí manuscritos ni chats privados.
+> Repositorio **público**: no guardar aquí manuscritos, fichas de las novelas ni chats privados. Los JSON de historias se intercambian por archivo y se importan en la app.

@@ -1,0 +1,91 @@
+{
+ "chromium": "Playwright",
+ "fecha": "2026-10-22",
+ "comprobaciones": [
+  {
+   "prueba": "arranque: splash desaparece",
+   "ok": true
+  },
+  {
+   "prueba": "fuentes locales cargadas",
+   "ok": true
+  },
+  {
+   "prueba": "paquete pegado: fichas cargadas en el libro activo",
+   "ok": true
+  },
+  {
+   "prueba": "paquete pegado: relación conservada",
+   "ok": true
+  },
+  {
+   "prueba": "capítulo importado aparece en el tablero con estado",
+   "ok": true
+  },
+  {
+   "prueba": "evento importado vinculado al capítulo",
+   "ok": true
+  },
+  {
+   "prueba": "capítulo importado: resumen y ficha vinculada",
+   "ok": true
+  },
+  {
+   "prueba": "tamaño de letra persiste tras recargar",
+   "ok": true
+  },
+  {
+   "prueba": "texto escrito persiste tras recargar (guardado con pausa)",
+   "ok": true
+  },
+  {
+   "prueba": "exportar paquete: kind y fichas",
+   "ok": true
+  },
+  {
+   "prueba": "exportar libro: schemaVersion 2 con campos nuevos",
+   "ok": true
+  },
+  {
+   "prueba": "reimportar libro añade copia sin reemplazar",
+   "ok": true
+  },
+  {
+   "prueba": "paquete con ID inseguro rechazado con aviso",
+   "ok": true
+  },
+  {
+   "prueba": "imagen de ficha comprimida y guardada como data URL",
+   "ok": true
+  },
+  {
+   "prueba": "modo enfoque oculta cabecera",
+   "ok": true
+  },
+  {
+   "prueba": "modo oscuro automático",
+   "ok": true
+  },
+  {
+   "prueba": "móvil 320px: sin desplazamiento horizontal",
+   "ok": true
+  },
+  {
+   "prueba": "móvil 320px: escribir sin desplazamiento horizontal",
+   "ok": true
+  },
+  {
+   "prueba": "móvil 390px: sin desplazamiento horizontal",
+   "ok": true
+  },
+  {
+   "prueba": "móvil 390px: escribir sin desplazamiento horizontal",
+   "ok": true
+  },
+  {
+   "prueba": "sin conexión: la app recarga desde caché",
+   "ok": true
+  }
+ ],
+ "errores_js": []
+}
