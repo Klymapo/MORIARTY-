@@ -16,6 +16,7 @@ function getBackdrop() {
   return backdrop;
 }
 
+export const isOpen = (m) => current?.m === m;
 export function closeMenus() {
   if (!current) return;
   const {m, list, trigger} = current;

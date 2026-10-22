@@ -33,7 +33,7 @@ import {LibraryView} from './library-view.js';
 import {icon, actionIcon, decorateIcons, art} from './icons.js';
 import {pickImage} from './media.js';
 import {loadStored, store, rawStored} from './storage.js';
-import {bindMenu, closeMenus} from './menus.js';
+import {bindMenu, closeMenus, toggleMenu, isOpen} from './menus.js';
 import {askPersistence, backupNow, listBackups, readBackup, autoVersion} from './backup.js';
 import {toHtml, toggleWrap, toggleLine, insertBlock, autoReplace} from './markup.js';
 import {CHAPTER_TEMPLATES, ENTITY_TEMPLATES, chapterFrom, entityFrom} from './templates.js';
@@ -293,7 +293,6 @@ function sidebar() {
   $('#asideToggle').onclick = () => {
     const open = document.body.classList.toggle('aside-open');
     $('#asideToggle').setAttribute('aria-expanded', open);
-    if (open) $('#search').focus({preventScroll: true});
   };
   $('#search').value = filter;
   $('#search').oninput = (e) => {
@@ -337,10 +336,21 @@ function chapterList() {
     )
     .map((c, i) => {
       const open = openChapters.has(c.id) || (c.id === cid && !openChapters.has('!' + c.id));
-      const many = c.scenes.length > 1;
-      return `<div class="ch-row ${c.id === cid ? 'current' : ''}"><button class="${c.id === cid ? 'selected' : ''}" data-chapter="${c.id}"><span class="dot status-${c.status}" style="width:7px;height:7px;border-radius:50%;background:currentColor;flex:0 0 auto"></span>${chapterLabel(c, i)}</button>${many ? `<button class="ch-fold" data-fold="${c.id}" aria-expanded="${open}" aria-label="${open ? 'Ocultar' : 'Mostrar'} escenas de ${esc(c.title)}"><small>${c.scenes.length}</small>${icon('chevron')}</button>` : ''}</div>${open && many ? `<div class="scenes">${c.scenes.map((s) => `<button class="scene ${s.id === sid && c.id === cid ? 'selected' : ''}" data-scene="${s.id}" data-of="${c.id}">▱ ${esc(s.title)}</button>`).join('')}</div>` : ''}`;
+      const n = c.scenes.length;
+      return `<div class="ch-row ${c.id === cid ? 'current' : ''}"><button class="${c.id === cid ? 'selected' : ''}" data-chapter="${c.id}"><span class="dot status-${c.status}" style="width:7px;height:7px;border-radius:50%;background:currentColor;flex:0 0 auto"></span>${chapterLabel(c, i)}</button><button class="ch-fold" data-fold="${c.id}" aria-expanded="${open}" aria-label="${open ? 'Ocultar' : 'Mostrar'} escenas de ${esc(c.title)}" title="${n} ${n === 1 ? 'escena' : 'escenas'}"><small>${n}</small>${icon('chevron')}</button></div>${open ? `<div class="scenes">${c.scenes.map((s) => `<button class="scene ${s.id === sid && c.id === cid ? 'selected' : ''}" data-scene="${s.id}" data-of="${c.id}">▱ ${esc(s.title)}</button>`).join('')}<button class="scene add-scene" data-add-scene="${c.id}">＋ Escena</button></div>` : ''}`;
     })
     .join('');
+  $$('#chapterList [data-add-scene]').forEach(
+    (b) =>
+      (b.onclick = () => {
+        const c = p.chapters.find((x) => x.id === b.dataset.addScene);
+        const sc = scene(`Escena ${c.scenes.length + 1}`);
+        c.scenes.push(sc);
+        save();
+        view = 'write';
+        select(c, sc);
+      }),
+  );
   $$('#chapterList [data-fold]').forEach(
     (b) =>
       (b.onclick = (e) => {
@@ -1348,6 +1358,47 @@ function menu(id, triggerId) {
   bindMenu($('#' + id), $('#' + triggerId));
 }
 menu('exportMenu', 'export');
+// Celular: un solo botón Menú reúne Exportar, Cargar, Buscar y Tema. Cada opción acciona el botón original.
+$('#mobileMenuBtn').onclick = (e) => {
+  e.stopPropagation();
+  const m = $('#mobileMenu');
+  if (isOpen(m)) return closeMenus();
+  const list = m.querySelector('.menu-list');
+  list.replaceChildren();
+  const label = (t) => Object.assign(document.createElement('small'), {className: 'menu-label', textContent: t});
+  const sep = () => Object.assign(document.createElement('div'), {className: 'menu-sep'});
+  const proxy = (orig) => {
+    const b = orig.cloneNode(true);
+    b.removeAttribute('id');
+    b.setAttribute('role', 'menuitem');
+    b.onclick = () => (closeMenus(), orig.click());
+    return b;
+  };
+  const copy = (srcList, title) => {
+    list.append(label(title));
+    for (const el of srcList.children) {
+      if (el.hidden || el.classList.contains('menu-label')) continue;
+      if (el.tagName === 'BUTTON') list.append(proxy(el));
+      else if (el.classList.contains('menu-sep')) list.append(sep());
+    }
+  };
+  copy($('#exportMenu .menu-list'), 'Exportar');
+  list.append(sep());
+  copy($('#importMenu .menu-list'), 'Cargar');
+  list.append(sep(), label('Vista'));
+  if (!$('#searchBtn').hidden) {
+    const b = proxy($('#searchBtn'));
+    b.insertAdjacentHTML('beforeend', '<div>Buscar y reemplazar<small>En todo el libro</small></div>');
+    list.append(b);
+  }
+  const t = proxy($('#theme'));
+  t.querySelector('span')?.remove();
+  t.insertAdjacentHTML('beforeend', `<div>Tema: ${{auto: 'automático', light: 'claro', dark: 'oscuro'}[prefs.theme || 'auto']}<small>Toca para cambiar</small></div>`);
+  list.append(t);
+  // Separadores seguidos o al final sobran (por opciones ocultas en la Biblioteca).
+  [...list.querySelectorAll('.menu-sep')].forEach((s) => (!s.nextElementSibling || s.nextElementSibling.classList.contains('menu-sep')) && s.remove());
+  toggleMenu(m, $('#mobileMenuBtn'));
+};
 menu('importMenu', 'import');
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
@@ -1585,7 +1636,7 @@ requestAnimationFrame(() => {
   splash.classList.add('hide');
   setTimeout(() => splash.remove(), 400);
 });
-const APP_VERSION = '0.4.6';
+const APP_VERSION = '0.4.7';
 $('#appVersion').textContent = `Tienes la ${APP_VERSION}. Trae la última versión publicada.`;
 let swReg = null;
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
