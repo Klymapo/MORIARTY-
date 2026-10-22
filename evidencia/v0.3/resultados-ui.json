@@ -11,6 +11,10 @@
    "ok": true
   },
   {
+   "prueba": "paquete con capítulo abre ese capítulo en Escribir",
+   "ok": true
+  },
+  {
    "prueba": "paquete pegado: fichas cargadas en el libro activo",
    "ok": true
   },
@@ -44,6 +48,10 @@
   },
   {
    "prueba": "exportar libro: schemaVersion 2 con campos nuevos",
+   "ok": true
+  },
+  {
+   "prueba": "reimportar el mismo libro pregunta reemplazar o copiar",
    "ok": true
   },
   {

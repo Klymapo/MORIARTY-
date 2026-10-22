@@ -82,7 +82,7 @@ Las portadas y las imágenes de ficha se guardan dentro del JSON como data URL (
 npm test
 ```
 
-Las pruebas no requieren instalar dependencias (21 de dominio y biblioteca). La verificación en navegador V0.3 está en `evidencia/v0.3/verificar_v03.py` (23/23 comprobaciones en Chromium 141, escritorio, oscuro, 320/390 px y sin conexión); esos scripts de QA requieren Python, Playwright y Chromium, no son dependencias de la aplicación.
+Las pruebas no requieren instalar dependencias (21 de dominio y biblioteca). La verificación en navegador V0.3 está en `evidencia/v0.3/verificar_v03.py` (23/23 comprobaciones en Chromium 141; actualizado el 2026-10-22, escritorio, oscuro, 320/390 px y sin conexión); esos scripts de QA requieren Python, Playwright y Chromium, no son dependencias de la aplicación.
 
 Responsable: Admin / Atátoriz. Código original MIT; ver LICENSE. Documento maestro y diseño V0.2 en `docs/`.
 
