@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Monograma geométrico M con lupa">
+  <title>MORIARTY — monograma M con lupa</title>
+  <desc>Una M angulosa de trazo grueso; su hombro derecho se convierte en una lupa circular cuyo mango forma la pata derecha de la letra.</desc>
+  <g fill="none" stroke="currentColor" stroke-width="47" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M 94 394 L 94 124 L 241 306 L 309 225"/>
+    <circle cx="363" cy="166" r="71"/>
+    <path d="M 414 217 L 440 394"/>
+  </g>
+</svg>

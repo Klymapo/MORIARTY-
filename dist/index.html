@@ -9,16 +9,16 @@
 <title>MORIARTY · Estudio de escritura</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icon.svg">
+<link rel="apple-touch-icon" href="img/icon-192.png">
 <link rel="preload" href="fonts/literata.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="fonts/inter.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="splash" aria-hidden="true"><div class="mark"><svg class="logo" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 50V14l20 22 20-22v36"/><circle cx="32" cy="44" r="7"/><path d="M37 49l8 8"/></svg><span class="brand">MORIARTY</span><span class="bar"><i></i></span></div></div>
+<div id="splash" aria-hidden="true"><picture class="splash-art"><source srcset="img/arranque-oscuro.webp" media="(prefers-color-scheme: dark)"><img src="img/arranque-claro.webp" alt=""></picture><div class="mark"><svg class="logo" viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="47" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M 94 394 L 94 124 L 241 306 L 309 225"/><circle cx="363" cy="166" r="71"/><path d="M 414 217 L 440 394"/></svg><span class="brand">MORIARTY</span><span class="bar"><i></i></span></div></div>
 
 <header>
-  <strong class="brand"><svg class="logo" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 50V14l20 22 20-22v36"/><circle cx="32" cy="44" r="7"/><path d="M37 49l8 8"/></svg>MORIARTY</strong>
+  <strong class="brand"><svg class="logo" viewBox="0 0 512 512" fill="none" stroke="currentColor" stroke-width="47" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M 94 394 L 94 124 L 241 306 L 309 225"/><circle cx="363" cy="166" r="71"/><path d="M 414 217 L 440 394"/></svg>MORIARTY</strong>
   <span id="libraryTitle">Tu biblioteca</span>
   <input id="projectTitle" aria-label="Título del libro" hidden>
   <span id="saved" role="status" class="busy">Cargando…</span>

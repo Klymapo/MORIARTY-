@@ -27,7 +27,7 @@ import {
   createLibrary,
 } from './library.js';
 import {LibraryView} from './library-view.js';
-import {icon, actionIcon, decorateIcons} from './icons.js';
+import {icon, actionIcon, decorateIcons, art} from './icons.js';
 import {pickImage} from './media.js';
 
 const $ = (s) => document.querySelector(s),
@@ -223,7 +223,7 @@ function sidebar() {
   el.innerHTML = `<div class="eyebrow">MANUSCRITO</div><input class="field" id="search" placeholder="Buscar texto o capítulo…" aria-label="Buscar"><div id="chapterList"></div>${btn('addChapter', '＋ Nuevo capítulo')}<details><summary>Papelera</summary>${p.chapters
     .filter((c) => c.trashed)
     .map((c) => `<button data-recover="${c.id}">↶ ${esc(c.title)}</button>`)
-    .join('')}</details>`;
+    .join('') || `<div class="trash-empty">${art('vacio-papelera', 'art art-xs')}<small class="muted">Nada en la papelera.</small></div>`}</details>`;
   $('#search').value = filter;
   $('#search').oninput = (e) => {
     filter = e.target.value;
@@ -533,7 +533,7 @@ function archiveView() {
       shown
         .map(
           (e) =>
-            `<section class="panel entry" data-entity="${e.id}" style="border-top:4px solid ${e.color || 'var(--c-' + e.type.toLowerCase() + ')'}"><div class="head"><button class="portrait" data-portrait aria-label="Cambiar imagen de ${esc(e.name)}" title="Cambiar imagen">${e.image ? `<img src="${e.image}" alt="">` : icon(typeIcon[e.type])}</button><div style="flex:1;min-width:0"><span class="eyebrow type-${e.type}">${esc(e.type)}</span><input class="name" data-name value="${esc(e.name)}" aria-label="Nombre"></div></div>${FIELDS[e.type].length ? `<div class="fields">${FIELDS[e.type].map(([k, l]) => `<label>${l}<input class="field" data-field="${k}" value="${esc(e.fields[k] || '')}"></label>`).join('')}</div>` : ''}<label>Descripción y notas<textarea class="field" data-notes rows="4">${esc(e.notes)}</textarea></label><label>Etiquetas <span class="muted">(separadas por coma)</span><input class="field" data-tags value="${esc(e.tags.join(', '))}" placeholder="aliado, acto 2, secreto"></label><div class="relations"><label>Relaciones</label>${e.relations
+            `<section class="panel entry" data-entity="${e.id}" style="border-top:4px solid ${e.color || 'var(--c-' + e.type.toLowerCase() + ')'}"><div class="head"><button class="portrait" data-portrait aria-label="Cambiar imagen de ${esc(e.name)}" title="Cambiar imagen">${e.image ? `<img src="${e.image}" alt="">` : art('ficha-' + e.type.toLowerCase(), 'portrait-default')}</button><div style="flex:1;min-width:0"><span class="eyebrow type-${e.type}">${esc(e.type)}</span><input class="name" data-name value="${esc(e.name)}" aria-label="Nombre"></div></div>${FIELDS[e.type].length ? `<div class="fields">${FIELDS[e.type].map(([k, l]) => `<label>${l}<input class="field" data-field="${k}" value="${esc(e.fields[k] || '')}"></label>`).join('')}</div>` : ''}<label>Descripción y notas<textarea class="field" data-notes rows="4">${esc(e.notes)}</textarea></label><label>Etiquetas <span class="muted">(separadas por coma)</span><input class="field" data-tags value="${esc(e.tags.join(', '))}" placeholder="aliado, acto 2, secreto"></label><div class="relations"><label>Relaciones</label>${e.relations
               .map(
                 (r, i) =>
                   `<div class="relation"><input class="field" data-rel-label="${i}" value="${esc(r.label)}" placeholder="vive en, odia a, aparece en…" aria-label="Relación"><select class="field" data-rel-target="${i}" aria-label="Con quién">${targets.map((t) => `<option value="${t.id}" ${t.id === r.targetId ? 'selected' : ''}>${esc(t.label)}</option>`).join('')}</select><button data-rel-remove="${i}" aria-label="Quitar relación" class="ghost">${icon('close')}</button></div>`,
@@ -541,7 +541,7 @@ function archiveView() {
               .join('')}<button data-add-relation class="ghost" ${targets.length < 2 ? 'disabled' : ''}>${icon('link')}<span>Añadir relación</span></button></div><div class="foot"><div class="color-swatches" role="group" aria-label="Color">${SWATCHES.map((col) => `<button class="swatch ${e.color === col ? 'selected' : ''}" data-color="${col}" style="background:${col || 'var(--line)'}" aria-label="${col || 'Sin color'}"></button>`).join('')}</div><span class="spacer"></span>${e.image ? `<button data-remove-image class="ghost">Quitar imagen</button>` : ''}<button data-trash class="ghost">A papelera</button></div></section>`,
         )
         .join('') ||
-      `<div class="library-empty">${icon(typeFilter ? typeIcon[typeFilter] : 'archive', 'empty-art')}<h2>${typeFilter ? `Sin ${typeFilter.toLowerCase()}s todavía.` : 'Crea tu primera ficha.'}</h2><p class="muted">Puedes empezar solo con un nombre, o cargar un paquete de fichas desde el menú Cargar.</p></div>`
+      `<div class="library-empty">${typeFilter ? art('ficha-' + typeFilter.toLowerCase(), 'art art-sm') : art('vacio-pizarron')}<h2>${typeFilter ? `Sin ${typeFilter.toLowerCase()}s todavía.` : 'Crea tu primera ficha.'}</h2><p class="muted">Puedes empezar solo con un nombre, o cargar un paquete de fichas desde el menú Cargar.</p></div>`
     }</div><details style="margin-top:18px"><summary class="muted">Fichas en papelera</summary>${p.entities
       .filter((e) => e.trashed)
       .map((e) => `<button data-recover-entity="${e.id}">↶ ${esc(e.name)}</button>`)
@@ -647,7 +647,7 @@ function timelineView() {
               .map((c) => `<option value="${c.id}" ${c.id === e.chapterId ? 'selected' : ''}>${esc(c.title)}</option>`)
               .join('')}</select></label><div class="foot"><span class="spacer"></span><button data-trash class="ghost">A papelera</button></div></section>`,
         )
-        .join('') || `<div class="library-empty">${icon('timeline', 'empty-art')}<h2>Todavía no hay acontecimientos.</h2></div>`
+        .join('') || `<div class="library-empty">${art('vacio-pizarron')}<h2>Todavía no hay acontecimientos.</h2></div>`
     }</div><details style="margin-top:18px"><summary class="muted">Acontecimientos en papelera</summary>${p.events
       .filter((e) => e.trashed)
       .map((e) => `<button data-recover-event="${e.id}">↶ ${esc(e.title)}</button>`)

@@ -55,6 +55,9 @@ Además de biblioteca, sagas e iconos, se corrigieron los tres defectos reproduc
 
 ## Imágenes
 
+Las ilustraciones de `dist/img/` (logo, arranque, estados vacíos, retratos por tipo, portadas y texturas) son la entrega de Argos del 2026-10-22, convertidas a WebP y reducidas para la PWA (380 KB en total). Los originales viven en Drive (`APPS/MORIARTY/IMAGENES_ARGOS`).
+
+
 Las portadas y las imágenes de ficha se guardan dentro del JSON como data URL (base64), comprimidas al subirlas (512 px para fichas, 900 px para portadas, WebP o JPEG). Los SVG con código se rechazan.
 
 ## Verificar

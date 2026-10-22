@@ -98,3 +98,9 @@ export function decorateIcons(root = document) {
     if (label) el.append(text);
   }
 }
+
+// Ilustraciones de Argos (dist/img). Devuelve <picture> con versión clara y oscura.
+export function art(name, cls = 'art') {
+  return `<picture class="${cls}"><source srcset="img/${name}-oscuro.webp" media="(prefers-color-scheme: dark)"><img src="img/${name}-claro.webp" alt="" decoding="async"></picture>`;
+}
+export const COVERS = ['portada-tinta', 'portada-petroleo', 'portada-ambar'];

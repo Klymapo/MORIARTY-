@@ -1,5 +1,5 @@
 // MORIARTY V0.3 — caché para uso sin conexión. Cambiar CACHE al publicar una versión nueva.
-const CACHE = 'moriarty-v03-1';
+const CACHE = 'moriarty-v03-2';
 const FILES = [
   './',
   './index.html',
@@ -15,6 +15,16 @@ const FILES = [
   './fonts/literata.woff',
   './fonts/literata-italic.woff',
   './fonts/inter.woff',
+  './img/logo.svg',
+  './img/arranque-claro.webp',
+  './img/arranque-oscuro.webp',
+  './img/papel-claro.webp',
+  './img/papel-oscuro.webp',
+  ...['biblioteca', 'busqueda', 'papelera', 'pizarron'].flatMap((m) => [`./img/vacio-${m}-claro.webp`, `./img/vacio-${m}-oscuro.webp`]),
+  ...['personaje', 'lugar', 'objeto', 'nota'].flatMap((f) => [`./img/ficha-${f}-claro.webp`, `./img/ficha-${f}-oscuro.webp`]),
+  './img/portada-tinta.webp',
+  './img/portada-petroleo.webp',
+  './img/portada-ambar.webp',
 ];
 self.addEventListener('install', (e) =>
   e.waitUntil(
@@ -35,7 +45,7 @@ self.addEventListener('activate', (e) =>
 // Red primero para el código (así las actualizaciones llegan); caché primero para fuentes.
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET' || new URL(e.request.url).origin !== self.location.origin) return;
-  const isFont = e.request.url.includes('/fonts/');
+  const isFont = /\/(fonts|img)\//.test(e.request.url);
   e.respondWith(
     isFont
       ? caches.match(e.request).then((r) => r || fetch(e.request))
