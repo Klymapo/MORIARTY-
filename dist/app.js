@@ -32,6 +32,7 @@ import {
 import {LibraryView} from './library-view.js';
 import {icon, actionIcon, decorateIcons, art} from './icons.js';
 import {pickImage} from './media.js';
+import {askPersistence, backupNow, listBackups, readBackup, autoVersion} from './backup.js';
 
 const $ = (s) => document.querySelector(s),
   $$ = (s, root = document) => [...root.querySelectorAll(s)],
@@ -98,8 +99,13 @@ function openBook(id) {
   render();
   $('#chapterTitle')?.focus();
 }
+function markExported() {
+  prefs.lastExport = Date.now();
+  applyPrefs();
+}
 function backupLibrary() {
   saveNow();
+  markExported();
   download('MORIARTY_BIBLIOTECA.moriarty.json', JSON.stringify(library, null, 2));
 }
 function downloadRecovery() {
@@ -165,7 +171,7 @@ function saveNow() {
   }
   try {
     localStorage.setItem(LIBRARY_KEY, JSON.stringify(library));
-    setSaved('Guardado en este dispositivo');
+    setSaved(`Guardado ${new Date().toLocaleTimeString('es-MX', {hour: '2-digit', minute: '2-digit'})}`);
     count();
     return true;
   } catch {
@@ -349,6 +355,7 @@ function writeView() {
   };
   $('#text').oninput = (e) => {
     s.text = e.target.value;
+    autoVersion(c);
     save();
   };
   $('#sceneSelect').onchange = (e) => {
@@ -781,7 +788,14 @@ function choose(title, html, options) {
     d.innerHTML = `<div class="dialog-heading"><h2>${esc(title)}</h2></div>${html}<div class="dialog-actions choice-actions"><button type="button" data-choice="">Cancelar</button>${options.map((o) => `<button type="button" data-choice="${esc(o.value)}" class="${o.primary ? 'primary' : ''}">${esc(o.label)}</button>`).join('')}</div>`;
     document.body.append(d);
     let value = null;
-    $$('[data-choice]', d).forEach((b) => (b.onclick = () => ((value = b.dataset.choice || null), d.close())));
+    $$('[data-choice]', d).forEach(
+      (b) =>
+        (b.onclick = () => {
+          value = b.dataset.choice || null;
+          choose.lastPick = d.querySelector('input[type=radio]:checked')?.value || '';
+          d.close();
+        }),
+    );
     d.addEventListener('close', () => (d.remove(), resolve(value)));
     d.showModal();
   });
@@ -970,6 +984,7 @@ $('#projectTitle').oninput = (e) => {
 bind('backup', backupLibrary);
 bind('exportBook', () => {
   saveNow();
+  markExported();
   download(`MORIARTY_${slug(p.title)}.moriarty.json`, JSON.stringify(p, null, 2));
 });
 bind('exportPack', () => {
@@ -993,6 +1008,33 @@ bind('txt', () =>
 );
 bind('importFile', () => $('#file').click());
 bind('pasteJson', pasteDialog);
+bind('restoreBackup', async () => {
+  const list = await listBackups();
+  if (!list.length) return notify('Todavía no hay respaldos automáticos. Se crean solos mientras usas la app.');
+  const fmt = (at) => new Date(at).toLocaleString('es-MX', {dateStyle: 'medium', timeStyle: 'short'});
+  const choice = await choose(
+    'Respaldos automáticos',
+    `<p class="muted">La app guarda sola una copia de toda tu biblioteca al abrirla y cada 15 minutos si hubo cambios. Se conservan las últimas 10, en este navegador.</p><ul class="choice-list" style="list-style:none;padding:0">${list.map((b) => `<li><label style="display:flex;gap:8px;align-items:center;color:var(--text);font-size:14px;margin:4px 0"><input type="radio" name="bk" value="${esc(b.at)}">${esc(fmt(b.at))} · ${b.books} ${b.books === 1 ? 'libro' : 'libros'} · ${b.words.toLocaleString('es-MX')} palabras</label></li>`).join('')}</ul><p class="muted">Restaurar reemplaza la biblioteca actual. Antes de hacerlo se guarda un respaldo de cómo está ahora.</p>`,
+    [{value: 'restore', label: 'Restaurar el elegido', primary: true}],
+  );
+  const picked = document.querySelector('#chooseDialog input[name=bk]:checked')?.value || choose.lastPick;
+  if (choice !== 'restore' || !picked) return choice === 'restore' && notify('Elige un respaldo de la lista.');
+  try {
+    const data = validateLibrary(await readBackup(picked));
+    await backupNow(library, totalWords());
+    library = data;
+    loadFailure = false;
+    p = activeBook(library).project;
+    cid = p.chapters.find((c) => !c.trashed)?.id;
+    sid = current()?.scenes[0].id;
+    view = 'library';
+    saveNow();
+    render();
+    notify(`Biblioteca restaurada al ${fmt(picked)}.`);
+  } catch (e) {
+    notify('No se pudo restaurar ese respaldo: ' + e.message);
+  }
+});
 bind('new', () => {
   if (loadFailure) {
     notify('Recupera un respaldo antes de crear libros. El guardado ilegible se conserva.');
@@ -1029,6 +1071,29 @@ if (loadFailure) {
 } else {
   saveNow();
   if (migrated) notify('Tu libro de V0.1 ya está en la biblioteca. Conservamos el guardado original.');
+}
+const totalWords = () => library.books.filter((b) => !b.trashed).reduce((n, b) => n + wordCount(b.project), 0);
+askPersistence();
+if (!loadFailure) {
+  backupNow(library, totalWords());
+  setInterval(() => !loadFailure && backupNow(library, totalWords()), 15 * 60 * 1000);
+  document.addEventListener('visibilitychange', () => document.hidden && !loadFailure && backupNow(library, totalWords()));
+  const days = prefs.lastExport ? Math.floor((Date.now() - prefs.lastExport) / 86400000) : null;
+  const today = new Date().toDateString();
+  if (totalWords() > 0 && (days === null || days >= 7) && prefs.remindedOn !== today) {
+    prefs.remindedOn = today;
+    applyPrefs();
+    setTimeout(
+      () =>
+        notify(
+          days === null
+            ? 'Consejo: exporta tu biblioteca de vez en cuando (Exportar → Respaldar biblioteca). Es tu copia fuera de este navegador.'
+            : `Hace ${days} días que no exportas. Exportar → Respaldar biblioteca te deja una copia fuera de este navegador.`,
+          9000,
+        ),
+      1500,
+    );
+  }
 }
 const iconObserver = new MutationObserver(() => decorateIcons());
 iconObserver.observe(document.body, {childList: true, subtree: true});

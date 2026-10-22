@@ -214,3 +214,22 @@ test('fichas pack from a book with relations to chapters is importable elsewhere
   assert.equal(m.entities.length, 1);
   assert.equal(m.entities[0].relations.length, 0);
 });
+
+import {autoVersion, AUTO_LABEL} from '../dist/backup.js';
+test('auto versions: one every 10 minutes, at most 15 per chapter, manual ones untouched', () => {
+  const c = createProject().chapters[0];
+  c.versions.push({id: uid(), label: 'Mía', date: new Date(0).toISOString(), scenes: structuredClone(c.scenes)});
+  let t = Date.parse('2026-10-22T10:00:00Z');
+  const RealDate = Date;
+  for (let i = 0; i < 40; i++) {
+    globalThis.Date = class extends RealDate { constructor(...a) { super(...(a.length ? a : [t])); } static now() { return t; } };
+    c.scenes[0].text = 'v' + i;
+    autoVersion(c, t);
+    t += 5 * 60 * 1000; // cada 5 min: solo cuenta una de cada dos
+  }
+  globalThis.Date = RealDate;
+  const autos = c.versions.filter((v) => v.label === AUTO_LABEL);
+  assert.equal(autos.length, 15);
+  assert.equal(c.versions[0].label, 'Mía');
+  assert.ok(validate(Object.assign(createProject(), {chapters: [c]})));
+});

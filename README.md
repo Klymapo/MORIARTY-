@@ -53,6 +53,14 @@ Además de biblioteca, sagas e iconos, se corrigieron los tres defectos reproduc
 
 **Drive/MCP para revisión IA permanece PENDIENTE.** No se ha implementado ni activado. Tampoco se incluyen importación de respuestas de revisión JSON, resaltado de diferencias, aceptación por cambio, editor enriquecido, DOCX/PDF, relaciones gráficas ni sincronización remota.
 
+## Autoguardado y respaldos
+
+- Cada cambio se guarda en el navegador al instante (pausa de 0.4 s) y al cerrar o cambiar de app. La cabecera muestra la hora del último guardado.
+- **Versiones automáticas:** mientras escribes, cada capítulo guarda una versión «Autoguardado» cada 10 minutos (se conservan las 15 más recientes; las versiones manuales no se tocan).
+- **Respaldos automáticos:** copia de toda la biblioteca en IndexedDB al abrir la app, cada 15 minutos con cambios y al salir; se conservan 10. *Cargar → Respaldos automáticos* para restaurar (antes se respalda el estado actual).
+- La app pide al navegador almacenamiento persistente para que no se borre por falta de espacio.
+- Si llevas 7 días sin exportar, avisa una vez al día. Exportar sigue siendo la única copia fuera del navegador.
+
 ## Pasar trabajo entre dispositivos
 
 La app no sincroniza; se pasa por archivo:
