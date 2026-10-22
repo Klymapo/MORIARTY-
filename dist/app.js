@@ -10,6 +10,8 @@ import {
   restore,
   applyReview,
   createPack,
+  createChapterPack,
+  packConflicts,
   mergePack,
   wordCount,
   STATUSES,
@@ -23,6 +25,7 @@ import {
   loadLibrary,
   activeBook,
   importIntoLibrary,
+  importConflicts,
   validateLibrary,
   createLibrary,
 } from './library.js';
@@ -329,7 +332,7 @@ function writeView() {
   const live = p.entities.filter((e) => !e.trashed);
   const linked = c.entityIds.map((id) => live.find((e) => e.id === id)).filter(Boolean);
   $('#main').innerHTML =
-    `<div class="toolbar"><span class="eyebrow">ESTUDIO DE ESCRITURA</span><span class="spacer"></span><span class="type-size" role="group" aria-label="Tamaño de letra">${btn('smaller', '', '', 'Letra más pequeña')}${btn('bigger', '', '', 'Letra más grande')}</span>${btn('focus', 'Modo enfoque')}${btn('versions', 'Versiones')}${btn('reviewStart', 'Revisar escena')}</div><article class="editor"><input id="chapterTitle" class="title" aria-label="Título del capítulo" value="${esc(c.title)}"><details class="chapter-details" ${c.summary || c.pov || linked.length ? 'open' : ''}><summary><span class="chip status-${c.status}"><span class="dot"></span>${STATUS_LABEL[c.status]}</span><span>Detalles del capítulo</span>${linked.length ? `<span class="muted">· ${linked.length} ${linked.length === 1 ? 'ficha' : 'fichas'}</span>` : ''}</summary><div class="body"><label>Estado<select class="field" data-status>${STATUSES.map((st) => `<option value="${st}" ${st === c.status ? 'selected' : ''}>${STATUS_LABEL[st]}</option>`).join('')}</select></label><label>Punto de vista<input class="field" data-pov value="${esc(c.pov)}" placeholder="¿Quién narra?"></label><label class="wide">Resumen<textarea class="field" data-summary rows="2" placeholder="Qué pasa en este capítulo, en dos líneas.">${esc(c.summary)}</textarea></label><div class="wide"><label>Fichas en este capítulo</label><div class="chips">${linked.map((e) => `<span class="chip type-${e.type}"><span class="dot"></span>${esc(e.name)}<button data-unlink="${e.id}" aria-label="Quitar ${esc(e.name)}">${icon('close')}</button></span>`).join('')}<select class="field" data-link style="width:auto;padding:4px 8px;font-size:12px"><option value="">＋ Vincular ficha…</option>${live
+    `<div class="toolbar"><span class="eyebrow">ESTUDIO DE ESCRITURA</span><span class="spacer"></span><span class="type-size" role="group" aria-label="Tamaño de letra">${btn('smaller', '', '', 'Letra más pequeña')}${btn('bigger', '', '', 'Letra más grande')}</span>${btn('focus', 'Modo enfoque')}${btn('versions', 'Versiones')}${btn('exportChapter', 'Exportar capítulo')}${btn('reviewStart', 'Revisar escena')}</div><article class="editor"><input id="chapterTitle" class="title" aria-label="Título del capítulo" value="${esc(c.title)}"><details class="chapter-details" ${c.summary || c.pov || linked.length ? 'open' : ''}><summary><span class="chip status-${c.status}"><span class="dot"></span>${STATUS_LABEL[c.status]}</span><span>Detalles del capítulo</span>${linked.length ? `<span class="muted">· ${linked.length} ${linked.length === 1 ? 'ficha' : 'fichas'}</span>` : ''}</summary><div class="body"><label>Estado<select class="field" data-status>${STATUSES.map((st) => `<option value="${st}" ${st === c.status ? 'selected' : ''}>${STATUS_LABEL[st]}</option>`).join('')}</select></label><label>Punto de vista<input class="field" data-pov value="${esc(c.pov)}" placeholder="¿Quién narra?"></label><label class="wide">Resumen<textarea class="field" data-summary rows="2" placeholder="Qué pasa en este capítulo, en dos líneas.">${esc(c.summary)}</textarea></label><div class="wide"><label>Fichas en este capítulo</label><div class="chips">${linked.map((e) => `<span class="chip type-${e.type}"><span class="dot"></span>${esc(e.name)}<button data-unlink="${e.id}" aria-label="Quitar ${esc(e.name)}">${icon('close')}</button></span>`).join('')}<select class="field" data-link style="width:auto;padding:4px 8px;font-size:12px"><option value="">＋ Vincular ficha…</option>${live
       .filter((e) => !c.entityIds.includes(e.id))
       .map((e) => `<option value="${e.id}">${esc(e.type)} · ${esc(e.name)}</option>`)
       .join('')}</select></div></div></div></details><div class="toolbar"><select id="sceneSelect" class="field" aria-label="Escena" style="width:auto;flex:1">${c.scenes.map((s) => `<option value="${s.id}" ${s.id === sid ? 'selected' : ''}>${esc(s.title)}</option>`).join('')}</select>${btn('addScene', '＋ Escena')}${btn('trashChapter', 'A papelera')}</div><input id="sceneTitle" class="subtitle" aria-label="Título de escena" value="${esc(s.title)}"><textarea id="text" class="manuscript" aria-label="Texto de la escena" placeholder="Escribe aquí. Esta historia es tuya…" spellcheck="true">${esc(s.text)}</textarea><p class="muted">Texto plano · Guardado local · Exporta un respaldo para llevarlo a otro dispositivo.</p></article>`;
@@ -407,6 +410,11 @@ function writeView() {
     notify('Capítulo enviado a la papelera. Puedes recuperarlo desde el manuscrito.');
   });
   bind('versions', versionsView);
+  bind('exportChapter', () => {
+    saveNow();
+    download(`MORIARTY_${slug(p.title)}_${slug(c.title)}.capitulo.moriarty.json`, JSON.stringify(createChapterPack(p, c.id), null, 2));
+    notify('Capítulo descargado. En el otro dispositivo, abre este libro y usa Cargar.');
+  });
   bind('reviewStart', () => {
     snapshot(c, 'Antes de revisión');
     const r = {id: uid(), chapterId: c.id, sceneId: s.id, base: s.text, proposal: s.text, instruction: ''};
@@ -762,13 +770,57 @@ function reviewView() {
   );
 }
 
+/* ---------- Diálogo de elección ---------- */
+// options: [{value, label, primary?}] → resuelve con el value elegido o null si se cancela.
+function choose(title, html, options) {
+  return new Promise((resolve) => {
+    $('#chooseDialog')?.remove();
+    const d = document.createElement('dialog');
+    d.id = 'chooseDialog';
+    d.className = 'library-dialog';
+    d.innerHTML = `<div class="dialog-heading"><h2>${esc(title)}</h2></div>${html}<div class="dialog-actions choice-actions"><button type="button" data-choice="">Cancelar</button>${options.map((o) => `<button type="button" data-choice="${esc(o.value)}" class="${o.primary ? 'primary' : ''}">${esc(o.label)}</button>`).join('')}</div>`;
+    document.body.append(d);
+    let value = null;
+    $$('[data-choice]', d).forEach((b) => (b.onclick = () => ((value = b.dataset.choice || null), d.close())));
+    d.addEventListener('close', () => (d.remove(), resolve(value)));
+    d.showModal();
+  });
+}
+const listHtml = (items) => `<ul class="choice-list">${items.slice(0, 6).map((t) => `<li>${esc(t)}</li>`).join('')}${items.length > 6 ? `<li class="muted">y ${items.length - 6} más</li>` : ''}</ul>`;
+
 /* ---------- Carga de JSON: archivo, pegado o arrastre ---------- */
 async function importData(data, sourceName = 'archivo') {
   busy('Validando ' + sourceName + '…', 30);
   await yieldFrame();
   if (data?.kind === 'moriarty-pack') {
     if (loadFailure) throw Error('Recupera un respaldo antes de cargar paquetes.');
-    const merged = mergePack(p, data);
+    const conflicts = packConflicts(p, data);
+    let replace = false;
+    if (conflicts.sameBook && (conflicts.chapters.length || conflicts.entities.length)) {
+      busy(false);
+      const what = [...conflicts.chapters.map((t) => `Capítulo · ${t}`), ...conflicts.entities.map((t) => `Ficha · ${t}`)];
+      const choice = await choose(
+        'Esto ya está en tu libro',
+        `<p>El archivo viene de <b>${esc(p.title)}</b> y trae piezas que ya tienes:</p>${listHtml(what)}<p class="muted">Reemplazar actualiza esas piezas con lo del archivo. El texto actual de cada capítulo se guarda antes como versión, así que puedes recuperarlo.</p>`,
+        [
+          {value: 'copy', label: 'Agregar como copia'},
+          {value: 'replace', label: 'Reemplazar', primary: true},
+        ],
+      );
+      if (!choice) return;
+      replace = choice === 'replace';
+      busy('Incorporando…', 60);
+    } else if (data.bookId && data.bookId !== p.id && data.bookTitle) {
+      busy(false);
+      const choice = await choose(
+        'Este capítulo es de otro libro',
+        `<p>Salió de <b>${esc(data.bookTitle)}</b> y lo vas a cargar en <b>${esc(p.title)}</b>, que es el libro abierto.</p><p class="muted">Si querías cargarlo en su libro, cancela, abre ese libro desde Biblioteca y vuelve a cargarlo.</p>`,
+        [{value: 'go', label: 'Cargar aquí de todos modos', primary: true}],
+      );
+      if (!choice) return;
+      busy('Incorporando…', 60);
+    }
+    const merged = mergePack(p, data, {replace});
     busy('Incorporando al libro…', 70);
     await yieldFrame();
     const book = activeBook(library);
@@ -776,20 +828,42 @@ async function importData(data, sourceName = 'archivo') {
     p = merged;
     const n = {e: data.entities?.length || 0, c: data.chapters?.length || 0, v: data.events?.length || 0};
     saveNow();
-    view = n.c && !n.e ? 'board' : n.e ? 'archive' : 'timeline';
+    if (n.c) {
+      view = 'write';
+      const c = merged.chapters.find((c) => c.title === data.chapters[0].title && !c.trashed) || merged.chapters.at(-1);
+      cid = c.id;
+      sid = c.scenes[0].id;
+    } else view = n.e ? 'archive' : 'timeline';
     render();
     notify(
-      `Paquete cargado en «${p.title}»: ${[n.e && `${n.e} fichas`, n.c && `${n.c} capítulos`, n.v && `${n.v} acontecimientos`]
+      `${replace ? 'Actualizado' : 'Paquete cargado'} en «${p.title}»: ${[n.e && `${n.e} fichas`, n.c && `${n.c} capítulos`, n.v && `${n.v} acontecimientos`]
         .filter(Boolean)
         .join(', ')}.`,
     );
     return;
   }
+  let mode = 'copy';
+  if (!loadFailure) {
+    const repeated = importConflicts(library, data);
+    if (repeated.length) {
+      busy(false);
+      const choice = await choose(
+        repeated.length === 1 ? 'Ya tienes este libro' : 'Ya tienes estos libros',
+        `${listHtml(repeated)}<p>Parece que viene de otro dispositivo. ¿Lo reemplazo con este archivo o agrego una copia aparte?</p><p class="muted">Al reemplazar, la versión que tienes ahora pasa a la papelera de libros como «versión anterior». No se pierde nada.</p>`,
+        [
+          {value: 'copy', label: 'Agregar copia'},
+          {value: 'replace', label: 'Reemplazar', primary: true},
+        ],
+      );
+      if (!choice) return;
+      mode = choice;
+    }
+  }
   const next = loadFailure
     ? data?.kind === 'moriarty-library'
       ? validateLibrary(data)
       : createLibrary(validate(data))
-    : importIntoLibrary(library, data);
+    : importIntoLibrary(library, data, mode);
   if (loadFailure) {
     busy(false);
     if (!confirm('El guardado actual es ilegible. Se descargará una copia de recuperación antes de abrir este respaldo. ¿Continuar?'))
@@ -801,7 +875,7 @@ async function importData(data, sourceName = 'archivo') {
   library = next;
   loadFailure = false;
   openBook(library.activeBookId);
-  notify('Importado. Tus otros libros se conservan en la biblioteca.');
+  notify(mode === 'replace' ? 'Reemplazado. La versión anterior quedó en la papelera de libros.' : 'Importado. Tus otros libros se conservan en la biblioteca.');
 }
 async function importText(text, sourceName) {
   try {

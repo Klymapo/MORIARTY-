@@ -109,6 +109,14 @@ Carga: menú **Cargar → Abrir archivo JSON**, **Pegar JSON**, o arrastrar el a
 
 Cualquiera de las tres listas puede faltar o ir vacía, pero no las tres. Los capítulos del paquete se colocan al final del libro; los acontecimientos, después de los existentes. **Exportar → Exportar paquete de fichas** genera uno desde el libro activo.
 
+## Paquete de capítulo
+
+*Exportar capítulo* genera un paquete con `bookId` y `bookTitle` del libro de origen, un solo capítulo (sin historial de versiones), sus fichas vinculadas y sus acontecimientos. Si se carga en el libro con ese mismo `bookId` y las piezas ya existen, se puede **reemplazar por ID** (el texto anterior queda como versión) en lugar de duplicar. Las referencias a fichas o capítulos que no vienen en el paquete se conservan solo si existen en el libro de destino.
+
+## Identidad de libros
+
+Un libro conserva su `id` al importarse si la biblioteca no tiene otro con el mismo `id`. Si ya existe, la app ofrece reemplazarlo (la versión previa va a la papelera de libros) o importar una copia con IDs nuevos.
+
 ## Ejemplo mínimo de paquete de fichas
 
 ```json

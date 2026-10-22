@@ -119,26 +119,64 @@ export function cloneProject(project) {
   }
   return validate(p);
 }
-export function importIntoLibrary(library, data) {
+const readIncoming = (data) => (data?.kind === 'moriarty-library' ? validateLibrary(data) : createLibrary(validate(data)));
+
+// Libros del archivo que ya existen en esta biblioteca (mismo ID: es el mismo libro, quizá de otro dispositivo).
+export function importConflicts(library, data) {
+  const incoming = readIncoming(data);
+  return incoming.books
+    .filter((b) => library.books.some((x) => x.project.id === b.project.id))
+    .map((b) => b.project.title);
+}
+
+// mode 'copy': los libros repetidos entran como copia nueva. mode 'replace': los repetidos se reemplazan
+// y la versión que había pasa a la papelera de libros, nunca se pierde.
+// Los libros nuevos conservan sus IDs, para poder reconocerlos la próxima vez.
+export function importIntoLibrary(library, data, mode = 'copy') {
   // Validate the whole import before changing the current collection.
-  const incoming = data?.kind === 'moriarty-library' ? validateLibrary(data) : createLibrary(validate(data));
+  const incoming = readIncoming(data);
+  const isLibrary = data?.kind === 'moriarty-library';
   const next = structuredClone(library),
     sagas = new Map();
   for (const s of incoming.sagas) {
-    const id = uid();
-    sagas.set(s.id, id);
-    next.sagas.push({...s, id});
+    const existing = next.sagas.find((x) => x.id === s.id);
+    if (!existing) {
+      sagas.set(s.id, s.id);
+      next.sagas.push({...s});
+    } else if (mode === 'replace') {
+      existing.title = s.title;
+      existing.description = s.description;
+      sagas.set(s.id, s.id);
+    } else {
+      const id = uid();
+      sagas.set(s.id, id);
+      next.sagas.push({...s, id});
+    }
   }
-  const imported = incoming.books.map((b) => ({
-    project: cloneProject(b.project),
-    sagaId: sagas.get(b.sagaId) || '',
-    synopsis: b.synopsis,
-    trashed: false,
-  }));
-  next.books.push(...imported);
-  next.activeBookId = imported.find(
-    (b, i) => incoming.books[i].project.id === incoming.activeBookId,
-  ).project.id;
+  const resultIds = new Map();
+  for (const b of incoming.books) {
+    const existing = next.books.find((x) => x.project.id === b.project.id);
+    if (!existing) {
+      next.books.push({project: validate(b.project), sagaId: sagas.get(b.sagaId) || '', synopsis: b.synopsis, trashed: false});
+      resultIds.set(b.project.id, b.project.id);
+    } else if (mode === 'replace') {
+      const previous = {...structuredClone(existing), project: cloneProject(existing.project), trashed: true};
+      previous.project.title = `${existing.project.title} (versión anterior)`;
+      existing.project = validate(b.project);
+      existing.trashed = false;
+      if (isLibrary) {
+        existing.synopsis = b.synopsis;
+        existing.sagaId = sagas.get(b.sagaId) || '';
+      }
+      next.books.push(previous);
+      resultIds.set(b.project.id, b.project.id);
+    } else {
+      const copy = {project: cloneProject(b.project), sagaId: sagas.get(b.sagaId) || '', synopsis: b.synopsis, trashed: false};
+      next.books.push(copy);
+      resultIds.set(b.project.id, copy.project.id);
+    }
+  }
+  next.activeBookId = resultIds.get(incoming.activeBookId);
   return validateLibrary(next);
 }
 

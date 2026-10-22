@@ -218,7 +218,7 @@ export function applyReview(s, r) {
 // Los IDs del paquete son locales al paquete: se reasignan al incorporarlos.
 export function createPack(project, parts = {entities: true, chapters: true, events: true}) {
   const p = validate(project);
-  const pack = {kind: 'moriarty-pack', schemaVersion: SCHEMA, title: p.title, entities: [], chapters: [], events: []};
+  const pack = {kind: 'moriarty-pack', schemaVersion: SCHEMA, bookId: p.id, title: p.title, entities: [], chapters: [], events: []};
   if (parts.entities) pack.entities = p.entities.filter((e) => !e.trashed);
   if (parts.chapters)
     pack.chapters = p.chapters
@@ -234,47 +234,104 @@ export function validatePack(data) {
   const chapters = Array.isArray(data.chapters) ? data.chapters : [];
   const events = Array.isArray(data.events) ? data.events : [];
   if (!entities.length && !chapters.length && !events.length) fail('El paquete está vacío.');
-  // Se valida construyendo un proyecto sintético con las piezas del paquete.
+  if (data.bookId !== undefined && !safeId(data.bookId)) fail('Paquete MORIARTY inválido.');
+  // Las referencias pueden apuntar a piezas que no vienen en el paquete (ya existen en el libro).
+  // Se validan por forma aquí y se resuelven al incorporarlas.
+  const refsOk = (a) => Array.isArray(a) && a.every((x) => safeId(x));
+  const relsOk = (a) => a === undefined || (Array.isArray(a) && a.every((r) => r && safeId(r.targetId) && str(r.label) && r.label.length <= 120));
+  if (!entities.every((e) => e && relsOk(e.relations))) fail('Paquete MORIARTY inválido.');
+  if (!chapters.every((c) => c && (c.entityIds === undefined || refsOk(c.entityIds)))) fail('Paquete MORIARTY inválido.');
+  if (!events.every((e) => e && (e.chapterId === undefined || e.chapterId === '' || safeId(e.chapterId)))) fail('Paquete MORIARTY inválido.');
+  // Validación completa con un proyecto sintético, sin las referencias externas.
   const probe = createProject(str(data.title) ? data.title : 'Paquete');
-  probe.entities = entities.map((e) => ({...entity(e?.type), ...e, trashed: false}));
-  probe.chapters = chapters.length ? chapters.map((c) => ({...chapter(), ...c, versions: [], trashed: false})) : probe.chapters;
-  probe.events = events.map((e, i) => ({...event(), order: i, ...e, trashed: false}));
+  probe.entities = entities.map((e) => ({...entity(e.type), ...e, relations: [], trashed: false}));
+  probe.chapters = chapters.length ? chapters.map((c) => ({...chapter(), ...c, entityIds: [], versions: [], trashed: false})) : probe.chapters;
+  probe.events = events.map((e, i) => ({...event(), order: i, ...e, chapterId: '', trashed: false}));
   const ok = validate(probe);
-  return {entities: ok.entities, chapters: chapters.length ? ok.chapters : [], events: ok.events};
+  ok.entities.forEach((e, i) => (e.relations = structuredClone(entities[i].relations || [])));
+  if (chapters.length) ok.chapters.forEach((c, i) => (c.entityIds = [...(chapters[i].entityIds || [])]));
+  ok.events.forEach((e, i) => (e.chapterId = events[i].chapterId || ''));
+  return {bookId: data.bookId || '', entities: ok.entities, chapters: chapters.length ? ok.chapters : [], events: ok.events};
+}
+
+// Capítulo suelto con su texto, sus fichas vinculadas y sus acontecimientos.
+export function createChapterPack(project, chapterId) {
+  const p = validate(project);
+  const c = p.chapters.find((x) => x.id === chapterId);
+  if (!c) throw Error('El capítulo no existe.');
+  const entities = p.entities.filter((e) => c.entityIds.includes(e.id));
+  return {
+    kind: 'moriarty-pack',
+    schemaVersion: SCHEMA,
+    bookId: p.id,
+    bookTitle: p.title,
+    title: c.title,
+    exportedAt: new Date().toISOString(),
+    chapters: [{...c, versions: []}],
+    entities,
+    events: p.events.filter((e) => !e.trashed && e.chapterId === c.id),
+  };
+}
+
+// ¿Qué piezas del paquete ya existen en este libro? Solo aplica si el paquete salió de este mismo libro.
+export function packConflicts(project, data) {
+  const pack = validatePack(data);
+  if (pack.bookId !== project.id) return {sameBook: false, chapters: [], entities: []};
+  return {
+    sameBook: true,
+    chapters: pack.chapters.filter((c) => project.chapters.some((x) => x.id === c.id)).map((c) => c.title),
+    entities: pack.entities.filter((e) => project.entities.some((x) => x.id === e.id)).map((e) => e.name),
+  };
 }
 
 // Incorpora un paquete validado al proyecto. Devuelve un proyecto nuevo validado; no toca el original.
-export function mergePack(project, data) {
+// replace=true (solo si el paquete salió de este libro): actualiza por ID; el texto anterior queda como versión.
+export function mergePack(project, data, {replace = false} = {}) {
   const pack = validatePack(data);
   const p = structuredClone(project);
+  const sameBook = replace && pack.bookId === p.id;
   const ids = new Map();
-  const remap = (old) => {
-    if (!ids.has(old)) ids.set(old, uid());
-    return ids.get(old);
-  };
-  for (const e of pack.entities) e.id = remap(e.id);
-  for (const c of pack.chapters) {
-    c.id = remap(c.id);
-    for (const s of c.scenes) s.id = remap(s.id);
-    c.entityIds = c.entityIds.map(remap);
-  }
-  const known = new Set([...p.entities.map((e) => e.id), ...p.chapters.map((c) => c.id), ...ids.values()]);
-  for (const e of pack.entities)
-    e.relations = e.relations.map((r) => ({...r, targetId: ids.get(r.targetId) || r.targetId})).filter((r) => known.has(r.targetId));
-  const base = p.events.length ? Math.max(...p.events.map((e) => e.order)) + 1 : 0;
-  pack.events.forEach((e, i) => {
+  const remap = sameBook ? (x) => x : (old) => (ids.has(old) ? ids.get(old) : (ids.set(old, uid()), ids.get(old)));
+  const packIds = new Set([...pack.entities.map((e) => e.id), ...pack.chapters.map((c) => c.id)]);
+  // Las referencias a piezas fuera del paquete solo se conservan si existen en el libro.
+  const resolve = (id) => (packIds.has(id) ? remap(id) : p.entities.some((e) => e.id === id) || p.chapters.some((c) => c.id === id) ? id : null);
+  for (const e of pack.entities) {
+    e.relations = e.relations.map((r) => ({...r, targetId: resolve(r.targetId)})).filter((r) => r.targetId);
     e.id = remap(e.id);
-    e.order = base + i;
-    e.chapterId = e.chapterId ? ids.get(e.chapterId) || (p.chapters.some((c) => c.id === e.chapterId) ? e.chapterId : '') : '';
-  });
-  const n = p.chapters.length;
-  pack.chapters.forEach((c, i) => {
-    c.x = 40 + ((n + i) % 7) * 200;
-    c.y = 40 + Math.floor((n + i) / 7) * 160;
-  });
-  p.entities.push(...pack.entities);
-  p.chapters.push(...pack.chapters);
-  p.events.push(...pack.events);
+  }
+  for (const c of pack.chapters) {
+    c.entityIds = c.entityIds.map(resolve).filter(Boolean);
+    c.id = remap(c.id);
+    for (const sc of c.scenes) sc.id = remap(sc.id);
+  }
+  let order = p.events.length ? Math.max(...p.events.map((e) => e.order)) + 1 : 0;
+  for (const e of pack.events) {
+    e.chapterId = e.chapterId ? resolve(e.chapterId) || '' : '';
+    e.id = remap(e.id);
+  }
+  const upsert = (list, item, onReplace) => {
+    const i = list.findIndex((x) => x.id === item.id);
+    if (i >= 0) list[i] = onReplace(list[i], item);
+    else return true;
+    return false;
+  };
+  let n = p.chapters.length;
+  for (const e of pack.entities) if (upsert(p.entities, e, (_, x) => ({...x, trashed: false}))) p.entities.push(e);
+  for (const c of pack.chapters) {
+    const added = upsert(p.chapters, c, (old, x) => {
+      snapshot(old, 'Antes de importar');
+      return {...x, x: old.x, y: old.y, versions: old.versions, trashed: false};
+    });
+    if (added) {
+      c.x = 40 + (n % 7) * 200;
+      c.y = 40 + Math.floor(n / 7) * 160;
+      n++;
+      p.chapters.push(c);
+    }
+  }
+  for (const e of pack.events)
+    if (upsert(p.events, e, (old, x) => ({...x, order: old.order, trashed: false}))) p.events.push({...e, order: order++});
+  for (const c of p.chapters) c.entityIds = c.entityIds.filter((id) => p.entities.some((e) => e.id === id));
   return validate(p);
 }
 

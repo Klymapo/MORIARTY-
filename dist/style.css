@@ -1637,3 +1637,12 @@ body::before {
 .book-cover.cover-custom > span {
   display: none;
 }
+
+.choice-list {
+  margin: 8px 0;
+  padding-left: 20px;
+  line-height: 1.6;
+}
+.choice-actions {
+  flex-wrap: wrap;
+}

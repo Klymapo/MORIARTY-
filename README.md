@@ -53,6 +53,14 @@ Además de biblioteca, sagas e iconos, se corrigieron los tres defectos reproduc
 
 **Drive/MCP para revisión IA permanece PENDIENTE.** No se ha implementado ni activado. Tampoco se incluyen importación de respuestas de revisión JSON, resaltado de diferencias, aceptación por cambio, editor enriquecido, DOCX/PDF, relaciones gráficas ni sincronización remota.
 
+## Pasar trabajo entre dispositivos
+
+La app no sincroniza; se pasa por archivo:
+- **Un capítulo:** en Escribir, *Exportar capítulo* descarga el capítulo con su texto, sus fichas vinculadas y sus acontecimientos. En el otro dispositivo, abre el mismo libro y usa *Cargar*. Si el capítulo ya existe, la app pregunta: *Reemplazar* (el texto anterior queda como versión recuperable) o *Agregar como copia*.
+- **Un libro o la biblioteca:** *Exportar → Exportar este libro* o *Respaldar biblioteca*. Al cargarlo, si el libro ya existe (mismo ID), la app pregunta: *Reemplazar* (la versión que había pasa a la papelera de libros como «versión anterior») o *Agregar copia*.
+
+Desde V0.3 los libros conservan su ID al importarse por primera vez; así se reconocen entre dispositivos. Los que se importaron antes de este cambio tienen otro ID: impórtalos una vez más y elige *Agregar copia* para empezar a sincronizar con esa copia.
+
 ## Imágenes
 
 Las ilustraciones de `dist/img/` (logo, arranque, estados vacíos, retratos por tipo, portadas y texturas) son la entrega de Argos del 2026-10-22, convertidas a WebP y reducidas para la PWA (380 KB en total). Los originales viven en Drive (`APPS/MORIARTY/IMAGENES_ARGOS`).

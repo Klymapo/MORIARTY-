@@ -55,6 +55,7 @@ const map = {
   smaller: 'textSmaller',
   addRelation: 'link',
   pizarron: 'board',
+  exportChapter: 'download',
   export: 'download',
   import: 'upload',
   new: 'plus',
