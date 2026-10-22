@@ -82,4 +82,4 @@ Migrado el 2026-10-20 desde los ZIP de Drive (Gaston, `APPS/MORIARTY`), conserva
 
 El código no se modificó en la migración. El documento maestro vigente está en Drive (`MORIARTY_DOCUMENTO_MAESTRO_V02.md`) y es la fuente de verdad del Registro de cambios.
 
-> Repositorio **público**: no guardar aquí manuscritos, fichas de las novelas ni chats privados. Los JSON de historias se intercambian por archivo y se importan en la app.
+> Repositorio **público**. Desde el 2026-10-22, por decisión de Admin, los libros se publican en `historias/` (todos los derechos reservados; el MIT cubre solo el código). No guardar aquí chats privados.

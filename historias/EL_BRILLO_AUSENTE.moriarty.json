@@ -1,0 +1,2440 @@
+{
+ "schemaVersion": 2,
+ "id": "el-brillo-ausente",
+ "title": "El brillo ausente",
+ "cover": "",
+ "chapters": [
+  {
+   "id": "prologo",
+   "title": "Prólogo · Ataraxia",
+   "act": 1,
+   "x": 40,
+   "y": 40,
+   "summary": "D0. El círculo de apoyo de Ashley, su confesión, el camino al estadio con la historia de los Sinclair, el concierto y el incendio al terminar la primera canción. Oye el apodo que grita María.",
+   "pov": "Ashley Bailey (única excepción)",
+   "status": "listo",
+   "color": "",
+   "entityIds": [
+    "ashley-bailey",
+    "nora",
+    "luna",
+    "maria",
+    "phineas",
+    "hunter-sinclair",
+    "tatiana",
+    "el-estadio"
+   ],
+   "scenes": [
+    {
+     "id": "prologo-esc-1",
+     "title": "El círculo de apoyo",
+     "text": "Tres horas antes del concierto, Ashley seguía atrapada en el trabajo.\n\nFaltaba poco para que la sesión del día terminara, y no es que fuera a llegar tarde por mucho que se extendiera la plática, pero a medida que el tiempo pasaba, la emoción recorría su cuerpo.\n\nAun así, volvió a dejar de lado sus actividades nocturnas y se centró en lo que tenía en las manos. Ser psicóloga conllevaba mostrar cierto aire de control ante la gente con quien trabajaba. El tema de hoy le concernía y ella se jactaba de ser profesional, ante todo. La pausa del grupo había terminado, y la siguiente persona estaba a punto de empezar.\n\n—Hola a todos. Yo soy Luna, y hoy quiero compartir con ustedes —empezó alguien— que la próxima semana se cumplirá un año desde que intenté... eso.\n\nLa joven que había hablado era una de las chicas que conformaban el grupo de apoyo que Ashley dirigía. Había entre ocho y diez personas frecuentes, pero la cantidad variaba según la época. Más o menos la mitad eran antiguos pacientes que ya habían dejado atrás lo peor; el resto, familiares de los afectados, varios de ellos en duelo. Era una comunidad pequeña que empezaba a conocerse poco a poco y que había encontrado la confianza entre ellos para hablar de temas difíciles, que todos los presentes habían experimentado de una u otra forma.\n\n—Un año desde que intentaste suicidarte, Luna —dijo Ashley—. Tenemos que perderle miedo a la palabra.\n\n—Sí, doctora —contestó Luna, un poco más nerviosa—. Hace un año intenté suicidarme. Quitarme la vida.\n\nAshley Bailey era una profesional del área de la salud mental que se especializaba en sintomatología y conductas depresivas. Se había graduado en psicología clínica y, además de tratar con pacientes en consultas privadas, había dirigido grupos de ayuda para sobrevivientes de intento de suicidio y también otros de acompañamiento para familiares de los afectados.\n\nSi bien cada profesional tenía diferentes métodos de abordar ambas comunidades, la doctora Bailey había diseñado un programa de encuentros cuidadosamente supervisados en el que antiguos pacientes que ya habían superado su peor momento acompañaban a gente que había perdido a familiares cercanos, en un intento de que estos comprendieran lo que sus seres queridos habían experimentado.\n\nDe esta forma, los antiguos pacientes podían poner en palabras lo que alguna vez sintieron, ahora desde un lugar más firme, y los parientes de las personas afectadas podían dar un cierre a todo su proceso. Todo este programa había sido elaborado con sumo cuidado, y Bailey creía que podría ser beneficioso para ambas partes del duelo.\n\n—¿Quieres compartirnos cómo te sientes acerca de eso, Luna? —preguntó la doctora.\n\n—Pues la verdad —respondió la joven— es que no sé cómo sentirme.\n\nEsa respuesta era habitual entre los miembros del círculo. Varios de los oyentes asintieron en un intento de mostrar empatía. No es que no sintieran nada o que no hubieran pensado en eso; era que no sabían qué palabras poner para describir lo que sentían dentro. Podrías pedirles que describieran sus emociones en momentos cruciales de su vida, pero tardarían bastante tiempo en formular una oración completa con la que se sintieran conformes.\n\n—Y es normal, querida —señaló Bailey—. No tienes que ponerle nombre ahora. El primer paso es identificar si existe algo que te perturba cuando piensas en lo que sucedió ese día.\n\nDespués de unos minutos de silencio, Luna secó el sudor de sus manos en las pantorrillas de sus jeans y se dirigió al círculo, cuidando la elección de sus palabras.\n\n—Creo... creo que sí hay algo —dijo al fin—, pero necesito tiempo para saber qué es lo que es.\n\nVolvió a tomar asiento mientras el resto del grupo le aplaudía suavemente, elogiando su coraje. Los minutos pasaron mientras otros miembros del círculo hablaban de lo que querían compartir en la sesión. Alguien comentó que había soñado con su ser querido, que había pasado a mejor vida hacía meses, y todos lo reconfortaron mientras soltaba unas pocas lágrimas. Ese era el propósito de la comunidad: expresar ideas que no podrían hablar normalmente con cualquiera.\n\nAshley recordó una ocasión en la que uno de sus pacientes había callado lo que lo preocupaba por años, por temor a preocupar a su familia. Esa conversación, junto con otros testimonios más, había sido lo que orilló a la doctora Bailey a empezar a organizar esa clase de eventos semanales. Los antiguos pacientes del círculo mantenían un seguimiento, algunos con ella y otros con colegas suyos, y habían aceptado acompañar a alguien más. Para la mayoría de los familiares, en cambio, las sesiones eran un primer acercamiento al cuidado de su propia salud mental, y la doctora no buscaba meter presión en aquellas personas.\n\nCuando parecía que todos los que querían hablar habían terminado su turno, la misma Bailey fue la que tomó la batuta para el comentario final. No solía hacer eso normalmente, pero el comentario de Luna le había traído recuerdos, y no había un momento mejor que ese día en particular.\n\n—Hola a todos, soy la doctora Ashley Bailey —se puso de pie y saludó con un leve gesto—. Hoy saldré un poco de la rutina y compartiré con ustedes una experiencia personal que espero sea de ayuda para algunos de ustedes.\n\nEl silencio se hizo en la sala mientras varios pares de ojos se posaban sobre ella.\n\n—Como tal vez uno que otro sepa, yo misma soy sobreviviente de un intento de suicidio —varios gritos ahogados sonaron alrededor—. Mis padres trabajaban mucho y tenían una expectativa muy alta sobre lo que yo debía hacer con mi vida. Cuando tuve que decidir a qué me quería dedicar el resto de mi vida, tuve un colapso. Mi padre quería que fuera contadora como él, mientras que mi madre esperaba que siguiera su ejemplo y fuera ortodoncista. La presión pudo conmigo.\n\nA su derecha, una madre que había llegado al grupo al perder al mayor de sus hijos empezó a sollozar débilmente.\n\n—No era tu culpa, querida —dijo.\n\n—Puede ser, pero yo no lo sabía —sentenció Ashley—. Al final pasó lo que tenía que pasar, y una tarde de aquel verano mi madre regresó a casa solo para encontrarme con un frasco medio vacío de píldoras en la mano.\n\nSe oyeron varios suspiros. Luna se llevó la mano a la boca, y la madre rompió en llanto.\n\n—Me llevaron al hospital y pude recuperarme sin muchas complicaciones —siguió la doctora—. Mi proceso de duelo tomó aproximadamente uno o dos años, y después de sentirme mejor conmigo misma, decidí que quería ayudar a las personas que se sintieran en la misma oscuridad en la que yo me encontré.\n\nVarios de los presentes se removieron en sus asientos, ya fuera por el interés en la historia de la doctora o agradecidos por sus decisiones de vida.\n\n—Pero lo que nunca había compartido con nadie antes —continuó— es que hubo una persona que estuvo ahí conmigo, apoyándome sin saberlo.\n\nLlevó la mano hacia su bolso personal, y de su interior extrajo un pequeño trozo de papel con la imagen de una persona en la parte delantera. Los que estaban más alejados enfocaron la vista, y cuando todos identificaron a la mujer en el boleto, asintieron en aprobación. La entrada estaba fechada para ese mismo día.\n\n—Annabeth Sinclair —dijo Bailey con orgullo—, mejor conocida como la nueva Eloise.\n\nLos presentes de la sala aplaudieron, e inmediatamente la tensión en el aire desapareció, dando paso a un ambiente más cálido y reconfortante.\n\n—Creo que no tengo que presentar a Eloise —decía Ashley—, cantante aún en ascenso, oriunda de nuestra querida ciudad.\n\nMás aplausos.\n\n—Pues resulta que en la época en la que me recuperaba de mis hemorragias internas —continuó—, Annabeth debutó en el estadio que queda a unos minutos de aquí. Tomó el legado de su madre y lo hizo propio, repartiendo alegría a miles de televidentes.\n\n—Yo alcancé a escuchar a su madre cuando aún se presentaba en vivo —dijo la madre, que ya había parado de llorar—, y aunque sigo creyendo que era espectacular, Annabeth le dio al nombre Eloise una nueva presencia, a pesar de ser tan joven.\n\n—No podría haberlo dicho mejor —concordó Ashley—. Pues en aquel entonces yo era solo un poco más grande de lo que era Eloise cuando se presentó al mundo. Sus canciones y presencia fueron clave para mi recuperación. En cierto sentido, también fue por ella que terminé dedicándome a lo que me dedico.\n\nSonaron vítores.\n\n—A lo que quiero llegar con esto, además de presumirles que veré a mi ídolo más tarde —se escucharon un par de risas—, es que sentirse mal con uno mismo es bastante común. Cualquiera puede estar ahí. Pero, y este es un pero muy importante, hay cosas que pueden contribuir a que salgamos adelante, por muy pequeñas que sean esas cosas. En mi caso, fue la carrera musical de una prodigio del escenario. Pero ustedes pueden hallar consuelo en cosas simples que estén en su día a día y les ayuden a expresarse como es debido.\n\nMiró a Luna y le guiñó un ojo, que sonrió en respuesta."
+    },
+    {
+     "id": "prologo-esc-2",
+     "title": "Camino al estadio",
+     "text": "Más tarde ese mismo día, la doctora Bailey había cambiado sus zapatillas de tacón bajo y su blazer de algodón por unos runners y una camisa vieja del primer tour de Eloise al que había asistido. Había elegido la comodidad y la nostalgia por encima del look profesional que había mostrado horas antes.\n\nLa ciudad había enloquecido por completo. La gente venía de todas partes del mundo solo para estar presente esa única noche. Miles de aficionados recorrían las calles desde extremos opuestos de la ciudad para llegar al estadio donde tendría lugar el concierto, solo para escuchar a Eloise deleitarlos con su bella voz. La doctora Bailey tomó el colectivo que había establecido rutas únicas para llegar al lugar del concierto esa noche. Dentro del vehículo, se cruzó con varios admiradores más de Eloise, que la recibieron alegremente cuando reconocieron la camisa que vestía.\n\nY es que no era de extrañar que las personas tomaran medidas tan exageradas, pensaba Ashley. La familia Sinclair se había convertido en una estirpe de talla internacional. Una generación anterior, Elisabeth Sinclair se mostró al mundo como la bella Eloise, forjadora del nombre que terminaría heredando a su hija en tiempos más modernos. Elisabeth terminó por convertirse en una artista que salió de la nada y cautivó a miles de fanáticos alrededor de todo el globo. Con sus ojos verdes y su melena dorada de ensueño, el mundo prestó atención al diamante en bruto que era Eloise.\n\nEl talento innato de la joven promesa no fue lo único que la hizo resaltar. Los titulares que mencionaban las primeras apariciones de Eloise en el escenario iban acompañados de varias oraciones que resaltaban el parentesco que tenía la cantante con una de las figuras más relevantes de la comunidad en esos años. Elisabeth Sinclair resultó ser la hija única del capitán de policía de la ciudad: el condecorado Hunter Sinclair, ascendido al rango de capitán por la misma época.\n\nHubo especulaciones de que el padre consentidor, quien era conocido por presumir en alto el talento de su primogénita, había hecho posible el ascenso meteórico de la estrella en los medios, pero una vez que Eloise empezaba a cantar con su voz angelical, toda duda quedaba disipada.\n\nSu retiro prematuro del escenario fue un evento que destrozó a más de un admirador. La verdadera sorpresa llegó cuando se reveló que su ausencia en el espectáculo había sido la excusa más increíble de todas: la reina del escenario había dado a luz a una bebé que se convirtió en una versión en miniatura de la misma Elisabeth, con la pequeña diferencia de tener el cabello castaño en lugar de rubio.\n\nLas teorías se esparcieron como la pólvora. La identidad del padre se convirtió en el meollo del asunto, y el regreso de Eloise a los escenarios fue catapultado por la intriga que causaba el origen de la pequeña criatura.\n\nLos Sinclair vivieron felices por muchos años. Elisabeth nunca reveló quién era el padre de su hija, y el capitán Hunter aplacaba cualquier intento de los noticieros por encontrar respuestas. Parecían estar bien por su cuenta. Una joven Eloise que era amada por todo el mundo, un oficial de policía que no podría estar más orgulloso del talento de su hija y una pequeña Annabeth que crecía rodeada de cámaras y escenarios.\n\nEl éxito de Eloise fue un caso sin precedentes. Su nombre estaba en las carteleras de todo el mundo. El capitán Hunter, por su parte, destacó en su propio ámbito trayendo una era de paz y cero tolerancia a las actividades criminales en la ciudad. Su gestión se convirtió en sinónimo de seguridad. Ya fuese por compañerismo en el escenario o por colaboración en pos de una estructura social utópica, los Sinclair acumularon entre sus contactos una gama de personajes muy poderosos. Con la fortuna sonriéndole a la popular familia, nadie esperaba que la tragedia estuviera próxima a tocar a sus puertas.\n\nLa doctora Bailey era joven todavía, pero recuerda aquel día con mucha precisión. Annabeth se había convertido en toda una señorita cuando Elisabeth declaró que se retiraría definitivamente de los escenarios, con el propósito de dedicar el resto de su vida a la crianza de su querida hija. Eloise se despediría con un último concierto conmemorativo en el decimoquinto cumpleaños de la pequeña, como un regalo de una querida madre. Los fanáticos de aquel entonces recuerdan con cariño la euforia que se respiraba entre los asistentes del evento. La tristeza hacía su acto de presencia igualmente, pero era sofocada por el apoyo que mostraban los admiradores a la querida familia. A su vez, el ya veterano oficial Sinclair seguiría el ejemplo de la cantante y dejaría el manto de protector de la seguridad para unirse a la crianza de su querida nieta, una vez que terminara todos sus asuntos pendientes.\n\nDespués de varias semanas de incertidumbre, la tan esperada fecha por fin llegó. Aquel día, la rutina de Eloise fue televisada de principio a fin. Desde su desayuno aquella mañana, que incluía un pastel de cumpleaños, su viaje a la escuela donde despidió a la pequeña Annabeth, hasta su paso por el área de vestuario y maquillaje en la comodidad de su casa.\n\nOrgullosa de su genética y tomando en cuenta su dorada cabellera, Elisabeth escogió para su última aparición en público un hermoso vestido verde platino que sacaba provecho de su espléndida figura. Las cámaras que la escoltaban hacían un peculiar enfoque de cuadro a sus espléndidas piernas, que mostraban una piel apenas bronceada. Un corte del vestido subía hacia su entrepierna, deteniéndose estratégicamente solo un poco por debajo de sus estrechas caderas, dejando así mucho espacio a la imaginación. Sin embargo, la pieza más llamativa de su exótico atuendo era un accesorio que resaltaba de su voluptuoso escote: una hermosa gema esmeralda que colgaba de un sencillo collar de cadena.\n\nLos comentaristas encargados de dar seguimiento al evento señalaron que, en todos sus años de carrera, Eloise nunca había mostrado aquel accesorio en ninguna de sus presentaciones. Incluso el más desinformado de sus seguidores estaría de acuerdo con esta declaración, pues el perfil tan bien preparado de la cantante aquel día quedaría grabado en la memoria del mundo para toda la eternidad. Aquella joya hacía juego con los hermosos ojos de la bella Elisabeth de una forma casi hipnótica. El brillo de sus ojos parecía provenir del resplandor de la esmeralda, y esta a su vez adquiría un haz de luz que parecía alimentar el aura de quien la portaba. Era prácticamente imposible apartar la mirada.\n\nLa programación de esa noche cambió entonces a la entrada de la residencia Sinclair, una mansión de grandes proporciones ubicada en la zona alta de la ciudad. Llegado con una precisión calculada, un Mercedes-Benz negro modelo W140 paró a las puertas de la casa, y de su interior un chofer bien entrenado bajó para abrirle la puerta a la estrella, ofreciéndole su mano para que subiera al vehículo.\n\nUna vez preparado todo, el conductor siguió la ruta previamente establecida. Obviamente, el capitán Sinclair estuvo involucrado en la planeación de la ruta, ordenando el cierre de puntos estratégicos de la vialidad. Hunter actuaba bajo la excusa de que un evento de tal magnitud alteraría el orden en las masas, pero todos hacían la vista gorda ante el abuso de autoridad, pues estaba claro que era una tierna muestra de cariño de un padre a su hija.\n\nAsí pues, con las calles cerradas y el camino despejado, el mundo seguía a través de sus televisores encendidos la toma aérea de la cantante dirigiéndose al lugar de su último concierto en vivo, Ashley Bailey incluida. En las barricadas colocadas por toda la ciudad, miles de admiradores saludaban a Eloise mientras pasaba por el corazón de la metrópoli. Elisabeth no podría haberse mostrado más agradecida; las lágrimas recorrían su rostro, estropeándole por completo horas de maquillaje. Hubo quienes comentaban que, incluso sin aquellos retoques de polvo o rubor, Eloise era aún más hermosa mostrándose al natural.\n\nLos medios hicieron acto de presencia también durante el recorrido en tierra. Tenían como norma (impuesta indirectamente por el capitán Sinclair) dejar cierta distancia entre el vehículo de interés y los vehículos de las televisoras que seguían a la cantante. Esta medida de seguridad era conocida por todos los involucrados y estaba absolutamente prohibido pasar de ella. Nadie pensaba ni quería verse sermoneado por un imponente capitán de policía.\n\nA tan solo unos minutos de llegar, las cámaras enfocaron entonces la carpa verde en donde Eloise daría una última pasarela antes de ingresar al recinto. En el extremo donde se esperaba al ídolo musical se hallaba el patriarca de los Sinclair en compañía de la querida Annabeth, junto con miles de asistentes que esperaban impacientes acceder a las gradas. Nieta y abuelo acompañarían a Eloise desde la entrada del estadio hasta el camerino.\n\nFue entonces cuando todo se derrumbó.\n\nAún en movimiento, Elisabeth saludó a su hija, quien le correspondía enérgicamente, cuando, detrás de ellos, un auto no asociado a ninguna televisora rompió la formación de la caravana de los medios y aceleró directo hacia el vehículo donde se encontraba la cantante. Después, todo pasó muy rápido.\n\nDesafortunadamente, el chofer de la artista no tuvo mucho tiempo para actuar, y aunque maniobró bruscamente para evitar al auto que se dirigía hacia ellos, la colisión fue inevitable.\n\nPiezas de auto salieron volando, el chirrido de los neumáticos resonó en todo el lugar y una explosión ensordecedora enmudeció a los testigos. El vehículo impactado volcó sobre sí mismo desde atrás y se detuvo golpeando el suelo varias veces. La gente se apartó a tiempo para no quedar aplastada bajo la masa metálica, los Sinclair incluidos. El chofer, de nombre Paul, murió al instante.\n\nDespués de recuperarse de la sorpresa, el primero en actuar fue el oficial Sinclair. Encargó a la pequeña con un miembro de los organizadores del evento y corrió a auxiliar a su hija mientras gritaba instrucciones a sus hombres para que se acercaran a ayudarlo. Con las llamas ganando fuerza y el tanque de gasolina vaciándose, Hunter logró sacar a la malherida Eloise de debajo del vehículo. Mientras se alejaban pesadamente, cargando a la accidentada entre el capitán y uno de sus hombres, una segunda explosión tiró a todos al suelo. Cuando Hunter trató de alzar de nuevo a su hija, notó un pedazo de metal que sobresalía por debajo del omóplato izquierdo de Elisabeth. Una alarmante sensación recorrió la piel del uniformado.\n\nLas ambulancias llegaron entonces, recibieron a la herida y realizaron un primer diagnóstico. Confirmaron lo que Hunter temía: el metal en su espalda podría haber perforado el pulmón izquierdo de Elisabeth. Aun con el público de testigo, el capitán Sinclair ordenó a todas las unidades bajo su mando despejar el camino hacia el hospital más cercano, donde atenderían a la cantante.\n\nHunter encabezó la escolta en su propia patrulla, mientras que Annabeth acompañó a su madre en la parte trasera de la ambulancia. Los camarógrafos, aún más pendientes del momento, filmarían el instante exacto en que un paramédico impedía que la joven subiera al vehículo con ellos, aunque terminó cediendo cuando los abucheos de los fanáticos le hicieron cambiar de parecer.\n\nEn entrevistas posteriores, los enfermeros declararían que, en el trayecto al hospital, madre e hija tuvieron una conversación que no alcanzaron a escuchar, aunque asumieron que Elisabeth temía lo peor y quería despedirse de su pequeña.\n\nEn un tiempo récord, Hunter derrapó frente a las puertas de la sala de urgencias y asumió su papel de oficial, dando directivas a diestra y siniestra mientras los médicos bajaban a Eloise de la ambulancia. Ingresaron varios detrás de la camilla, pero el capitán Sinclair ordenó a su nieta que esperara fuera. Los medios, que llegaron inmediatamente después, capturarían el momento en que Hunter Sinclair colocaba una mano con la sangre aún fresca de su hija sobre la mejilla de una muy alterada Annabeth, en un intento de tranquilizar a la joven antes de dejarla abandonada fuera del edificio.\n\nIncluso Ashley, que no era tan fanática de Elisabeth como después lo fue de su hija, se encontraba al borde del asiento, sola en su casa, mientras observaba los noticieros dar seguimiento al estado de Eloise. La ciudad entera contuvo el aliento cuando, lo que pareció una eternidad después, un Hunter Sinclair que parecía haber envejecido décadas en tan solo unas horas salió a los medios para dar la terrible noticia: Eloise había muerto.\n\nEl mundo se puso de cabeza. La noticia recorrió el mundo en menos de un día, rompiendo el corazón de comunidades enteras en varios países. Un manto de negra pesadumbre se posó sobre la ciudad que había visto nacer a Eloise. Incluso el sol parecía alumbrar menos por semanas.\n\nEl capitán Sinclair dimitió de su puesto poco después. En la declaración pública que se dio en la comisaría, donde por años había informado a la ciudadanía un confiado Hunter Sinclair de aura predominante, estaba ahora un oficial encorvado y acabado que parecía tener un uniforme muy grande para él. Dejó el cargo a uno de sus oficiales de confianza, asegurando que haría un trabajo mejor que él. Sus últimas palabras frente a cámara removieron la herida que aún respiraba sobre la ciudad.\n\n—Si no fui capaz de cuidar de mi querida Elisabeth, no merezco ser quien los proteja a ustedes.\n\nAl funeral asistieron el doble o el triple de personas que habían acudido al concierto días antes. Esa vez, Ashley asistió junto con toda una multitud para presentar sus respetos. Televisado una vez más, el evento siguió la marcha fúnebre de la que ostentaba el título de la artista más querida en todo el mundo. Annabeth, a quien ahora llamaban la huérfana del momento, lideraba la procesión.\n\nNo se le había visto en público desde la noche del concierto, y todos asumían que pasaba las noches lamentando el destino de su madre. Sin embargo, cuando apareció frente a las cámaras otra vez, sorprendió a más de uno con su trato amable, agradeciendo las condolencias de miles de extraños. Comentaristas expertos del medio elogiaron a la joven Sinclair por mantener la frente en alto en todo momento, sin derramar una sola lágrima, a pesar de la evidente tristeza de sus ojos.\n\nDespués de la ceremonia, donde varios en el público rompieron en llanto, los medios hostigaron a la familia de la fallecida con miles de preguntas. Hunter fue cuestionado por su evidente abuso de poder en la seguridad del concierto, más aún cuando todo terminó de manera tan horrible. El oficial retirado se limitó a decir que se guardaba sus comentarios, aunque una ira reprimida había comenzado a crecer en su interior.\n\nLa doctora Bailey, sin embargo, recuerda mucho más claramente las preguntas dirigidas a Annabeth esa tarde. Había muchas y de todo tipo, como qué sería del legado musical de Eloise, pero hubo una en particular que resonó en el eco de la ciudad: ¿Qué se siente ser la responsable de la muerte de tu madre?\n\nEl responsable del accidente resultó ser un don nadie que murió inmediatamente en la colisión, sin ninguna repercusión por sus actos. La policía asumió que se trataba de un fanático que odiaba a Eloise por retirarse. Su historial de delitos y su expediente relacionado con el consumo de drogas terminaron por dar fuerza a esta teoría. Pero los medios no lo señalaban como responsable a él, sino a Annabeth, la hija de la cantante muerta.\n\nEl argumento de los medios era que Elisabeth había decidido retirarse por querer criar a su hija. Por lo que, si no hubiera tomado esa decisión, el concierto no habría tenido lugar y, por lo tanto, Eloise seguiría viva.\n\nEl silencio se hizo cuando la pregunta fue dicha. Las cámaras esperaban filmar cuadro por cuadro el minuto en que Annabeth comenzara a llorar y a culparse por la muerte de su madre. Lo que pasó en realidad fue que la joven Sinclair se limitó a sonreír a los periodistas. No fue un gesto alegre, más bien el de alguien que se lamenta por la persona que tiene enfrente.\n\n—Estoy segura de que mamá jamás pensaría que murió por mi culpa —fue lo único que dijo.\n\nAshley recordaría años después ese momento como el primer instante en que empezó a admirar a Annabeth Sinclair. Rememoraba el pasado mientras recorría las calles camino al estadio.\n\nTiempo después, en el aniversario luctuoso de Elisabeth, Annabeth anunció al mundo que tomaría el manto de Eloise para continuar con el legado de su madre, con el apoyo de su abuelo y de la misma productora. Lo demás es historia.\n\nTours, premios, colaboraciones y más proyectos hicieron que la nueva Eloise tuviera el mismo éxito que su antecesora, puede que incluso más. Participando no solo en la música, sino también en la pantalla grande y en campañas activistas, Annabeth se robó el corazón de una nueva generación de admiradores, que se unirían a los fanáticos más antiguos que seguían a Eloise cuando todavía era Elisabeth.\n\nLa doctora Bailey no mentía cuando dijo que la cantante cambió su vida. Después de atentar contra su propia vida, los pensamientos invasivos seguían atormentándola. Incluso estuvo a punto de hacer algo muy peligroso cuando aún se hallaba en el hospital recuperándose, cuando sonó en la televisión de su cuarto la emisión del primer concierto oficial de la nueva Eloise.\n\nEl parecido con la madre era inconfundible; solo se les podía diferenciar por el color de pelo. Incluso su voz, envidiada por muchos, parecía ser la misma. Fue en ese momento, cuando Annabeth se mostró fuerte a pesar de todo lo vivido, que Ashley comprendió que no tenía por qué terminar todo ahí. La fuerza que Eloise mostraba en público fue suficiente para alcanzar a Ashley, quien, a partir de entonces, dedicó su vida a llevar la misma alegría que sintió en ese cuarto de hospital hacía ya varios años. Y esa noche volvería a escuchar la preciosa voz una vez más."
+    },
+    {
+     "id": "prologo-esc-3",
+     "title": "Fuera del estadio",
+     "text": "El ambiente fuera del estadio era una locura.\n\nLa marea de gente que esperaba ingresar al recinto se mostraba más y más festiva y alegre conforme la cuenta regresiva para comenzar el concierto llegaba a cero. Una comunidad tan alegre solo podía ser obra de Eloise.\n\nPersonas de todas las edades cantaban a todo pulmón distintas canciones de la discografía de la cantante de la era moderna. Algunas de esas melodías eran homenajes a las canciones de Elisabeth, pero se notaba una clara preferencia por los temas más actuales.\n\nAshley conocía todas y cada una de las canciones, ya fueran con las que había crecido o las más nuevas, que se aprendió en cuanto salieron. En cuanto bajó del colectivo, se vio arrastrada por la multitud y se dejó llevar por la muchedumbre de fanáticos mientras coreaba junto a ellos los sencillos más populares.\n\nEl flujo de personas la terminó llevando al acceso previo al estadio una media hora después, donde, tras un cuello de botella que servía de verificación de boletos y revisión de mochilas, las personas podían caminar menos apretadas. Después de pasar el punto de control, la doctora se dirigió a su entrada correspondiente mientras observaba a los demás asistentes expresar su emoción. Se tomó fotos con unas jóvenes desconocidas, tomó un par más a una pareja de ancianos que le pidió ayuda y tomó unas más para sí misma con su celular. Definitivamente no olvidaría ese día.\n\nEra sabido, para los más atentos, que esa noche y ese lugar eran especiales para los Sinclair también. Ese mismo día, años atrás, Elisabeth Sinclair había sufrido a las puertas de ese mismo estadio el accidente que terminaría por quitarle la vida. No podía haber un mejor homenaje a tan gran artista.\n\nFrente a ella, un poco a lo lejos, las personas gritaron de pronto con sorpresa, sacando a la doctora de sus pensamientos. Ashley dirigió la mirada hacia donde las personas señalaban y entendió el motivo del alboroto. Dentro de la zona de seguridad, en lo que parecía ser el acceso VIP, una camioneta se estacionó, y las cámaras que cubrían el evento dirigieron su atención a quien viajaba en el vehículo: la glamurosa Tatiana.\n\nAshley arrugó la nariz cuando vio de quién se trataba. Tatiana era una cantante de la vieja escuela. De la época de Elisabeth Sinclair. Incluso para entonces ya se le empezaba a considerar vieja para la profesión. Tatiana se llamaba a sí misma la rival inequívoca de Eloise cuando esta llegó a los escenarios. Pero después del primer año de trayectoria, quedó claro que no había punto de comparación.\n\nAunque cuidaba de su aspecto con mucha tenacidad, las arrugas del tiempo se mostraban en su piel sedosa. Alta incluso sin zapatos de plataforma, Tatiana lucía un llamativo vestido de encaje rojo que le dejaba ver una figura esbelta, claramente sostenida por el mismo vestuario. En su melena, anteriormente oscura, se veían mechones de pelo gris que portaba con un orgullo fingido, sin aceptar del todo los años encima. Había llegado al concierto solo para acaparar la atención, como siempre hacía.\n\nY es que resulta que, antes de representar a Elisabeth, su agencia de medios tenía puestas todas sus fichas en Tatiana, quien llevaba en el medio musical varios años y que parecía por fin haber alcanzado el estrellato. Todo cambió con los primeros éxitos en los conciertos de Eloise. La entonces agencia de Tatiana le rompió los sueños por la nueva sensación del momento. No volvieron a mirar atrás. Desde entonces, la antigua diva se colgó de la fama de Elisabeth para seguir a flote, diciendo en todas partes que le había robado la vida que ella merecía tener.\n\nHubo un pequeño momento en el que Tatiana creyó que podría volver a ser la artista favorita del público, cuando Eloise murió en tan trágico accidente. Su plan volvió a frustrarse cuando Annabeth tomó la batuta y volvió a desplazarla al olvido.\n\nTanto Elisabeth como su hija la consideraban una buena amiga del medio, aunque Tatiana no las tuviera en tan alta estima. Es por eso que, de vez en cuando, la diva de antaño aceptaba las invitaciones de la familia Sinclair para salir a cámara, aunque fuera solo un momento. Hoy en día era la única oportunidad que tenía, pues nadie más en el medio se interesaba por ella.\n\nAshley siguió su camino mientras repudiaba a la diva que anhelaba el ojo de las cámaras, mientras firmaba uno solo de sus discos que un pobre diablo se había atrevido a llevar. Habiendo pasado el trago amargo y convenciéndose de que sería una noche maravillosa, Bailey atravesó un registro más que le dio acceso a la zona más cercana al escenario.\n\nSus padres la habían sermoneado por haber gastado tanto en un solo boleto. Ellos no entendían lo que aquel evento significaba, y ahora que podía costeárselo, Ashley había gastado mucho dinero y peleado con uñas y dientes por un lugar que le garantizaría ver a Eloise a unos cuantos metros. Se lo merecía, y nadie le quitaría el regalo que se había hecho a sí misma."
+    },
+    {
+     "id": "prologo-esc-4",
+     "title": "El concierto",
+     "text": "El concierto estaba por comenzar.\n\nEl público parecía emocionarse más a medida que avanzaba la noche. En las gradas detrás de ella, Ashley escuchaba a miles de voces cantar una tras otra sus canciones favoritas. Contaban los segundos para dar comienzo al espectáculo.\n\nDesde el lugar donde estaba, Ashley alcanzó a ver en uno de los palcos privados a Tatiana otra vez, pero en esta ocasión no estaba sola. Parecía estar entablando conversación con dos hombres. A uno de ellos lo reconoció de inmediato. Se trataba de Hunter Sinclair, abuelo de Annabeth y padre de la difunta Elisabeth. Parecía más viejo con cada respiro que daba. Su característico ceño fruncido estaba presente bajo aquellas cejas pobladas completamente blancas, que hacían juego con su barba cerrada. Los característicos ojos verdes de su familia se le veían penetrantes, a diferencia de los de su hija y su nieta, que tenían una mirada mucho más dulce. Se veía encorvado, pero incluso así llegaba a medir una cabeza más que el hombre a su lado.\n\nAquel caballero parecía ser el más joven, así como vestir las mejores ropas del grupo. Gesticulaba enérgicamente mientras hablaba y llevaba en la mano varios anillos que le dificultaban sostener el vaso de licor que sostenía. Tenía el cabello negro, posiblemente teñido. Ocultaba sus ojos detrás de unos lentes oscuros de diseñador. Aquel era, si Ashley no se equivocaba, el representante de Annabeth, que había trabajado en su momento con Elisabeth. Y, por si fuera poco, había representado de igual manera a Tatiana antes de dejarla de lado por Eloise. Dos veces. Esta última parecía estar harta de escuchar al hombrecito hablar.\n\nBailey sonreía pensando en las vueltas que daba la vida cuando el público empezó a gritar de nuevo, lo que llamó su atención de vuelta al escenario. Una cuenta atrás apareció en la pantalla de LEDs principal, y cuando llegó al diez, las luces del lugar se apagaron. Una máquina de humo empezó a llenar de niebla el piso que Ashley tenía enfrente, y ella misma se sorprendió al oírse gritar cuando la pantalla llegó a cero.\n\nLos gritos siguieron por varios minutos y, después, ante la falta de movimiento, se hizo el silencio. Miles de personas, presentes en el lugar o viendo la presentación a distancia por plataformas de streaming, centraron su mirada en el escenario.\n\nEntonces, tomando a todos por sorpresa, un reflector se encendió, y después otro, seguido de varios más. Todos apuntaron a un punto en el aire, y una vez más el estadio se llenó de gritos. Suspendida en el aire estaba Eloise, colgada de unos arneses que la mantenían a varios metros por encima del piso, justo sobre Ashley, quien se había unido a los gritos.\n\nAlumbrada por completo en ese momento, Eloise saludó con una mano a su público, que respondió con una enérgica alabanza. Varias luces minúsculas empezaron a alumbrar el lugar cuando los espectadores encendieron los lightsticks que habían comprado antes de entrar al estadio. Ashley hizo lo propio con su propio bastón y observó a Eloise empezar a desplazarse mientras la primera canción de la noche resonaba en los altavoces.\n\nEn aquella velada en particular, Eloise llevaba puesto un conjunto que le cubría todo el cuerpo, rostro incluido. Vestía lo que parecía ser un leotardo naranja con diseños de culturas orientales. Sobre la cabeza se había colocado una máscara enorme que representaba la cabeza de un dragón. Estaba iluminada por dentro con pequeñas luces de tonos naranjas y amarillos. Ashley se preguntó cómo podía cantar con eso encima, ya que Eloise llevaba en la mano un micrófono que no parecía poder acercar lo suficiente a la boca. Bailey se regañó a sí misma por no disfrutar del momento, y dejó las dudas técnicas para después.\n\nLa temática presentada hacía homenaje a una canción escrita e interpretada por la misma Eloise en sus primeros años. Cuentan las historias que Annabeth pedía que su madre le cantara esa melodía, pues la historia que contaba era hermosa. Narraba la travesía de un dragón que viajaba todos los días a iluminar el cielo de los hombres. Hablaba de esperanza y dedicación.\n\nHace años, después de la pérdida en la familia Sinclair, se reveló que esa misma canción sería con la que Elisabeth abriría su último concierto. Y hoy, en el aniversario de aquel fatídico día, parecía apropiado que Annabeth comenzara el espectáculo con esa pieza tan hermosa.\n\nDebido a la incontable lista de cosas en las que Eloise participaba, como modelaje y actuación, había pasado un tiempo desde la última vez que se había presentado en concierto. Su agenda era cada vez más apretada entre campañas publicitarias y asambleas de protección del medio ambiente. Además, Annabeth se había tomado una semana entera de vacaciones. Dio un par de entrevistas desde un hotel por presión de los contratos, pero, fuera de eso, se había dado un tiempo para sí misma.\n\nAsí que esa noche, en honor a su madre, volvió a los escenarios haciendo lo que mejor sabía hacer: cantar.\n\nLa primera canción del programa estaba por terminar. Eloise seguía su interpretación aún en el aire, pasando como cometa frente a los fanáticos que se estiraban lo más posible para rozar su mano. Las luces y los fuegos artificiales llenaron el entorno de una luz que alumbraba al ritmo de la canción. El lugar entero cantaba (o más bien gritaba) a la par que Eloise. Ashley, por supuesto, no fue la excepción.\n\nUna pequeña idea se asomaba en la mente de la doctora mientras miraba a su ídolo volar, y era que Annabeth sonaba un poco diferente a como solía hacerlo. No solía desafinar, pero esa noche en específico parecía costarle más seguir el ritmo de una rutina que había presentado cientos de veces antes. Sonaba como quien tiene problemas para respirar. Ashley se preocupó de que las cintas que la sostenían estuvieran muy apretadas, pero se tranquilizó al pensar que habían sido profesionales quienes la habían puesto allá arriba. Además, esa máscara gigante no se veía nada cómoda.\n\nLa música terminó y el público vitoreó otra vez. Las luces del escenario volvieron a encenderse mientras Eloise volaba hasta posarse encima de donde su equipo la esperaba para desamarrarla. Ashley entró en pánico. Si había visto bien, una vez que la cantante tocara el piso, estaría a centímetros de ella. Temió desmayarse. Eso era un sueño.\n\nY entonces la pesadilla comenzó.\n\nA pocos metros de plantar los pies en el suelo, la máscara de dragón que Eloise llevaba en la cabeza explotó y se prendió en llamas. Inmediatamente, la cantante comenzó a gritar desesperadamente mientras se sacudía con violencia en el aire. La gente debajo de ella tardó un momento en comprender lo que estaba pasando, pero cuando por fin reaccionó, varios hombres comenzaron a brincar en sus lugares tratando de alcanzar los pies de la joven, que se había cubierto de llamas.\n\nLos gritos volvieron a sonar entre los espectadores, pero esta vez no eran gritos de alegría, sino de terror. Varias personas alrededor de Ashley treparon por el escenario intentando ayudar a los trabajadores a bajar a la cantante, pero ninguna logró alcanzarla. Otras se tiraron al suelo y empezaron a llorar. Quienes estaban en las gradas evacuaron las instalaciones por indicaciones de los miembros de protección civil, muchos de ellos llevados a la fuerza mientras miraban la bola de fuego en el centro del lugar.\n\nAshley se quedó en el lugar donde se encontraba. No emitió ningún sonido. Solo observó a Eloise bajar lentamente hacia ella. La cantante seguía gritando en agonía, y la doctora Bailey creyó escucharla gritar un nombre pidiendo ayuda.\n\n—¡Phi-phi! ¡Phi-phi! ¡Ayúdame! ¡Ahhhh!\n\nEntonces, el fuego terminó por consumir las cintas del arnés. El cuerpo de Eloise cayó con un sonoro golpe en el piso frente a Ashley. Todo pasó en unos minutos. La cantante dejó de gritar cuando tocó el suelo. Los trabajadores extinguieron el fuego que quedaba cubriéndola con su ropa.\n\nUn olor se esparció por el lugar. La doctora Ashley Bailey no reconoció lo que era al principio. Después, creyó saber lo que era. Era carne.\n\nEl olor a carne quemada."
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-1",
+   "title": "1 · El consultor",
+   "act": 1,
+   "x": 240,
+   "y": 40,
+   "summary": "D+10 → D0. Alastor llega a la Universidad Metropolitana; los padres de Ashley en la sala de espera; Ashley sale. Entra con Magnolia: malentendido nunca aclarado. Empieza a narrar: el puente, la llamada de J.J., la librería de los Brown, Theo. Camino a la comisaría, Verlhaven.",
+   "pov": "Alastor",
+   "status": "borrador",
+   "color": "",
+   "entityIds": [
+    "alastor-kleinteil",
+    "theo-lunette",
+    "daria-magnolia",
+    "ashley-bailey",
+    "aline",
+    "jj-jeffords",
+    "alfred-brown",
+    "senora-brown",
+    "universidad-metropolitana",
+    "libreria-brown",
+    "el-puente"
+   ],
+   "scenes": [
+    {
+     "id": "cap-1-esc-1",
+     "title": "La universidad",
+     "text": "Un aire frío se colaba por debajo de la ropa.\n\nSegún el pronóstico del clima, la temperatura rondaba los tres grados bajo cero. Las personas se envolvían con el doble de prendas y las bebidas calientes estaban a la orden del día. Niños caminaban de la mano de sus padres rumbo a la escuela, vistiendo enormes abrigos que los cubrían del viento.\n\nLa ciudad tomaba vida conforme el sol comenzaba a calentar. Miles de personas transitaban las calles, como sangre que hace funcionar un gran organismo. Cada paso, misiva y empresa formaban parte de un gran mecanismo que hacía funcionar al mundo.\n\nFenómenos como ese resultaban maravillosos, pues en sus infinitas probabilidades, el más mínimo de los cambios podía causar una reacción en cadena que involucraba la vida de cientos de personas. Y Alastor, que pensaba en esto a diario, se entretenía con la idea de que la vida podía ser tan delicada como inexplicable al mismo tiempo.\n\nContemplando aún su lugar en el reloj de la vida, Alastor siguió su camino cuando la luz verde indicó el paso peatonal. Se encontraba a unas calles de su destino, y aunque aún dudaba de lo que estaba por hacer, era de las personas que preferían acabar una tarea una vez empezada. Cerrando su largo abrigo café oscuro, apresuró el paso y cruzó el arco que marcaba la entrada a la Universidad Metropolitana de Verlhaven.\n\nEl campus, como se esperaría de cualquier otro, se encontraba atestado de jóvenes estudiantes. Repartidos en grupos, ya fuera en los senderos o recostados en el pasto, estudiantes de diferentes especialidades comparaban sus notas mientras otros planeaban sus vacaciones de invierno.\n\nVerlos tan alegres en sus tan distintas rutinas provocaba en Alastor un pequeño sentimiento de alivio. Los últimos días habían sido por mucho estresantes, rompiendo la vida tan monótona a la que estaba acostumbrado. Detuvo a un par de estudiantes para pedir indicaciones, y estas le señalaron un edificio gris desvanecido que se veía a la distancia. Se despidió dando las gracias y se dirigió al punto indicado.\n\nLos pastos verdes de la universidad comenzaban a perder su característico brillo veraniego a medida que los últimos meses del año se acercaban. El cielo se cubría de nubes que amenazaban con traer la lluvia, como habían hecho la noche anterior. Los transeúntes evitaban los charcos de agua mientras se dirigían a sus clases.\n\nDiez minutos después, Alastor llegó a la puerta de un moderno edificio de concreto. Quien pensara que las paredes planas y las estructuras minimalistas eran la nueva arquitectura de moda debía haber perdido el sentido del gusto. O al menos eso pensaba él.\n\nRepartidas a distancias iguales, ventanas verticales se extendían a lo alto del edificio, dando una vista al interior de sus cuatro pisos. La estructura en su totalidad se asemejaba a un bloque de construcción. En una placa colocada a un lado de la puerta se leía: \"Oficinas del profesorado\".\n\nSegún una consulta rápida en internet, la persona que Alastor buscaba debería haber llegado unos minutos antes. O eso decía la página escolar. Indeciso aún, cruzó el umbral esperando equivocarse.\n\nEn la recepción, una persona esperaba detrás del escritorio. La joven de cabello rubio tecleaba velozmente en el teclado de un ordenador. Desparramados en la mesa, varios documentos esperaban a ser capturados.\n\nAl acercarse, Alastor se perdió mirando lo que le parecieron los ojos castaños más hermosos que jamás había visto. Esta inesperada revelación provocó que perdiera las palabras que estaba por decir, y un incómodo silencio se cruzó entre él y la joven frente a él. No fue hasta que esa misma mirada lo enfocó directamente que se dio cuenta de que había permanecido con la boca abierta por varios segundos.\n\n—¿Puedo ayudarle? —dijo la recepcionista, con una simpática sonrisa.\n\nAlastor bajó la mirada hacia un gafete enmicado con el nombre de la mujer, que le recordó el suyo propio.\n\n—Soy el detective Alastor Kleinteil. Busco a la doctora Daria V. Magnolia.\n\nCasi por reflejo, Alastor mostró su placa como forma de identificarse. Quizás, en lo más profundo de su ser, esperaba impresionar a la chica con eso. Ella, que no pareció reaccionar a la muestra de autoridad, observó las credenciales, asintió y volvió a mirar la pantalla.\n\n—La doctora llegó hace unos minutos —se limitó a decir—. Me parece que está ocupada por el momento, pero puede sentarse en la sala de espera si gusta.\n\nEl detective se desanimó un poco por la falta de emoción en sus palabras, pero le agradeció y subió por la escalera indicada."
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-2",
+   "title": "2 · Caras vemos…",
+   "act": 1,
+   "x": 440,
+   "y": 40,
+   "summary": "D0, cerca de medianoche. Theo se hace pasar por abogado de Ben; Stalker descubre que no lo es y Strong estalla. Ben declara: el empujón, las llaves, el apodo, la llamada. Amanda Se-Hong: por los registros dentales, la víctima es una desconocida.",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "theo-lunette",
+    "alastor-kleinteil",
+    "ben-smith",
+    "amadeus-stalker",
+    "derek-strong",
+    "amanda-se-hong",
+    "comisaria",
+    "las-llaves-de-phineas"
+   ],
+   "scenes": [
+    {
+     "id": "cap-2-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-3",
+   "title": "3 · El hotel",
+   "act": 1,
+   "x": 640,
+   "y": 40,
+   "summary": "D+1. El hotel. La autopsia se hace pública. Tatiana se entrega. Beatriz insiste: la víctima es María. (Propuesta por confirmar.)",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "tatiana",
+    "beatriz",
+    "el-hotel"
+   ],
+   "scenes": [
+    {
+     "id": "cap-3-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-4",
+   "title": "4 · El Rey de las Ratas",
+   "act": 1,
+   "x": 840,
+   "y": 40,
+   "summary": "D+2. Audiencia con Abadon, sin precio: es amigo de Theo. Encargo: localizar el coche rentado. (Propuesta.)",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "abadon",
+    "el-coche-rentado"
+   ],
+   "scenes": [
+    {
+     "id": "cap-4-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-5",
+   "title": "5 · Los Salvatierra y la máscara",
+   "act": 1,
+   "x": 1040,
+   "y": 40,
+   "summary": "D+2. Los trillizos descartan técnicamente el sabotaje de Tatiana y explican cómo funcionaba la máscara. Dos personas distintas pasaron a saludar a «Eloise», sin nombrarlas todavía. (Propuesta.)",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "octavian-salvatierra",
+    "maximilian-salvatierra",
+    "sebastian-salvatierra",
+    "edificio-salvatierra",
+    "la-mascara",
+    "la-placa-de-control"
+   ],
+   "scenes": [
+    {
+     "id": "cap-5-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "extra-el-circo",
+   "title": "Extra · El circo",
+   "act": 1,
+   "x": 40,
+   "y": 210,
+   "summary": "Noche del D+2, entre el Cap. 5 y el Cap. 6. J.J. los contacta: el líder de «Los Jaguares» admira a Eloise. Cafetería, feria, persecución, el almacén y el interrogatorio de Augusto Valderrama. La pista no lleva a nada, pero el dúo se afianza.",
+   "pov": "Alastor y Theo",
+   "status": "borrador",
+   "color": "#ba8b56",
+   "entityIds": [
+    "alastor-kleinteil",
+    "theo-lunette",
+    "jj-jeffords",
+    "augusto-valderrama",
+    "senora-brown",
+    "abadon",
+    "comisaria",
+    "la-espada-ropera",
+    "las-llaves-de-phineas"
+   ],
+   "scenes": [
+    {
+     "id": "extra-el-circo-esc-1",
+     "title": "El apartamento y la cafetería",
+     "text": "Había sido un día raro para Alastor. Primero persiguió a Theo, que a su vez perseguía a un hombre sin hogar que resultó ser una especie de monarca del mundo subterráneo, y después conoció a un trío de hermanos de lo más peculiar, que le prepararon el mejor Char Siu que había probado jamás. Demasiadas cosas para asimilar en un solo día.\n\nY, aun así, la frustración seguía ahí. Habían logrado rastrear el origen de las llaves misteriosas de Phineas, y Theo confiaba en que la gente de aquel monarca daría pronto con el coche, pero en el fondo no tenían nada concreto. No sabían dónde estaba Eloise, y eso lo carcomía.\n\nTheo le había dicho que ya habían hecho todo lo que podían hacer por hoy. Pero ¿y si se le escapaba algo? ¿Y si no era el detective que todos creían que era? Después de todo, había dependido más de una vez de los métodos del consultor. Si no hubiera sido por él, a esas alturas no tendría nada.\n\nEl detective Kleinteil llegó a su apartamento cuando el sol ya se hundía en el horizonte. Estacionó el sedán gris en la acera correspondiente, dejando el espacio exacto entre los coches de enfrente y de atrás que marcaba el reglamento de circulación vehicular.\n\nSubió las escaleras, abrió la puerta del edificio y revisó si había llegado correspondencia, como siempre. Nada. En el elevador se cruzó con una vecina que lo saludó con su amabilidad de costumbre; Alastor devolvió el saludo sin prestarle demasiada atención. Seguía dándole vueltas a las pistas.\n\nYa en casa, dejó las llaves en el cuenco de siempre, se aflojó la corbata y la dobló de inmediato para que no se arrugara. En el refrigerador solo encontró leche y las sobras del desayuno. Se le fue el apetito.\n\nEl apartamento del detective era lo que muchos llamarían “minimalista al extremo”. Los muebles de cada cuarto eran los justos y necesarios, nunca ostentosos: tres sillas, un escritorio, una mesa de comedor para una sola persona y los electrónicos de línea blanca. Decir que había una lámpara ya sería exagerar.\n\nDecidido a ser productivo, se sentó al escritorio y empezó a adelantar papeleo, como hacía siempre que necesitaba despejar la mente. Una rutina que se repetía desde que se había vuelto detective.\n\nPasaba tardes y fines de semana enteros en esa monotonía, hasta que la noche llegaba a su punto más alto y se iba a dormir sin haber cruzado palabra con nadie, para volver a la comisaría al día siguiente.\n\nJusto cuando se disponía a pasar otra noche en vela, el teléfono sonó. En la pantalla, un nombre ya conocido: Sargento Jacob Jeffords — DP.\n\nIntercambiaron un par de frases. Alastor preguntó la dirección y colgó para marcar otro número. La señora Brown le confirmó que Theo seguía escribiendo en la librería y que le pasaría el mensaje. Volvió a tomar la gabardina y bajó corriendo al coche. Había una pista que seguir.\n\n—Sé que mi compañía es reconfortante, detective —decía Theo mientras entraban a una cafetería—, pero hasta yo necesito mi tiempo a solas de vez en cuando.\n\nDespués de recoger a Theo con los Brown, los dos hombres se dirigieron a una cafetería en el centro, donde habrían de encontrarse con Jeffords. Ahí, el sargento les contaría los detalles de la información recién adquirida y trazarían el siguiente paso.\n\n—Lamento importunarte, Theodore, pero debo admitir que has sido de ayuda estos últimos días, y necesito de tus servicios esta noche.\n\n—¿Oyeron eso? —exclamó Theo—. Que alguien confirme que escuchó a este estirado decir que no soy un completo idiota.\n\nVarias personas voltearon a verlos. Nadie dijo nada.\n\n—Como sea —continuó Theo, dejándose caer sin cuidado en una mesa al fondo—. ¿Qué averiguó J.J.?\n\nAlastor se quitó la gabardina, la colgó en un perchero cercano y tomó asiento frente a su compañero. Retiró la silla con cuidado de no arrugar el traje recién planchado, y empezó a acomodar los cubiertos de la mesa, como de costumbre.\n\n—El sargento lleva una investigación sobre una banda de tráfico de drogas que opera en el centro desde hace años. Hoy arrestó a un miembro de la organización, que le dio información que, según Jeffords, y cito, “podría sernos de interés”.\n\nTheo observaba, con genuina curiosidad, cómo Alastor acomodaba cada utensilio con una exactitud milimétrica mientras hablaba. Ese hombre parecía traer una regla integrada en esas gafas de pasta gruesa.\n\n—¿Y no podía esperar a mañana? Creí que habíamos quedado en que ya hicimos todo lo que estaba en nuestras manos, al menos por hoy.\n\nAlastor se detuvo. Theo notó un pequeño temblor en su mano derecha, que no se había apartado del plato. Hizo una pausa antes de contestar.\n\n—Así es —respondió al fin—, pero Jeffords dice que la banda actuará esta noche y necesita nuestra ayuda. Además, dudo que hubiera logrado dormir hoy de cualquier forma.\n\nRetomó su organización metódica en cuanto terminó de hablar. Theo notó que el detective estaba más preocupado de lo que quería admitir, pero no dijo nada. Se limitó a revisar el menú que Alastor ya había doblado con cuidado, y coqueteó un poco con la mesera cuando llegó a tomar la orden.\n\nEl sargento no tardó en llegar. Su presencia hizo que medio local volteara a verlo cuando cruzó la entrada. No pareció importarle. Llevaba el uniforme de diario y saludó a los dos hombres en cuanto los distinguió a la distancia.\n\nA medida que se acercaba, Alastor y Theo notaron que J.J. estaba exhausto, probablemente por varias noches sin dormir y demasiados oficiales a su cargo. Tenía la ropa limpia, pero claramente había pasado el día corriendo: arrugado por partes, la camisa mal fajada. Bolsas bajo los ojos, un leve enrojecimiento. Caminaba con prisa, como quien está al límite de sus fuerzas, y chocó con el borde de una mesa, apenas un roce, del tipo que se evita fácil cuando se ha dormido lo suficiente.\n\n—Caballeros, buenas noches —saludó al llegar junto a la mesa—. Espero no haberles arruinado sus planes nocturnos.\n\n—No te preocupes, J.J., a ti no te culpo —respondió Theo, con un vistazo de reojo hacia Alastor—. Toma, te pedí una taza de café. ¿Negro con dos de azúcar?\n\nEl sargento se sorprendió un poco. No recordaba haberle dicho nunca al consultor cómo tomaba el café, pero lo aceptó al recordar que Theo era tan perceptivo como Alastor, solo que este nunca se había molestado en ofrecerle nada de beber en todos los años que llevaban de conocerse.\n\n—Sargento, le agradezco que me haya contactado —dijo Alastor—. ¿Qué tiene para nosotros?\n\n—Detective, por favor. El pobre hombre apenas puede recuperar el aire.\n\n—No se preocupe, Lunette —dijo J.J.—. Ya es costumbre entre nosotros.\n\nTheo y Alastor intercambiaron una mirada, como dos estudiantes peleando por la atención del profesor. El sargento bebió otro sorbo, dejó el café sobre la mesa y se preparó para hablar. Miró a los dos hombres, claramente pendientes de sus siguientes palabras, y se permitió una pausa, sabiéndose dramático.\n\n—Como Kleinteil probablemente ya te comentó —empezó—, llevo una investigación que busca frenar las actividades de un grupo de traficantes de drogas. Se hacen llamar “Los Jaguares”, y operan en esta ciudad desde hace un par de años.\n\n“Hemos arrestado a varios de sus integrantes en distintas ocasiones, pero siempre resultaban ser los últimos peldaños de la jerarquía. Empezaba a angustiarme, la verdad. Pero esta misma mañana, la suerte cambió.\n\nDimos con uno de sus capitanes, alguien que distribuye la mercancía por zonas. Lo arrestamos y pasamos el día entero intentando sacarle algo útil. Debo admitir que el tipo es diligente. Pero yo lo soy más.”\n\nSonrió para sí mismo.\n\n“Hace una hora, más o menos, llegamos a un acuerdo. Nos dio información a cambio de que habláramos bien de él ante el juez. Esto fue lo que nos dijo.\n\nEsta noche se llevará a cabo una venta. Y no cualquiera. Según nuestro pajarito, es la más grande que ‘Los Jaguares’ han hecho hasta ahora. Con lo que ganen, podrían comprarse un hipódromo con todo y caballos y seguir viviendo como reyes.”\n\nTheo miró a Alastor como preguntando “¿Hipódromo?”. Alastor le devolvió el gesto con un “luego te explico”. El sargento continuó.\n\n“La venta se hará en el circo ambulante que está en la ciudad esta semana. Según el informante, ambas partes de la transacción se reunirán hoy antes del espectáculo de la carpa principal. Después, se perderán entre la gente.\n\nTambién dijo que escogieron el lugar por la falta de oficiales dentro de la feria. Movilizar a mis hombres no es opción: los objetivos estarán alertas a cualquier cambio repentino. Por eso esperaba que pudieran ayudarme. Para ustedes, cazar a estos malditos será como reventarle el globo a un payaso.”\n\n—¿No es “quitarle un dulce a un niño” la expresión?\n\n—J.J. quiso hacer un chiste, detective. Se supone que debe reírse.\n\nAmbos interlocutores se miraron un momento, y después habló Alastor.\n\n—Lo felicito por el avance en su investigación, sargento, pero honestamente sigo sin entender en qué nos concierne su caso a nosotros.\n\nEl sargento volvió a beber de su taza mientras miraba al detective, como si hubiera estado esperando exactamente esa pregunta.\n\n—Verá, detective —dijo—, mientras procesábamos a nuestro hombre, en la comisaría se seguía hablando del caso que usted lleva. Mi informante se interesó en el tema, y dijo algo que dejó a todos paralizados.\n\nAlastor y Theo se inclinaron hacia adelante, al borde de sus asientos, mientras J.J. disfrutaba tener a ambos genios en la palma de su mano.\n\n—Resulta, querido Alastor —continuó—, que la cabeza de “Los Jaguares” es un gran admirador de la desafortunada Eloise. Nuestro informante contó que ha visto al hombre buscar jovencitas parecidas a la cantante y encerrarse con ellas en su oficina. También dijo que no le sorprendería que, con el dinero de hoy, el jefe de “Los Jaguares” haya decidido raptar a su amor platónico en vez de conformarse con imitaciones, y escapar del país con dinero y novia en mano.\n\nAlastor lo miraba con intensidad; a Theo parecía habérsele desencajado la mandíbula. No tardó en recomponerse y empezar a darle vueltas a lo que acababa de escuchar. Se dirigió a Alastor y ambos empezaron a comparar ideas, una costumbre que habían adquirido en los últimos días.\n\n—Los tiempos podrían cuadrar.\n\n—Si son un grupo organizado, sí.\n\n—Pudieron contactar a Phineas para amenazarlo.\n\n—O sobornarlo.\n\nSe miraron un momento, y después volvieron la vista al sargento, que observaba entretenido la interacción entre los dos hombres.\n\n—Ayudaremos, pero en nuestros términos. Queremos hablar primero con el líder cuando lo tengamos.\n\n—No esperaba menos.\n\nJ.J. metió la mano al bolsillo y sacó una nota, que le extendió a Alastor.\n\n—Aquí están los detalles. Mis hombres no interferirán hasta que ustedes lo pidan.\n\nAlastor examinó la nota con cuidado y se la pasó a Theo. Ambos se pusieron de pie y el detective extendió unos billetes al sargento para la cuenta. J.J. los rechazó.\n\n—Vayan, yo comeré algo mientras ustedes, los genios, trabajan.\n\nAlastor tomó su gabardina y se dirigió a la salida. Se detuvo un instante, y volvió sobre sus pasos.\n\n—Gracias, Jeffords. Te debo una.\n\nSalió a toda prisa.\n\nTheo le dio la mano al sargento y corrió tras su compañero. En sus adentros, J.J. sonrió: habían pasado años desde la última vez que Alastor le había agradecido algo.\n\nYa en la calle, Theo trotó al lado del detective.\n\n—Eso de las formalidades no es lo tuyo, ¿eh?\n\n—No es eso. Es solo que… creía que no le caía bien al sargento.\n\nTheo se detuvo en seco. Alastor volteó hacia él.\n\n—¿Bromeas, verdad? Ese hombre te considera su amigo.\n\nEl comentario tomó a Alastor por sorpresa. Se detuvo a pensarlo, y una leve sonrisa asomó en la comisura de sus labios.\n\n—Vamos —dijo—. Tenemos un circo al que ir."
+    },
+    {
+     "id": "extra-el-circo-esc-2",
+     "title": "La feria",
+     "text": "—Nunca fui gran admirador de los algodones de azúcar.\n\nAlastor y Theo habían decidido que su mejor opción era pasear por los puestos alrededor de la carpa principal, fingiendo disfrutar de las atracciones. Theo observaba, escéptico, un algodón de azúcar que había comprado apenas unos metros atrás.\n\n—Si no te gustan, ¿para qué compraste uno?\n\n—Se llama “armonizar con el ambiente”. Pensé que eso lo enseñarían en la academia de policía o algo así. Sería raro que no compráramos nada y solo estuviéramos observando, ¿no crees?\n\nAlastor agregó una nota mental sobre Theo: “observador del entorno social”. Tendría que estudiar eso con más calma después.\n\nAquí y allá corrían niños, jalando a sus padres de la mano. Los puestos de comida atendían a familias enteras, y de los juegos mecánicos salían los gritos de quienes se lanzaban a toda velocidad en un tren de asientos que no se veían nada seguros.\n\nEl aire olía a caramelo. A la distancia se distinguían lo que parecían jaulas, para que los visitantes vieran a los animales que acompañaban al circo. Al fondo de todo, una noria enorme pintaba el cielo con patrones de luces hipnóticos.\n\nDetective y consultor cruzaron entonces lo que parecía ser el pasillo de los juegos. Había pesca de patitos, dardos con globos y, sentado sobre una gran tina de agua, un payaso que se burlaba de quienes intentaban tirarlo accionando una diana conectada a su asiento flotante.\n\n—Otra cosa que tampoco disfruto: los payasos —Theo se estremeció un poco—. Un señor de cincuenta años con maquillaje no es algo que un niño deba ver. ¿Quieres que le tiremos a ese bastardo?\n\n—Deberías estar atento a los hombres que buscamos, Theodore. Además —dijo Alastor—, no sé cuáles son las reglas del juego.\n\n—Detective, me sorprende que a estas alturas dude de que pueda estar igual de atento que usted mientras… —se detuvo—. Espera, ¿cómo que no sabes las reglas?\n\nAlastor siguió caminando sin responder de inmediato. Era cierto que Theo había demostrado ser bastante diestro en el campo de la observación, pero al detective seguía costándole tomarse las cosas con la misma calma que su compañero.\n\n—Es solo que nunca había venido a una feria. Es todo.\n\nTheo meditó un instante antes de hablar de nuevo. Tiró el algodón en un bote de basura y se plantó frente al detective, cortándole el paso.\n\n—¿Qué se supone que haces?\n\n—Mira, detective —dijo Theo—, no voy a negar que me sorprende que su primera cita en un circo sea conmigo. Pero ya me voy acostumbrando a la idea de que eres alguien muy peculiar. Así que hoy vamos a disfrutar un poco mientras trabajamos.\n\nAlastor lo miró como si acabara de decirle que traía mayonesa en los calzoncillos. Divertirse en horario laboral no cabía en su filosofía de trabajo. Era, sencillamente, inaudito.\n\n—Theodore, no creo que…\n\n—Armonizar con el ambiente, ¿recuerdas? Además, estás a un reporte más de que te dé un infarto.\n\nAlastor iba a replicar, pero se tragó el comentario. Tal vez el estrés de la investigación de Eloise le estaba atrofiando las habilidades de deducción. Exhaló despacio mientras miraba a su alrededor, esta vez sin buscar a los traficantes, y, sin mediar palabra con Theo, se acercó a un puesto de tiro al blanco cercano.\n\nEl objetivo eran unos vasos de plástico rojos, apilados sobre una tabla a cierta distancia del límite de tiro, y los participantes disparaban con un rifle de aire. En la punta de plástico del arma se ajustaba un corcho que salía disparado al apretar el gatillo. El encargado recargaba con un tanque de aire comprimido las pequeñas cápsulas de los rifles, mientras veía a la gente quejarse de lo difícil que era el juego.\n\nUna niña en particular ponía todo su empeño en derribar las torres para llevarse un unicornio gigante de premio. Fallaba una y otra vez. Ya llevaba varios intentos, y su padre le había dicho que tenían que irse, así que la pequeña empezó a llorar por el unicornio.\n\nEl encargado, un hombre que claramente disfrutaba el momento, se rió al verla llorar.\n\n—Ya se lo llevará alguien más, no te preocupes.\n\nAlastor no pareció molesto. Sacó un billete, se lo entregó al hombre y tomó uno de los rifles ya preparados.\n\n—Tienes cuatro tiros —dijo el encargado—. Tira cualquiera de las torres y te llevas un peluche de recuerdo.\n\nLa distancia entre el punto de tiro y los vasos era de unos tres metros. El proyectil de corcho no debía de ser mucho más grande que un dedal. Alastor alzó el rifle, apuntó a la torre del centro y apretó el gatillo.\n\nEl corcho salió despedido con un pequeño estallido, voló apenas medio metro y cayó antes de alcanzar la tabla siquiera. El encargado ahogó una burla y siguió con lo suyo. Theo, sentado a espaldas de Alastor, le robaba palomitas a un niño que observaba con el mismo interés al detective fallando el tiro.\n\nAlastor bajó el rifle, lo inspeccionó, y ajustó la salida de aire que regulaba la potencia del proyectil. Cargó otro corcho mientras el encargado se acercaba, visiblemente molesto.\n\n—¡No puedes hacer eso! —protestó, intentando arrebatarle el arma.\n\n—La presión de este rifle no basta para lastimar nada a esta distancia. El propósito del juego es derribar las torres con las herramientas que ustedes mismos proporcionan, y esas herramientas deberían poder cumplir con lo que el juego promete.\n\n—¿Qué dices? Aquí las reglas las pongo yo.\n\nEl dueño intentó tomar el arma otra vez. Alastor lo esquivó mientras sacaba su placa del abrigo y se la mostraba.\n\n—Si propone un juego en el que los participantes no pueden ganar nunca, entonces ya no es un juego. Es una estafa.\n\nEl encargado, molesto, se limitó a volver a su asiento y observar al detective con recelo. Alastor guardó la placa, plantó los pies con firmeza y volvió a apuntar.\n\nPum. Pum. Pum.\n\nTres tiros, tres torres abajo. El público que se había reunido al oír la discusión vitoreó cuando Alastor bajó el rifle y se acercó al dueño a reclamar su premio. Señaló el unicornio grande y afelpado en la torre de premios, y se dirigió a la niña, que había quedado boquiabierta con la puntería del detective. Ella gritó de la emoción, sin dejar de saltar, agradeciéndole a su héroe salido de la nada.\n\nAlastor se reunió con Theo mientras ambos veían a la niña presumirle su nuevo amigo a sus padres, que le sonreían agradecidos al detective.\n\n—Mi padre… —empezó a decir Alastor—. Trabajaba mucho. Era detective, como yo. Mi madre se encargaba de la casa y de mi educación. No salíamos demasiado.\n\nTheo no dijo nada por un momento.\n\n—A veces está bien divertirse —dijo por fin—. Dejar el trabajo para después.\n\nVieron a la niña alejarse de la mano de sus padres. Ya no había silencios incómodos entre el detective y el aspirante a escritor. No más.\n\n—O a veces —dijo Theo de pronto, con la vista fija en otro punto— eres como nosotros, y puedes hacer ambas cosas a la vez.\n\nSeñaló dos puntos a la distancia, y Alastor vio lo mismo que su compañero. Dos hombres llegando por caminos distintos, cada uno con una bolsa idéntica a la del otro. Ambos parecían dirigirse al mismo lugar: la noria.\n\nLos dos sospechosos no podían ser más distintos entre sí. El que llegaba desde la puerta oeste iba bien vestido, arreglado, con paso firme. Alto, de complexión fuerte bajo el saco. Su bolsa iba claramente llena; se notaba la tensión en las agarraderas, sostenidas con una sola mano.\n\nEl segundo, que entraba por la puerta este, era más bajo y delgado, con ropa holgada y menos formal. Miraba a todos lados, visiblemente nervioso. Su bolsa tenía el mismo tamaño, incluso el mismo modelo, pero iba vacía. El primero representaba al comprador y traía el pago; el segundo venía de parte de quienes recibían el dinero: “Los Jaguares”.\n\nAlastor y Theo los siguieron a distancia prudente, fingiendo interés en los puestos de vez en cuando. Al llegar a la noria, los dos hombres subieron juntos a la misma cabina. Theo se preparó para correr y ocupar la contigua. Alastor lo detuvo.\n\n—Si bajan antes de que nosotros toquemos tierra —explicó—, nos llevarán ventaja y los perderemos a los dos. Mejor esperar a que bajen.\n\n—¿Qué es esto, una mala película de policías?\n\nEsperaron a que la cabina completara la vuelta entera. Les dio tiempo de repasar las posibles rutas de escape mientras compraban un par de pretzels salados, por si acaso.\n\nCuando los traficantes volvieron a tocar tierra, algo había cambiado. Los dos extraños no parecían haber cruzado palabra, pero ahora cada uno cargaba el bolso del otro. El hombre elegante llevaba una bolsa vacía, disimulando sin mucho éxito el cambio de peso. El joven delgado, en cambio, forcejeaba con una que claramente no llevaba antes.\n\nAlastor y Theo ya habían decidido a quién seguir. El detective fue tras el miembro de “Los Jaguares”; el escritor, tras el hombre bien vestido. Avanzaron con cuidado, alejándose cada vez más el uno del otro. El plan era llegar hasta una dirección o un vehículo identificable, y entonces pedir refuerzos. Iban a medio camino entre la noria y la salida este cuando Alastor escuchó una voz llamándolo.\n\n—¡Señor policía! ¡Señor policía! —decía la niña del unicornio—. Usted es increíble, gracias otra vez por el udicordio.\n\nEl mundo pareció detenerse. Alastor volteó justo cuando su objetivo le devolvía la mirada. El joven abrió mucho los ojos y giró de inmediato para echar a correr. El hombre elegante no había escuchado nada, pero al ver correr a quien le había entregado el dinero, hizo lo mismo, de regreso a la salida por la que había entrado.\n\n—Pues sí que estamos en una de esas películas, ¿eh? —gritó Theo. Alastor maldijo.\n\nDespués, ambos corrieron detrás de sus presas.\n\nFiel a su imagen, el corredor de saco y zapatos lustrosos tenía una condición física envidiable. Theo, que difícilmente se ejercitaba, ya veía puntos negros.\n\nEsquivaron puestos de comida, familias en el camino, todo tipo de obstáculos. En algún momento, el hombre le lanzó la bolsa vacía por encima del hombro, esperando darle a Theo. Este la atrapó en el aire, victorioso.\n\n—¡Ja!\n\nVolvió a mirar al frente justo a tiempo para descubrir que su rival le apuntaba con un arma. Una real, nada que ver con las de los juegos de la feria.\n\n—Oh, oh.\n\nSe agachó cuando una bala pasó justo por encima de su cabeza. Algo explotó detrás de él. Se desató el caos: la gente empezó a gritar a su alrededor. El traficante siguió disparando mientras Theo avanzaba con cuidado; la multitud corriendo le daba una especie de cobertura, aunque no duraría mucho.\n\nSe asomó desde un carrito de algodones de azúcar, y una bala pasó a centímetros de su cara. Volvió a agacharse y buscó, desesperado, algo que arrojar. A sus pies, dos aros de un juego de botellas se cubrían de tierra bajo los pies de la gente que corría.\n\nLanzarlos directo sería un suicidio; el próximo tiro no fallaría. En su lugar, arrojó el primero hacia su derecha, donde estalló un foco de algún puesto. No tenía forma de saber si su tirador había volteado hacia la distracción, pero, aun así, se asomó por completo y apuntó a la muñeca del hombre.\n\nFalló.\n\nEl aro pasó de largo de la mano, y terminó aterrizando de lleno en su nariz. El impacto lo desequilibró; retrocedió un paso. Theo aprovechó para saltar sobre el carrito y desarmarlo de un golpe. El arma cayó lejos. Hubo un forcejeo, y Theo terminó en el suelo.\n\nSu rival buscó el arma sin encontrarla. En su lugar, corrió hacia el juego del mazo y la campana, tomó la enorme masa de madera, y se metió en una de las atracciones: la casa de los espejos.\n\n—Oh, vamos. ¿En serio? De todos los lugares, ¿el más cliché?\n\nTheo se sacudió la tierra de los pantalones y siguió a su objetivo.\n\nDentro, apenas se veía nada. Las luces de neón marcaban un camino confuso para quien intentara cruzarlo. Miles de reflejos devolvían la mirada del elegante caballero, que los miraba de vuelta, mazo en ristre, mientras atravesaba la sala.\n\n—Aquí.\n\n¡TRAZ!\n\nCreyó haber visto al hombrecito que lo seguía. Solo rompió un espejo.\n\n—Fallaste.\n\n¡TRAZ!\n\nOtro cristal roto. La dinámica se repitió dos o tres veces más. Theo corría de un lado a otro, burlándose del salvaje que quería aplastarlo. El hombre, desesperado, empezó a romperlo todo a diestra y siniestra, hasta que no quedó un solo espejo en pie. Solo un Theo.\n\nEl hombre alzó el mazo una última vez, pero Theo le sujetó los brazos antes de que terminara de bajar. Forcejearon de nuevo, aunque la diferencia de fuerza era evidente. Theo sintió cómo le sangraba la nariz cuando su rival le propinó un cabezazo. Cayó al suelo.\n\nAmbos estaban exhaustos, pero solo faltaba un golpe. El mazo quedó suspendido en el aire una última vez.\n\nTheo agarró un puñado de cristales del piso, cortándose los dedos en el proceso, y se los arrojó a los ojos. Su contrincante soltó el mazo para llevarse las manos a la cara. Theo recogió el arma caída y descargó todo su peso sobre él. El golpe fue seco.\n\n—Cuando esto acabe —dijo Theo—, le cobraré a Ben con intereses.\n\nSe dejó caer al piso.\n\nNo culpaba a la pobre niña. No lo había hecho a propósito. O eso esperaba.\n\nEl joven abrazaba la bolsa como si de eso dependiera su vida, que probablemente fuera el caso. Esquivó a la gente con destreza y se lanzó hacia la salida, cuya puerta ya se veía a la distancia. El detective corría detrás, midiendo la distancia que los separaba.\n\nSe oyeron disparos en la dirección en la que había corrido Theo. Solo podía confiar en que estuviera bien. No sirvió de mucho: se preocupó igual.\n\nSiguió corriendo, esquivando a la multitud alterada que le entorpecía el paso. Ya fuera por la adrenalina o por pura suerte, el chico de la bolsa estaba más cerca de los torniquetes que de ser alcanzado.\n\nAlastor frenó en seco. Lo entendió: no lo alcanzaría. Un grito ahogado a su lado lo sacó de sus pensamientos. Estaba de vuelta frente al puesto de rifles. El encargado, aterrado, no sabía qué hacer. Alastor hizo unos cálculos rápidos.\n\nVio a su objetivo dirigirse a la salida este, justo al lado de un corral donde la gente podía rentar caballos por hora. Los animales, ya alterados, se empujaban entre ellos hacia la esquina más próxima a los torniquetes. Y el chico con el dinero tendría que pasar justo frente a ellos. Alzó una mano hacia el hombre que se escondía a su lado.\n\n—¡Arma!\n\nEl encargado dudó, se miró las manos y le lanzó un rifle recién cargado a tope. Alastor lo atrapó al vuelo sin dejar de correr.\n\n—¡No le vas a dar! —gritó el hombre—. El corcho es demasiado pequeño.\n\nPero el detective no apuntaba al corredor.\n\nTrotar mientras calculaba resultaba difícil, pero tenía que intentarlo. Empezó a contar hacia atrás. Calculó la velocidad del chico. Los números, sus viejos y únicos amigos, parecían darle el visto bueno. Subió la presión del rifle al máximo. Apuntó.\n\nEspera.\n\nDiez metros a la salida.\n\nEspera.\n\nCinco metros.\n\nEspera.\n\nLos caballos relincharon.\n\nAhora.\n\nApretó el gatillo justo al barrerse, y el corcho salió disparado a una velocidad increíble. El joven alcanzó los torniquetes con la mano en el mismo instante en que el proyectil pegó en el cuarto trasero del caballo acorralado en esa esquina. El animal se sacudió por la sorpresa y, cuando el chico estaba a punto de cruzar la salida, recibió una patada en plena cara que lo tiró al suelo, rompiéndole la nariz en el acto.\n\nAlastor se puso de pie, recargó el rifle sobre el hombro y sacó las esposas mientras se acercaba al joven inconsciente.\n\n—Me pregunto cómo le habrá ido a Theodore.\n\nEmpezó a silbar."
+    },
+    {
+     "id": "extra-el-circo-esc-3",
+     "title": "El almacén",
+     "text": "—Se hacen llamar genios a sí mismos —J.J. se veía molesto—. Pero no fueron capaces de seguir la única indicación que les di.\n\nEl circo entero había sido ocupado por las autoridades. El sargento Jeffords terminó por acudir al lugar en persona cuando sus oficiales empezaron a recibir llamadas reportando disparos en el circo ambulante. Una docena de patrullas cercaron la zona y los oficiales evacuaban a los civiles mientras J.J. hablaba con Alastor y Theodore. Este último parecía haber saltado por una ventana: estaba cubierto de vidrios y pequeños cortes, con la nariz sangrando.\n\n—Creí haberles dicho que no había movilizado a mis hombres precisamente para que ustedes pudieran trabajar con discreción. No pensé que alguien de su “nivel” terminaría poniendo esto de cabeza —decía el sargento, señalando el desastre a su alrededor.\n\nLa multitud, alterada, había volcado varios carritos de comida; la casa de los espejos se daba por pérdida total, y los juegos mecánicos se habían detenido de emergencia, lo que obligó a los oficiales a ayudar a la gente que colgaba boca abajo.\n\n—Si me lo permite, sargento —empezó Alastor—, usted en ningún momento nos ordenó mantener un perfil bajo.\n\n—Detective… —se quejó Theo.\n\n—Nosotros cumplimos con lo pactado. Nos adaptamos a las circunstancias conforme se fueron presentando.\n\n—Detective…\n\n—Además, nadie resultó herido de gravedad.\n\nTheo terminó por tomarlo del brazo. El detective seguía argumentando mientras veía a la gente abandonar el lugar, así que cuando finalmente volteó, encontró a su compañero genuinamente angustiado por la mirada que J.J. les dedicaba. Alastor entendió que quizás no era el mejor momento para seguir discutiendo. Las venas del sargento se marcaban en las sienes; apretaba la mandíbula con fuerza. Cerró los ojos, exhaló tres veces contando mentalmente, hasta que pareció dejar de querer estrangular a los dos hombres frente a él.\n\n—Y por si fuera poco —terminó por decir—, ambos sospechosos están inconscientes, con posibles contusiones causadas, al parecer, por una herradura de caballo y un martillo de madera.\n\nTanto el hombre de finas ropas como el joven de la banda eran atendidos por paramédicos en una ambulancia cercana, esposados a las camillas; los enfermeros dudaban que fueran a despertar pronto. Entre sus pertenencias, el joven llevaba un teléfono de principios de siglo; el otro cargaba un celular más moderno, aplastado en la persecución, y una cartera con pocos billetes, identificaciones y varias tarjetas de presentación. Los tres objetos descansaban en bolsas de evidencia que el sargento sostenía en la mano.\n\n—Si resulta que “Los Jaguares” deciden movilizarse esta noche, no tenemos forma de saber hacia dónde ni cómo. Perderemos meses de trabajo gracias a ustedes.\n\nTheo y Alastor se miraron un momento. Hubo una pequeña conversación silenciosa, y ambos asintieron. Theo tomó la bolsa con las pertenencias de su captura y empezó a revisar las tarjetas. Alastor tomó el teléfono confiscado y revisó el historial de mensajes de los últimos días. J.J. intentó objetar, pero decidió que no tenía caso tratar de detener a esos dos.\n\nTheo sacó una tarjeta que destacaba entre las demás por su antigüedad, se la tendió al detective y se dirigió al límite del perímetro. Alastor la tomó sin dejar de revisar mensajes, hasta que encontró uno de un contacto sin registrar. Le tomó varios intentos escribir: los SMS ahí se mandaban solo con el teclado numérico, como en los viejos tiempos. No tardó en recibir respuesta. Consultó la tarjeta que le había dado Theo, asintió, y siguió sus pasos.\n\nJ.J. se quedó viendo cómo se alejaban, hasta que recordó que el que mandaba ahí era él, y apresuró el paso para alcanzarlos.\n\n—¿Pueden explicarme qué se supone que están haciendo?\n\n—El hombre que perseguía Theodore cuidaba mucho su apariencia, y se notaba que compraba lo último en el mercado —explicó Alastor—. En su cartera había una sola tarjeta de presentación que no correspondía a este año. Las demás, probablemente, eran de sus distribuidores.\n\n—¿Y sabían que estaba ahí? —preguntó J.J., sorprendido.\n\n—No —aseguró el detective—. Si no encontrábamos nada entre sus cosas, hubiéramos ido a la ambulancia a examinarlos otra vez.\n\n—¿Y el teléfono? ¿A quién le escribiste?\n\n—No lo sé.\n\nJ.J. se detuvo.\n\n—¿No lo sabes?\n\n—No.\n\n—No entiendo.\n\nAlastor llegó a la cinta policial que marcaba el límite, y volteó antes de pasar bajo el plástico amarillo.\n\n—Era un contacto sin registrar. Supongo que aquel chico pensaba que así nadie sabría con quién hablaba. Lo curioso es que olvidó borrar el resto de los mensajes con ese número.\n\n—¿Y qué decían? ¿Qué tiene eso que ver con la tarjeta vieja del otro?\n\n—Eran órdenes. Ubicaciones. No venía la dirección exacta, solo nombres de referencia que imagino ya conocían de antes. Le mandé un mensaje al mismo número diciendo que la policía nos había descubierto, que había logrado huir con el paquete, pero que el punto acordado estaba comprometido. Pedí que me indicaran uno nuevo, y resultó ser justo el que esperaba.\n\nPasó bajo la cinta amarilla y alcanzó a Theo, que se despedía de un hombre con la ropa sucia y aspecto de no haberse bañado en varios días. En cuanto el detective llegó a su lado, el indigente se alejó calle arriba con cierta prisa.\n\n—¿Y qué lugar es ese?\n\nLos dos hombres intercambiaron un par de palabras antes de responder. Alastor alzó la tarjeta que aún tenía en la mano, y Theo sonrió a su lado.\n\n—Un almacén.\n\nLa dirección impresa en la tarjeta resultó ser la de un almacén de una fábrica de juguetes cerrada años atrás. Según los contactos de Theo, el edificio había sido transformado en un club nocturno, a solo unas calles de donde estaban. Alastor creía que era la base de operaciones de “Los Jaguares”, y que el hombre que buscaban podría estar ahí.\n\nJ.J. les ordenó retirarse junto con su consultor, pero ambos decidieron ayudar en el operativo bajo la excusa de que sin ellos no habrían encontrado el lugar tan rápido, lo cual era cierto.\n\nUna vez ubicado el edificio, el sargento ordenó cerrar ambos extremos de la calle donde estaba la entrada principal. Mientras todos revisaban municiones y ajustaban chalecos, Theo corrió hacia una esquina, donde el hombre que le había dado la información esperaba con lo que parecía ser un tubo porta-planos, más grande de lo habitual. Al volver junto a Alastor, desenroscó la tapa y sacó una espada ropera que hizo girar en el aire.\n\n—¿Le pediste a las ratas que fueran por eso? —preguntó el detective—. ¿Para qué la necesitas?\n\n—Oye, hace menos de dos horas estuve a punto de morir aplastado por un martillo, como si fuera un topo de atracción. No pienso volver a entrar a ningún lugar contigo estando desarmado.\n\nAlastor asintió y contó, una última vez, la munición de su arma. J.J. dio las indicaciones finales y comenzó la operación. Los oficiales se apostaron a ambos lados de la enorme puerta metálica del almacén, colocaron un par de explosivos y retrocedieron justo cuando sonó la detonación.\n\nUn hueco enorme dio paso a cientos de oficiales, que entraron con las armas en ristre y se posicionaron antes de que el humo terminara de disiparse.\n\nJ.J. encendió su megáfono y entró escoltado por varios hombres, armados hasta los dientes.\n\n—Atención —decía, con la voz amplificada—. Somos la unidad de antidrogas de la Policía de la ciudad. Quedan todos bajo arresto por sospecha de tráfico de drogas. Cooperen, o nos veremos obligados a usar medidas extremas.\n\nAlastor y Theo entraron por extremos opuestos de la puerta recién destruida, y comenzaron a estudiar el entorno. Varios jóvenes de entre quince y treinta años se veían claramente confundidos por el movimiento de hacía apenas un momento. Las chicas abrazaban a sus acompañantes mientras lloraban entre sollozos. Era, evidentemente, un club juvenil, pero lugares como ese eran perfectos para intercambiar mercancía ilegal en grandes cantidades. Del techo colgaban redes de carga con juguetes de distintos tipos, todos de peluche. Fuera por intención o descuido, los objetos suspendidos en el aire le daban al lugar un aire sombrío.\n\nAl norte, a la vista de Theo, había una oficina en el segundo piso. Una pasarela metálica unía el cubículo elevado con unas escaleras hacia planta baja y, del otro lado, con una salida de emergencia al exterior. Al sur, un muelle de carga conectaba con un camión a medio llenar de bloques de lo que parecía yeso blanco. Alastor podría cubrir esa distancia en unas cuantas zancadas. Detective y consultor concluyeron, sin necesidad de palabras, que había que cubrir ambas vías cuanto antes.\n\nAntes de que J.J. pudiera dar órdenes a los uniformados, las luces del lugar se apagaron. De entre la multitud salieron disparados media docena de hombres desde el centro de la agrupación, directo hacia la salida más cercana a la zona de desembarque, mientras que, arriba, una figura salía de la oficina en dirección a la puerta al final de la pasarela.\n\nAún cubiertos por la oscuridad, visibles apenas por la luz que entraba a sus espaldas, Alastor y Theo cruzaron miradas, buscando instintivamente la aprobación del otro. Sin mediar palabra, cada uno asumió su tarea, confiando en que el otro cumpliría la suya. Sujetaron sus armas con firmeza y corrieron en direcciones opuestas, entre varios oficiales todavía confundidos, esperando instrucciones.\n\nEsquivando con habilidad a la multitud, Alastor cruzó la distancia hasta la cortina metálica que daba al camión semivacío, justo a tiempo para ver salir al primero de los hombres de entre la muchedumbre. Reconoció el modelo de la cortina de inmediato: uno de esos sistemas con batería de respaldo, diseñados para bloquearse por completo en cuanto detectan un corte total de energía, como medida contra el robo. Confiando una vez más en su puntería, dirigió su primera bala real de la noche al panel de control junto a la cortina. El disparo escandalizó a los jóvenes a su alrededor cuando la caja metálica escupió chispas por todas partes, y la cortina cayó justo a tiempo para que los seis malhechores estamparan la cara contra el metal frío que acababa de cortarles el paso. Anotando mentalmente un tanto más a su favor, Alastor enfundó el arma y sacó un pañuelo de seda bordado para limpiar el cristal de sus gafas.\n\nPor el lado sur, Theo había subido las escaleras de tres en tres, como quien cruza un campo abierto. Frente a él, un hombre corpulento y de baja estatura corría con los brazos al frente, intentando alcanzar la salida de emergencia. Sin frenar el paso, el espadachín cortó tres cuerdas delgadas que sostenían otras tantas redes colgantes. La primera osciló en el aire y golpeó la segunda; esta, a su vez, golpeó la tercera con fuerza suficiente para volcar todo su contenido contra la pared opuesta. Cientos de animales de peluche cayeron sobre la pasarela, bloqueando por completo la única vía de escape que el hombre tenía al alcance. Se giró sobre sí mismo, justo para sentir el filo de una espada presionándole la garganta, suave pero firme. Theo sonrió al comprobar que ninguno de los miembros de la banda había logrado escapar.\n\nMirando desde abajo, Alastor vio a su compañero alardear de sus propios movimientos, y una sonrisa se le escapó cuando los oficiales por fin dieron con la forma de encender las luces de nuevo."
+    },
+    {
+     "id": "extra-el-circo-esc-4",
+     "title": "El interrogatorio",
+     "text": "—Augusto Valderrama, por fin nos vemos las caras.\n\nDe vuelta en la comisaría, mientras el resto de los oficiales comenzaba el papeleo y procesaba a “Los Jaguares”, en la sala de interrogatorios J.J. observaba al líder de la banda a través del vidrio. Theo y Alastor esperaban luz verde del sargento para entrar al cuarto contiguo y comenzar.\n\nHabían registrado el almacén de cabo a rabo. El camión, a medio cargar, escondía al menos una tonelada de material incriminatorio. En la oficina de Valderrama encontraron registros que probaban que el club operaba como tal, pero servía de fachada para operaciones ilícitas. Sin embargo, por más que buscaron, no hallaron nada relacionado con la desaparición de Eloise, salvo un pequeño altar de fotos guardado dentro de un archivero.\n\n—He seguido la carrera de este hombre por meses —continuó J.J.—. Es un bastardo de lo peor. Dicen que le corta los dedos a quienes se atrasan con los pagos. Incluso escribí un reporte sobre los métodos de tortura que usa con bandas rivales. Todo para que, al final, fueran ustedes dos los que lo atraparan.\n\nAlastor y Theo cruzaron miradas. El primero, de pie, firme, con las manos en la espalda; el otro, recargado en el borde de un escritorio. El consultor alzó el puño, esperando que el detective correspondiera, pero este se limitó a poner la palma contra los nudillos de un Theo bastante confundido.\n\n—Pero un trato es un trato. Tienen diez minutos —dijo el sargento, caminando hacia la puerta. Antes de salir, se giró hacia ambos—. No hagan que me arrepienta.\n\nEn cuanto J.J. salió, Theo se puso de pie de nuevo y le habló al detective con cierta emoción contenida.\n\n—De acuerdo, hagámoslo —se frotó las manos, mirando al hombre detrás del espejo—. Siempre he querido hacer esto. Ahora, ya que tú tienes toda la pinta de policía malo, yo seré el bueno, pero, ¿no sería más divertido al revés?\n\n—Tú no eres policía —señaló el otro.\n\nTheo se llevó las manos a las sienes y cerró los ojos con una decepción bastante teatral.\n\n—Es muy tarde para esto, detective. No me hagas enojar.\n\nAlastor se encogió de hombros y cruzó al otro lado del cristal. Dentro, Valderrama esperaba, impaciente, esposado a la mesa. Debía medir cerca de metro sesenta, sesenta y cinco. Hombros anchos, cara redonda, claramente por encima de su peso saludable. Sus rasgos delataban ascendencia latina; según J.J., un mexicano que había llegado al país siendo joven. Casi no tenía pelo en la cabeza, pero su vello facial estaba bien cuidado, y en su barba de candado y cejas pobladas ya asomaban algunas canas. Vestía una flamante camisa de torero, amarilla.\n\n—Quiero a mi abogado —se limitó a decir—. Estoy en mi derecho.\n\n—Escucha, basura —dijo Theo, entregado a su papel—, confiscamos en el almacén varios paquetes llenos de droga, y tus queridos jaguares ya te señalaron como el líder principal de la banda. Así que sí, llamaremos a tu abogado, pero yo que tú trataría de conseguir un trato mientras estoy de humor.\n\nTheo pateó una de las sillas y apoyó ambas manos con fuerza frente al detenido. Lo que acababa de decir era mentira: los jaguares aún no habían sido interrogados, seguían en sus celdas. Y por protocolo, pensó Alastor, si el acusado pedía a su abogado, debían contactarlo de inmediato. Estaba a punto de decírselo a Theo cuando vio la indecisión cruzar los ojos de Valderrama, y decidió quedarse callado. Después de todo, Theo técnicamente no era oficial de las fuerzas policiales. Aunque tampoco es que debiera estar ahí en primer lugar.\n\n—¿Qué es lo que quieren? —dijo el esposado.\n\nTheo sonrió mientras miraba a su compañero con una expresión que decía “¿Qué tal?”.\n\n—Investigamos la desaparición de Annabeth Sinclair —comenzó Alastor—. Tal vez la conozcas como Eloise. Uno de nuestros informantes declaró que tienes un lazo emocionalmente fuerte con la cantante.\n\n—Se te ha visto llevar a tu oficina a jovencitas que se le parecen —interrumpió Theo—, así que tenemos buenas razones para creer que planeabas usar el dinero de esta noche para costear su secuestro, y escapar del país con tu botín.\n\nLos dos hombres, de pie frente a él, presionaban solo con su presencia. Valderrama se veía cada vez más molesto conforme seguían las acusaciones. Y justo cuando parecía a punto de confesarse la mente maestra detrás de la desaparición de Eloise, rompió a llorar.\n\n—¿Eloise? ¿Mi preciosa Eloise? —decía entre sollozos—. Jamás me atrevería a hacerle daño a ese ángel caído del cielo.\n\nTheo y Alastor enmudecieron al ver a un criminal de semejante reputación deshacerse en lágrimas, sorbiéndose la nariz y limpiándosela con las mangas de su colorida camisa. Ninguno de los dos supo cómo reaccionar ante tal despliegue de tristeza.\n\n—Sí, la adoro —continuó Valderrama—. Pensaba usar las ganancias de hoy para salir en su búsqueda. Hay una sola cosa buena en este mundo, y es Eloise. Su voz es preciosa. Un amor de persona. Iba a ir tras el bastardo que se atrevió a ponerle una mano encima.\n\nLa conversación siguió así hasta bastante después de los diez minutos acordados. J.J. nunca entró a interrumpirlos; al otro lado del cristal, tampoco él daba crédito a lo que veía. Resultó que Valderrama respetaba demasiado a la cantante como para siquiera pensar en hacerle daño. Según su testimonio, había estado en el concierto la noche en que María sufrió el accidente. Había comprado un palco privado en la zona VIP que, según sus palabras, le “costó un ojo de la cara”.\n\nTerminaron el interrogatorio sin que el hombre dejara de llorar y maldecir a los secuestradores de su ángel. Theo y Alastor mantuvieron un perfil completamente profesional durante todo el proceso. Sin embargo, en cuanto salieron y cerraron la puerta tras de sí, se miraron un instante y soltaron una carcajada que duró varios minutos.\n\n—Dios mío —dijo Theo, cuando pudo volver a hablar—. Jamás pensé que el señor traficante fuera tan sensible.\n\n—Ya sabes lo que dicen —contestó Alastor—. No juzgues un libro por su portada. O, en este caso, a un maleante por su cantante.\n\nRieron un rato más, y para cuando recuperaron el aliento estaban de muy buen humor. Theo puso una mano en el hombro de su compañero. Estaba claro que esa pista no llevaría a ninguna parte.\n\n—Siento que esto haya sido en vano, detective.\n\n—No, yo lo siento —contestó el otro—. Te arrastré a una operación en la que pudiste salir herido.\n\n—Nha, me las habría arreglado. Además, creo que necesitábamos distraernos un poco.\n\nAlastor asintió. Se notaba menos tenso que esa tarde. Habían pasado muchas cosas desde que salió de su casa, pero se sentía más despejado que nunca.\n\n—Al final tuviste razón —dijo.\n\n—¿En qué, detective? Tengo razón en muchas cosas.\n\n—En que ya habíamos hecho todo lo que estaba en nuestras manos, y a veces lo único que queda es esperar.\n\nTheo se sorprendió al escuchar esas palabras en boca de su compañero, y sonrió, satisfecho de ver su propia filosofía filtrándose poco a poco en la mente de Alastor. Caminaron lado a lado hasta las puertas de la comisaría, y el consultor bostezó mientras se estiraba con pereza.\n\n—Bueno, detective, aún quedan un par de horas antes de que salga el sol por completo. Necesito descansar, si quieres que te siga siendo de utilidad. Además, todavía tengo que quitarme un par de cristales de la ropa.\n\n—Descansa, Theodore. Yo me encargo del papeleo y de hablar con Jeffords.\n\nSe estrecharon la mano, y Alastor observó cómo el consultor salía hacia la calle, justo cuando los primeros rayos de luz anunciaban el comienzo de un nuevo día."
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-6",
+   "title": "6 · La productora",
+   "act": 1,
+   "x": 240,
+   "y": 210,
+   "summary": "D+3 → D+4. Alisé, la nómina del técnico, la historia de Rafael. Recado en el bar de Maxxine. Aviso de que Phineas despertó. Fin del Acto 1. (Propuesta.)",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "alise",
+    "el-tecnico",
+    "rafael-martinez",
+    "maxxine",
+    "bar-de-maxxine",
+    "la-nomina"
+   ],
+   "scenes": [
+    {
+     "id": "cap-6-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-7",
+   "title": "7 · El hospital",
+   "act": 2,
+   "x": 440,
+   "y": 210,
+   "summary": "D+4. Llegan tarde: Phineas ya está muerto. El registro de visitas. El hilo, la ranura, la puerta que no pueden abrir. (Propuesta.)",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "phineas",
+    "el-hospital",
+    "el-registro-de-visitas",
+    "el-pasillo-clausurado"
+   ],
+   "scenes": [
+    {
+     "id": "cap-7-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-8",
+   "title": "8 · El técnico",
+   "act": 2,
+   "x": 640,
+   "y": 210,
+   "summary": "D+5. El técnico, atado. Alastor y Maxxine pelean. El técnico explica la semana del concierto. Theo le recomienda a Magnolia: aquí lo descubre el lector. (Propuesta.)",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "el-tecnico",
+    "maxxine",
+    "daria-magnolia"
+   ],
+   "scenes": [
+    {
+     "id": "cap-8-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-9",
+   "title": "9 · Los planos",
+   "act": 2,
+   "x": 840,
+   "y": 210,
+   "summary": "D+5. Los planos del hospital (J.J.) y la lista del arquitecto; el nombre de Maurice Bastet solo aparece escrito. Theo se despide: tiene algo que hacer mañana. (Propuesta.)",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "jj-jeffords",
+    "el-arquitecto",
+    "maurice-bastet",
+    "la-lista-del-arquitecto"
+   ],
+   "scenes": [
+    {
+     "id": "cap-9-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-10",
+   "title": "10 · El arresto de Maxxine",
+   "act": 2,
+   "x": 1040,
+   "y": 210,
+   "summary": "D+6. Alastor libera a Maxxine; en el coche, camino al bar, hablan de Theo. La red de Abadon encuentra el coche rentado. (Propuesta.)",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "maxxine",
+    "abadon",
+    "el-coche-rentado"
+   ],
+   "scenes": [
+    {
+     "id": "cap-10-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-11",
+   "title": "11 · El cuerpo sin nombre",
+   "act": 3,
+   "x": 40,
+   "y": 380,
+   "summary": "D+8. El cuerpo sin nombre de la fosa (Maxxine): Rafael Martínez. (Propuesta.)",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "maxxine",
+    "rafael-martinez",
+    "la-fosa"
+   ],
+   "scenes": [
+    {
+     "id": "cap-11-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-12",
+   "title": "12 · Las cabañas",
+   "act": 3,
+   "x": 240,
+   "y": 380,
+   "summary": "D+9. La ruta del coche, el recuento de lo que culpa a Phineas, las cabañas. El hallazgo: el cuerpo, la lata, la carta, la hipótesis oficial. ¿Dónde está el collar? (Propuesta.)",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "annabeth-sinclair",
+    "la-cabana",
+    "la-lata",
+    "la-carta-de-annabeth",
+    "el-collar",
+    "el-coche-rentado"
+   ],
+   "scenes": [
+    {
+     "id": "cap-12-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-13",
+   "title": "13 · La pelea",
+   "act": 3,
+   "x": 440,
+   "y": 380,
+   "summary": "D+9. La pelea entre Alastor y Theo. Alastor pide el toxicológico. Caso cerrado. (Propuesta.)",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "alastor-kleinteil",
+    "theo-lunette",
+    "amanda-se-hong"
+   ],
+   "scenes": [
+    {
+     "id": "cap-13-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-14",
+   "title": "14 · Y eso nos trae a este momento",
+   "act": 3,
+   "x": 640,
+   "y": 380,
+   "summary": "D+10. De vuelta en el consultorio. Lo que no encaja: el collar. La llamada de Amanda Se-Hong con el informe toxicológico: la cadena se ordena sola. Alastor llama a Theo. (Propuesta.)",
+   "pov": "Alastor",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "daria-magnolia",
+    "amanda-se-hong",
+    "el-informe-toxicologico",
+    "el-collar",
+    "universidad-metropolitana"
+   ],
+   "scenes": [
+    {
+     "id": "cap-14-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-15",
+   "title": "15 · El clímax",
+   "act": 3,
+   "x": 840,
+   "y": 380,
+   "summary": "D+10. Único punto de separación del libro: Theo y Hunter en la casa de los Sinclair; Alastor y Alisé en la oficina de medios. Hunter confiesa y se dispara. Alisé se salva por poco.",
+   "pov": "Alastor y Theo (simultáneo)",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "theo-lunette",
+    "hunter-sinclair",
+    "alastor-kleinteil",
+    "alise",
+    "casa-sinclair",
+    "oficina-de-medios",
+    "el-collar"
+   ],
+   "scenes": [
+    {
+     "id": "cap-15-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  },
+  {
+   "id": "cap-16",
+   "title": "16 · Epílogo · El juicio de Ben",
+   "act": 3,
+   "x": 1040,
+   "y": 380,
+   "summary": "Después. El juicio de Ben, lo que no cierra. Theo ejerce por primera vez. Sembrado para la trilogía: la placa a medida, el arquitecto, la esmeralda.",
+   "pov": "Alastor y Theo",
+   "status": "idea",
+   "color": "",
+   "entityIds": [
+    "ben-smith",
+    "theo-lunette",
+    "maurice-bastet"
+   ],
+   "scenes": [
+    {
+     "id": "cap-16-esc-1",
+     "title": "Escena 1",
+     "text": ""
+    }
+   ],
+   "versions": [],
+   "trashed": false
+  }
+ ],
+ "entities": [
+  {
+   "id": "alastor-kleinteil",
+   "type": "Personaje",
+   "name": "Alastor Kleinteil",
+   "notes": "Linaje de detectives célebres. Genio de la criminalística: observación extrema, memoria de detalle, precisión absoluta; habilidades sociales nulas. Cabello castaño rizado, lentes de armazón grueso, abrigo largo café, nudo Windsor. Café a toda hora. Casa minimalista; duerme poco. Herida: la presión lo llevó al puente; lo detuvo la llamada de J.J. Arco: del hombre del puente al que impide que alguien más salte.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "protagonista",
+    "comisaría",
+    "la peor generación"
+   ],
+   "fields": {
+    "edad": "28",
+    "rol": "Detective de policía · el microscopio"
+   },
+   "relations": [
+    {
+     "targetId": "theo-lunette",
+     "label": "dúo · se caen mal y funcionan sin hablar"
+    },
+    {
+     "targetId": "jj-jeffords",
+     "label": "compañero de academia · lo salvó con una llamada"
+    },
+    {
+     "targetId": "amadeus-stalker",
+     "label": "su aprendiz · le lleva el café"
+    },
+    {
+     "targetId": "daria-magnolia",
+     "label": "narra el caso en su consultorio"
+    },
+    {
+     "targetId": "derek-strong",
+     "label": "lo desaprueba · lo quiere fuera"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "theo-lunette",
+   "type": "Personaje",
+   "name": "Theodore «Theo» Lunette",
+   "notes": "Prodigio de alcance general. Social, leal hasta el extremo. Escritor mediocre y lo sabe; ego descomunal. Rubio, sin lentes, camisa remangada, chaleco negro, corbata azul; zurdo, tinta hasta el segundo nudillo. Escribe a mano en el segundo piso de la librería de los Brown. Examen de suficiencia el D+6, fuera de pantalla. REGLA: nada sobre su familia hasta que él la presente.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "protagonista",
+    "círculo de Theo"
+   ],
+   "fields": {
+    "edad": "28",
+    "rol": "Consultor · aspirante a novelista · el telescopio"
+   },
+   "relations": [
+    {
+     "targetId": "alastor-kleinteil",
+     "label": "dúo"
+    },
+    {
+     "targetId": "alfred-brown",
+     "label": "le dicen hijo · no son sus padres"
+    },
+    {
+     "targetId": "abadon",
+     "label": "amigo · no cobra favores"
+    },
+    {
+     "targetId": "maxxine",
+     "label": "le debe mucho a Theo"
+    },
+    {
+     "targetId": "ben-smith",
+     "label": "Ben pide que lo busquen"
+    },
+    {
+     "targetId": "la-espada-ropera",
+     "label": "su arma · llega por la red del Roi"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "annabeth-sinclair",
+   "type": "Personaje",
+   "name": "Annabeth Sinclair · «Eloise»",
+   "notes": "Cantante y actriz; escribe sus letras, canta en cinco idiomas. Cabello castaño, ojos verdes (suéter verde en la referencia). Hereda el nombre en 2020, a los 16. Cree haber heredado el corazón de su padre y decide retirarse para fundar algo con el nombre de su madre. Muere envenenada en la cabaña el día de sus 20 años; sus últimos minutos los gasta protegiendo a Alisé: lanza la lata lejos y nada hasta donde no toca el fondo.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso",
+    "víctima",
+    "sinclair"
+   ],
+   "fields": {
+    "edad": "20",
+    "rol": "La víctima · segunda Eloise"
+   },
+   "relations": [
+    {
+     "targetId": "hunter-sinclair",
+     "label": "nieta · la mata"
+    },
+    {
+     "targetId": "elisabeth-sinclair",
+     "label": "hija"
+    },
+    {
+     "targetId": "rafael-martinez",
+     "label": "hija · nunca lo conoció"
+    },
+    {
+     "targetId": "ben-smith",
+     "label": "mejor amiga"
+    },
+    {
+     "targetId": "alise",
+     "label": "amiga y confidente"
+    },
+    {
+     "targetId": "el-collar",
+     "label": "lo hereda con la mentira"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "hunter-sinclair",
+   "type": "Personaje",
+   "name": "Hunter Sinclair",
+   "notes": "Capitán desde antes de 2001; se retira en 2019 a los 64. Alto, encorvado, cejas y barba blancas, ojos verdes penetrantes. Entra donde quiere sin identificación. Tres crímenes: Rafael (envenenado, desfigurado, sin huellas), Phineas (asfixiado en el hospital), Annabeth (envenenada con la misma sustancia). Sustituye la placa de la máscara la noche del concierto. Creía que Elisabeth seguía viva mientras existiera Eloise. Se dispara al leer la carta.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "antagonista",
+    "sinclair",
+    "comisaría"
+   ],
+   "fields": {
+    "edad": "69",
+    "rol": "El villano de esta novela · capitán retirado"
+   },
+   "relations": [
+    {
+     "targetId": "derek-strong",
+     "label": "su mentee y sucesor"
+    },
+    {
+     "targetId": "maurice-bastet",
+     "label": "amigo de años · lo manipula"
+    },
+    {
+     "targetId": "elisabeth-sinclair",
+     "label": "padre sobreprotector"
+    },
+    {
+     "targetId": "phineas",
+     "label": "le entrega el teléfono satelital"
+    },
+    {
+     "targetId": "la-placa-de-control",
+     "label": "la sustituye"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "maurice-bastet",
+   "type": "Personaje",
+   "name": "Maurice Bastet",
+   "notes": "Multimillonario. Compra zonas restringidas y contrata arqueólogos para vaciarlas. Veintiún años buscando la esmeralda; mandó matar a Elisabeth. Manipula a Hunter y le da la placa alterada. Nadie lo nombra en voz alta en este libro: solo aparece escrito en la lista del arquitecto.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "antagonista",
+    "trilogía",
+    "sembrado"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "El villano de la trilogía"
+   },
+   "relations": [
+    {
+     "targetId": "hunter-sinclair",
+     "label": "lo manipula"
+    },
+    {
+     "targetId": "rafael-martinez",
+     "label": "su arqueólogo"
+    },
+    {
+     "targetId": "el-collar",
+     "label": "quiere la esmeralda"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "phineas",
+   "type": "Personaje",
+   "name": "Phineas",
+   "notes": "Una cabeza más bajo que Hunter, el mejor vestido, gesticula, anillos, cabello negro quizá teñido, lentes oscuros. Representó a Tatiana, a Elisabeth, a Tatiana otra vez (2019–2020) y a Annabeth. Monta el operativo del hotel. Amenaza al técnico. Tiene a María por lujo. Cae en coma empujado por Ben; despierta, revela la ubicación y muere asfixiado. Acusado póstumamente: inocente de eso.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso",
+    "sospechoso oficial"
+   ],
+   "fields": {
+    "edad": "49",
+    "rol": "El representante"
+   },
+   "relations": [
+    {
+     "targetId": "maria",
+     "label": "amante y suplente"
+    },
+    {
+     "targetId": "tatiana",
+     "label": "la dejó dos veces"
+    },
+    {
+     "targetId": "el-tecnico",
+     "label": "lo amenaza"
+    },
+    {
+     "targetId": "ben-smith",
+     "label": "Ben lo empuja"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "maria",
+   "type": "Personaje",
+   "name": "María",
+   "notes": "Entra al hotel como modista y suplanta a Eloise una semana. Única que sabe, antes del accidente, que la del escenario no es Eloise: recibe la llamada de cancelación y no la transmite. Muere en escena al terminar la primera canción gritando un apodo que solo ella usaba con Phineas.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso",
+    "muere en escena"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "La amante y la suplente"
+   },
+   "relations": [
+    {
+     "targetId": "phineas",
+     "label": "amante"
+    },
+    {
+     "targetId": "beatriz",
+     "label": "hermana"
+    },
+    {
+     "targetId": "la-llamada-de-cancelacion",
+     "label": "la recibe y calla"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "ben-smith",
+   "type": "Personaje",
+   "name": "Benedict «Ben» Smith",
+   "notes": "Mejor amigo de Annabeth desde la guitarra prestada; enamorado de ella durante años. Una de las dos personas que conocían el plan del hotel. Reconoce que la del escenario no es ella y empuja a Phineas. Pasa la novela encerrado: el único que dijo la verdad desde el primer minuto. Sale con condena menor.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso",
+    "detenido"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "El sospechoso"
+   },
+   "relations": [
+    {
+     "targetId": "annabeth-sinclair",
+     "label": "enamorado · mejor amigo"
+    },
+    {
+     "targetId": "theo-lunette",
+     "label": "pide que lo busquen"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "alise",
+   "type": "Personaje",
+   "name": "Alisé",
+   "notes": "Asistente, confidente y amiga; empezó como fan por la misma bebida energética. Sigue en la productora sosteniendo lo que queda. Da acceso a la nómina y cuenta la historia de Elisabeth y Rafael. Le entrega las bebidas antes del viaje; cree haberla matado, no sabe del veneno. Alastor la detiene en la oficina de medios.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso",
+    "círculo de Annabeth"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "La asistente"
+   },
+   "relations": [
+    {
+     "targetId": "annabeth-sinclair",
+     "label": "amiga"
+    },
+    {
+     "targetId": "alastor-kleinteil",
+     "label": "la detiene en el clímax"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "tatiana",
+   "type": "Personaje",
+   "name": "Tatiana",
+   "notes": "Cantante dos años mayor que Elisabeth, abandonada por su agencia y por Phineas. En el palco VIP pasa a saludar a «Eloise» (María) y recibe un trato grosero. Corta un cable de la máscara: quería arruinarle el rostro, no matarla. Se entrega y pasa buena parte del libro creyéndose asesina sin serlo.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso",
+    "se entrega"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "La rival de Elisabeth"
+   },
+   "relations": [
+    {
+     "targetId": "phineas",
+     "label": "su representante · la dejó"
+    },
+    {
+     "targetId": "la-mascara",
+     "label": "corta un cable"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "el-tecnico",
+   "type": "Personaje",
+   "name": "El técnico de la productora",
+   "notes": "Joven talentoso. Amenazado por Phineas con el despido, hace las transmisiones en vivo con sustitución de rostro sobre María. Desaparece tras el concierto; lo delatan los pagos extraordinarios en nómina. Aparece atado cuando la red lo localiza.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso",
+    "nombre pendiente"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "Transmisiones con sustitución de rostro"
+   },
+   "relations": [
+    {
+     "targetId": "phineas",
+     "label": "lo amenaza"
+    },
+    {
+     "targetId": "maxxine",
+     "label": "lo retiene"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "rafael-martinez",
+   "type": "Personaje",
+   "name": "Rafael Martínez",
+   "notes": "Arqueólogo al servicio de Maurice. Conoce a Elisabeth en una gala; le entrega la esmeralda y promete volver. Comenta un problema cardíaco leve; Hunter lo usa para sembrar la mentira del corazón. Asesinado por Hunter, desfigurado y sin huellas: el cuerpo sin nombre de la fosa.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pasado",
+    "sinclair"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "El padre · arqueólogo"
+   },
+   "relations": [
+    {
+     "targetId": "elisabeth-sinclair",
+     "label": "pareja"
+    },
+    {
+     "targetId": "annabeth-sinclair",
+     "label": "padre"
+    },
+    {
+     "targetId": "maurice-bastet",
+     "label": "trabaja para él"
+    },
+    {
+     "targetId": "hunter-sinclair",
+     "label": "lo mata"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "elisabeth-sinclair",
+   "type": "Personaje",
+   "name": "Elisabeth Sinclair · la primera «Eloise»",
+   "notes": "La intérprete más importante de su generación. Melena rubia, ojos verdes (vestido rojo en la referencia; en el prólogo, verde platino). Debuta en 2001. Vigilada hasta la asfixia por su padre. Muere en 2019 en un accidente provocado por Maurice, creyendo que Rafael murió del corazón. Hereda a su hija el collar y la mentira.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pasado",
+    "sinclair"
+   ],
+   "fields": {
+    "edad": "36 al morir (2019)",
+    "rol": "La madre"
+   },
+   "relations": [
+    {
+     "targetId": "hunter-sinclair",
+     "label": "hija"
+    },
+    {
+     "targetId": "annabeth-sinclair",
+     "label": "madre"
+    },
+    {
+     "targetId": "rafael-martinez",
+     "label": "pareja"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "jj-jeffords",
+   "type": "Personaje",
+   "name": "Sargento Jacob «J.J.» Jeffords",
+   "notes": "Compañero de academia; vía rápida a archivos. Investigación propia contra «Los Jaguares». Desgastado: muchos oficiales, pocas noches de sueño. Considera a Alastor su amigo; Alastor cree lo contrario. Tras la caída del capitán corrupto, asciende.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "comisaría",
+    "la peor generación"
+   ],
+   "fields": {
+    "edad": "28",
+    "rol": "El contacto de Alastor"
+   },
+   "relations": [
+    {
+     "targetId": "alastor-kleinteil",
+     "label": "amigo · lo salvó con una llamada"
+    },
+    {
+     "targetId": "amanda-se-hong",
+     "label": "compañera de academia"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "amanda-se-hong",
+   "type": "Personaje",
+   "name": "Amanda Se-Hong",
+   "notes": "Compañera de academia de Alastor y J.J. La noche del D0 confirma por registros dentales que la víctima no es Annabeth. Es ella quien entrega el informe toxicológico antes de que pase por una oficina donde pudiera alterarse.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "comisaría",
+    "la peor generación"
+   ],
+   "fields": {
+    "edad": "28",
+    "rol": "Jefa de morgue y toxicología"
+   },
+   "relations": [
+    {
+     "targetId": "alastor-kleinteil",
+     "label": "compañera de academia"
+    },
+    {
+     "targetId": "el-informe-toxicologico",
+     "label": "lo entrega"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "derek-strong",
+   "type": "Personaje",
+   "name": "Derek Strong",
+   "notes": "Mentee y sucesor de Hunter; nunca cuestiona su presencia. Extremadamente ansioso desde el Cap. 2. Dirige operaciones ilícitas que Alastor desaprueba. Quiere deshacerse de él. Adicción que oculta con su autoridad (por definir).",
+   "image": "",
+   "color": "",
+   "tags": [
+    "comisaría",
+    "antagonista secundario"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "El capitán actual · corrupto"
+   },
+   "relations": [
+    {
+     "targetId": "hunter-sinclair",
+     "label": "su mentor"
+    },
+    {
+     "targetId": "alastor-kleinteil",
+     "label": "lo quiere fuera"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "amadeus-stalker",
+   "type": "Personaje",
+   "name": "Amadeus Stalker",
+   "notes": "Le lleva el café y le informa. En el Cap. 2 toma la identificación de Theo (licencia caducada), lo deja hablar con Ben y después descubre que no es abogado.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "comisaría"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "Oficial aprendiz de Alastor"
+   },
+   "relations": [
+    {
+     "targetId": "alastor-kleinteil",
+     "label": "su mentor"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "octavian-salvatierra",
+   "type": "Personaje",
+   "name": "Octavian Salvatierra",
+   "notes": "Capaz de armar cualquier cosa con chatarra. El nombre más imperial de los tres y es el que está debajo de un coche. Los tres saben demasiado de las tres disciplinas; se detestan y se ayudan. Tocan los martes: violín, clarinete y algo más grave. Lo único que hacen mal.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "círculo de Theo",
+    "salvatierra"
+   ],
+   "fields": {
+    "edad": "28",
+    "rol": "Trillizo · taller mecánico"
+   },
+   "relations": [
+    {
+     "targetId": "maximilian-salvatierra",
+     "label": "hermano"
+    },
+    {
+     "targetId": "sebastian-salvatierra",
+     "label": "hermano"
+    },
+    {
+     "targetId": "theo-lunette",
+     "label": "su red"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "maximilian-salvatierra",
+   "type": "Personaje",
+   "name": "Maximilian Salvatierra",
+   "notes": "Médico de renombre. Refutación viviente de la filosofía de Alastor.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "círculo de Theo",
+    "salvatierra"
+   ],
+   "fields": {
+    "edad": "28",
+    "rol": "Trillizo · consultorio médico"
+   },
+   "relations": [
+    {
+     "targetId": "octavian-salvatierra",
+     "label": "hermano"
+    },
+    {
+     "targetId": "sebastian-salvatierra",
+     "label": "hermano"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "sebastian-salvatierra",
+   "type": "Personaje",
+   "name": "Sebastián Salvatierra",
+   "notes": "El mejor chef de la ciudad. El único nombre cotidiano y es el que trabaja de cara al público.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "círculo de Theo",
+    "salvatierra"
+   ],
+   "fields": {
+    "edad": "28",
+    "rol": "Trillizo · restaurante"
+   },
+   "relations": [
+    {
+     "targetId": "octavian-salvatierra",
+     "label": "hermano"
+    },
+    {
+     "targetId": "maximilian-salvatierra",
+     "label": "hermano"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "abadon",
+   "type": "Personaje",
+   "name": "Abadon · Le Roi des Thunes",
+   "notes": "Líder de una red de gente que vive en las calles: nadie se fija en ellos y ellos observan todo. Aliado y amigo de Theo; no cobra. Localiza el coche rentado. Su red le hace llegar a Theo la espada ropera. Refutación del método de Alastor: la respuesta la tenía gente a la que ninguna cámara graba.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "círculo de Theo"
+   ],
+   "fields": {
+    "edad": "28",
+    "rol": "El Rey de las Ratas"
+   },
+   "relations": [
+    {
+     "targetId": "theo-lunette",
+     "label": "amigo"
+    },
+    {
+     "targetId": "el-coche-rentado",
+     "label": "lo localiza"
+    },
+    {
+     "targetId": "la-espada-ropera",
+     "label": "la hace llegar"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "maxxine",
+   "type": "Personaje",
+   "name": "Maxxine",
+   "notes": "Pelirroja, corpulenta. Dueña de un bar; cuida de su comunidad a golpes. Odia a la policía. La fama es peor que los hechos: intimida, esconde gente y rompe huesos. Encargos por recado en la barra. Conoce a Alastor el D+5 junto al técnico atado; pelean. Arrestada el D+6; Alastor la libera. Le debe mucho a Theo (origen pendiente).",
+   "image": "",
+   "color": "",
+   "tags": [
+    "círculo de Theo"
+   ],
+   "fields": {
+    "edad": "28",
+    "rol": "La barman"
+   },
+   "relations": [
+    {
+     "targetId": "theo-lunette",
+     "label": "le debe mucho"
+    },
+    {
+     "targetId": "alastor-kleinteil",
+     "label": "no lo perdona nunca"
+    },
+    {
+     "targetId": "bar-de-maxxine",
+     "label": "dueña"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "alfred-brown",
+   "type": "Personaje",
+   "name": "Alfred Brown",
+   "notes": "Dueño de la librería en Ashenmoor; acomoda estantes por autor y no por tema. Theo les resolvió un problema; pidió un lugar tranquilo para escribir. Le dicen hijo. No son sus padres.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "círculo de Theo",
+    "ashenmoor"
+   ],
+   "fields": {
+    "edad": "Setenta y tantos",
+    "rol": "El librero"
+   },
+   "relations": [
+    {
+     "targetId": "senora-brown",
+     "label": "esposa"
+    },
+    {
+     "targetId": "theo-lunette",
+     "label": "le dicen hijo"
+    },
+    {
+     "targetId": "libreria-brown",
+     "label": "dueño"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "senora-brown",
+   "type": "Personaje",
+   "name": "Señora Brown",
+   "notes": "Resuelve crucigramas tras el mostrador; bastón solo en la calle.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "círculo de Theo",
+    "nombre pendiente"
+   ],
+   "fields": {
+    "edad": "Setenta y tantos",
+    "rol": "La librera"
+   },
+   "relations": [
+    {
+     "targetId": "alfred-brown",
+     "label": "esposo"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "daria-magnolia",
+   "type": "Personaje",
+   "name": "Dra. Daria V. Magnolia",
+   "notes": "Universidad Metropolitana de Verlhaven, Oficinas del profesorado. Tres paredes de libros ordenados por color, tamaño y tema; ventanal; lámpara costosa con forma de pato; recetario de repostería con todos los postres fallidos. El malentendido nunca se aclara. Es la voz del lector; se enganchó con la historia.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "marco narrativo"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "Psiquiatra · el marco narrativo"
+   },
+   "relations": [
+    {
+     "targetId": "alastor-kleinteil",
+     "label": "le narra el caso"
+    },
+    {
+     "targetId": "theo-lunette",
+     "label": "le pasa el contacto a Alastor el D+5"
+    },
+    {
+     "targetId": "universidad-metropolitana",
+     "label": "su oficina"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "ashley-bailey",
+   "type": "Personaje",
+   "name": "Dra. Ashley Bailey",
+   "notes": "Nace en 2001. Dirige el programa de sobrevivientes y acompañamiento a familiares, diseñado y supervisado conscientemente. Estaba en el público del concierto; oye el apodo. Recae y sabe pedir ayuda. Es la mujer del pasillo en el Cap. 1; sus padres discuten en la sala de espera. No muere: al recordarla, Alastor entiende lo que Alisé está por hacer.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "prólogo",
+    "marco narrativo"
+   ],
+   "fields": {
+    "edad": "23",
+    "rol": "Protagonista del prólogo · psicóloga clínica"
+   },
+   "relations": [
+    {
+     "targetId": "nora",
+     "label": "su paciente individual · punto ciego intencional"
+    },
+    {
+     "targetId": "luna",
+     "label": "integrante del grupo"
+    },
+    {
+     "targetId": "alastor-kleinteil",
+     "label": "se cruzan en el pasillo"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "nora",
+   "type": "Personaje",
+   "name": "Nora",
+   "notes": "Madre que perdió a su hijo mayor. En el prólogo no se le nombra. (Antes «Bea»; cambiado para no confundir con Beatriz.)",
+   "image": "",
+   "color": "",
+   "tags": [
+    "prólogo"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "Integrante del grupo de apoyo"
+   },
+   "relations": [
+    {
+     "targetId": "ashley-bailey",
+     "label": "paciente del grupo e individual"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "luna",
+   "type": "Personaje",
+   "name": "Luna",
+   "notes": "Joven sobreviviente, de la mitad que ya superó su peor momento. Su aniversario es la semana siguiente al prólogo; «hace un año» es atemporal.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "prólogo"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "Integrante del grupo de apoyo"
+   },
+   "relations": [
+    {
+     "targetId": "ashley-bailey",
+     "label": "su grupo"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "beatriz",
+   "type": "Personaje",
+   "name": "Beatriz",
+   "notes": "Insiste en la comisaría sin que nadie la escuche. Recibe avisos de un coche rentado que no reconoce: detona la línea del coche.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso",
+    "secundario"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "Hermana de María"
+   },
+   "relations": [
+    {
+     "targetId": "maria",
+     "label": "hermana"
+    },
+    {
+     "targetId": "el-coche-rentado",
+     "label": "recibe los avisos"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "aline",
+   "type": "Personaje",
+   "name": "Alineé",
+   "notes": "Rubia, ojos castaños con tonos verdes. Alastor se queda embobado; ella no se inmuta ante su placa.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "secundario"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "Recepcionista de las Oficinas del profesorado"
+   },
+   "relations": [
+    {
+     "targetId": "universidad-metropolitana",
+     "label": "recepción"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "el-arquitecto",
+   "type": "Personaje",
+   "name": "El arquitecto del hospital",
+   "notes": "Diseñó los pasillos de servicio clausurados. Su lista de amigos (D+5) es donde aparece escrito el nombre de Maurice Bastet.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "secundario",
+    "nombre pendiente",
+    "trilogía"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "Amigo de Hunter · círculo de Maurice"
+   },
+   "relations": [
+    {
+     "targetId": "hunter-sinclair",
+     "label": "amigo"
+    },
+    {
+     "targetId": "la-lista-del-arquitecto",
+     "label": "su lista"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "augusto-valderrama",
+   "type": "Personaje",
+   "name": "Augusto Valderrama",
+   "notes": "Metro sesenta y cinco, hombros anchos, cara redonda, candado con canas, camisa de torero amarilla. Traficante temible y admirador llorón de Eloise. Lo detienen Alastor y Theo. No regresa a la trama principal.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "extra",
+    "hilo cerrado"
+   ],
+   "fields": {
+    "edad": "",
+    "rol": "Líder de «Los Jaguares» (extra «El circo»)"
+   },
+   "relations": [
+    {
+     "targetId": "jj-jeffords",
+     "label": "su investigación"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "verlhaven",
+   "type": "Lugar",
+   "name": "Verlhaven",
+   "notes": "Ciudad ficticia: nombres, leyes y cultura de inspiración europea (Londres victoriano, Belle Époque, matices alemanes) con la imagen visual de la CDMX (Del Valle, Condesa, Polanco, Insurgentes, Roma, Centro). Primera ciudad de un universo que crecerá con los años.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "mundo"
+   ],
+   "fields": {
+    "region": "Ciudad"
+   },
+   "relations": [],
+   "trashed": false
+  },
+  {
+   "id": "hochmont",
+   "type": "Lugar",
+   "name": "Hochmont",
+   "notes": "Hotel y lujo.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "distrito"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [
+    {
+     "targetId": "verlhaven",
+     "label": "distrito de"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "bosque-kaiser",
+   "type": "Lugar",
+   "name": "Bosque Kaiser",
+   "notes": "Parque central, junto a Hochmont.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "distrito"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [
+    {
+     "targetId": "verlhaven",
+     "label": "distrito de"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "vaelkirch",
+   "type": "Lugar",
+   "name": "Vaelkirch",
+   "notes": "Centro; hospital.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "distrito"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [
+    {
+     "targetId": "verlhaven",
+     "label": "distrito de"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "rivenhafen",
+   "type": "Lugar",
+   "name": "Rivenhafen",
+   "notes": "Industrial, muelles.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "distrito"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [
+    {
+     "targetId": "verlhaven",
+     "label": "distrito de"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "rosalinde",
+   "type": "Lugar",
+   "name": "Rosalinde",
+   "notes": "Vida nocturna, bohemia.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "distrito"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [
+    {
+     "targetId": "verlhaven",
+     "label": "distrito de"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "valmont",
+   "type": "Lugar",
+   "name": "Valmont",
+   "notes": "Zona profesional; universidad.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "distrito"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [
+    {
+     "targetId": "verlhaven",
+     "label": "distrito de"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "ashenmoor",
+   "type": "Lugar",
+   "name": "Ashenmoor",
+   "notes": "Afueras; la librería de los Brown.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "distrito"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [
+    {
+     "targetId": "verlhaven",
+     "label": "distrito de"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "el-estadio",
+   "type": "Lugar",
+   "name": "El Estadio",
+   "notes": "Donde se da el último concierto de «Eloise». Palco VIP: Hunter, Tatiana, Phineas; Augusto compró uno.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "distrito",
+    "prólogo"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [
+    {
+     "targetId": "verlhaven",
+     "label": "distrito de"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "universidad-metropolitana",
+   "type": "Lugar",
+   "name": "Universidad Metropolitana de Verlhaven",
+   "notes": "Edificio de Oficinas del profesorado: bloque moderno de concreto de cuatro pisos, recepción en planta baja, la oficina de Magnolia en un piso superior.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "marco narrativo"
+   ],
+   "fields": {
+    "region": "Valmont"
+   },
+   "relations": [
+    {
+     "targetId": "valmont",
+     "label": "en"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "libreria-brown",
+   "type": "Lugar",
+   "name": "Librería de los Brown",
+   "notes": "Estantes por autor. Una silla en el segundo piso donde Theo escribe a mano.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "círculo de Theo"
+   ],
+   "fields": {
+    "region": "Ashenmoor"
+   },
+   "relations": [
+    {
+     "targetId": "ashenmoor",
+     "label": "en"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "el-puente",
+   "type": "Lugar",
+   "name": "El puente",
+   "notes": "Donde Alastor estaba el D0 cuando lo detuvo la llamada de J.J.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "alastor"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [],
+   "trashed": false
+  },
+  {
+   "id": "comisaria",
+   "type": "Lugar",
+   "name": "La comisaría",
+   "notes": "Cuando Alastor entra, los oficiales se le cuadran. Operaciones ilícitas bajo Strong.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "comisaría"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [],
+   "trashed": false
+  },
+  {
+   "id": "el-hotel",
+   "type": "Lugar",
+   "name": "El hotel",
+   "notes": "Operativo de Phineas para aislar a Annabeth; María entra como modista y la suplanta una semana.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso"
+   ],
+   "fields": {
+    "region": "Hochmont"
+   },
+   "relations": [
+    {
+     "targetId": "hochmont",
+     "label": "en"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "el-hospital",
+   "type": "Lugar",
+   "name": "El hospital",
+   "notes": "Donde Phineas está en coma y donde Hunter lo asfixia tras volver por el pasillo clausurado.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso"
+   ],
+   "fields": {
+    "region": "Vaelkirch"
+   },
+   "relations": [
+    {
+     "targetId": "vaelkirch",
+     "label": "en"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "el-pasillo-clausurado",
+   "type": "Lugar",
+   "name": "El pasillo de servicio clausurado",
+   "notes": "El hilo, la ranura, la puerta que no pueden abrir. Diseñado por el arquitecto amigo de Hunter.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista"
+   ],
+   "fields": {
+    "region": "El hospital"
+   },
+   "relations": [
+    {
+     "targetId": "el-hospital",
+     "label": "en"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "edificio-salvatierra",
+   "type": "Lugar",
+   "name": "Edificio Salvatierra",
+   "notes": "Un edificio, tres negocios: taller, consultorio, restaurante. Los martes, con el restaurante cerrado, tocan.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "círculo de Theo"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [],
+   "trashed": false
+  },
+  {
+   "id": "bar-de-maxxine",
+   "type": "Lugar",
+   "name": "Bar de Maxxine",
+   "notes": "Los encargos se dejan por recado en la barra.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "círculo de Theo"
+   ],
+   "fields": {
+    "region": "Rosalinde (propuesto)"
+   },
+   "relations": [],
+   "trashed": false
+  },
+  {
+   "id": "la-cabana",
+   "type": "Lugar",
+   "name": "La cabaña",
+   "notes": "Sin señal: por eso el teléfono satelital. Donde muere Annabeth; la lata lanzada lejos, la carta, el agua.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso"
+   ],
+   "fields": {
+    "region": "Afueras"
+   },
+   "relations": [],
+   "trashed": false
+  },
+  {
+   "id": "la-fosa",
+   "type": "Lugar",
+   "name": "La fosa común",
+   "notes": "El cuerpo sin nombre: Rafael Martínez, desfigurado y sin huellas.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [],
+   "trashed": false
+  },
+  {
+   "id": "casa-sinclair",
+   "type": "Lugar",
+   "name": "Casa de los Sinclair",
+   "notes": "Theo y Hunter en el clímax. Hunter confiesa y se dispara.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "clímax"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [],
+   "trashed": false
+  },
+  {
+   "id": "oficina-de-medios",
+   "type": "Lugar",
+   "name": "Oficina de medios (la productora)",
+   "notes": "La productora de Phineas; nómina, Alisé. En el clímax, Alastor detiene a Alisé ahí.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "caso",
+    "clímax"
+   ],
+   "fields": {
+    "region": "Verlhaven"
+   },
+   "relations": [],
+   "trashed": false
+  },
+  {
+   "id": "el-collar",
+   "type": "Objeto",
+   "name": "El collar · la esmeralda",
+   "notes": "Rafael se la entrega a Elisabeth. Maurice lleva veintiún años buscándola. Ausente en la cabaña: «¿dónde está el maldito collar?». Hunter se lo lleva. Plan de Maurice: extorsionar a Hunter con él.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista",
+    "trilogía"
+   ],
+   "fields": {
+    "dueno": "Annabeth (heredado de Elisabeth; antes, Rafael)"
+   },
+   "relations": [
+    {
+     "targetId": "maurice-bastet",
+     "label": "la busca"
+    },
+    {
+     "targetId": "hunter-sinclair",
+     "label": "se lo lleva"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "la-mascara",
+   "type": "Objeto",
+   "name": "La máscara",
+   "notes": "Sustitución de rostro en vivo sobre María. Tatiana corta un cable (quería arruinar el rostro). Los Salvatierra descartan técnicamente ese sabotaje. Aparece quemada.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista"
+   ],
+   "fields": {
+    "dueno": "Producción del concierto"
+   },
+   "relations": [
+    {
+     "targetId": "la-placa-de-control",
+     "label": "contiene"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "la-placa-de-control",
+   "type": "Objeto",
+   "name": "La placa de control a medida",
+   "notes": "Maurice se la entrega a Hunter semanas antes; Hunter la sustituye tras bambalinas la noche misma del concierto.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista",
+    "trilogía"
+   ],
+   "fields": {
+    "dueno": "Maurice → Hunter"
+   },
+   "relations": [
+    {
+     "targetId": "hunter-sinclair",
+     "label": "la sustituye"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "la-espada-ropera",
+   "type": "Objeto",
+   "name": "La espada ropera",
+   "notes": "No es un florete: sí corta. Viaja en un tubo porta-planos más grande de lo habitual; la red del Roi se la hace llegar cuando la necesita.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "theo"
+   ],
+   "fields": {
+    "dueno": "Theo"
+   },
+   "relations": [
+    {
+     "targetId": "theo-lunette",
+     "label": "suya"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "el-telefono-satelital",
+   "type": "Objeto",
+   "name": "El teléfono satelital",
+   "notes": "Hunter se lo da a Phineas para Annabeth porque la cabaña no tiene señal: el único rastro de las comunicaciones de su nieta. Hunter se lo lleva de la cabaña.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista"
+   ],
+   "fields": {
+    "dueno": "Hunter → Phineas → Annabeth"
+   },
+   "relations": [
+    {
+     "targetId": "hunter-sinclair",
+     "label": "lo entrega y lo recupera"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "la-lata",
+   "type": "Objeto",
+   "name": "La lata",
+   "notes": "Alisé le entrega las bebidas antes del viaje. Hunter sustituye la lata. Annabeth la lanza lejos para proteger a Alisé.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista"
+   ],
+   "fields": {
+    "dueno": "Annabeth (bebida energética)"
+   },
+   "relations": [
+    {
+     "targetId": "alise",
+     "label": "la entregó"
+    },
+    {
+     "targetId": "hunter-sinclair",
+     "label": "la sustituye"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "la-carta-de-annabeth",
+   "type": "Objeto",
+   "name": "La carta de Annabeth",
+   "notes": "Hallada en la cabaña. Revela que iba a honrar a Elisabeth mejor que Hunter, y que la enfermedad que temía nunca existió.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista"
+   ],
+   "fields": {
+    "dueno": "Annabeth"
+   },
+   "relations": [
+    {
+     "targetId": "hunter-sinclair",
+     "label": "lo quiebra"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "el-coche-rentado",
+   "type": "Objeto",
+   "name": "El coche rentado",
+   "notes": "Los avisos le llegan a Beatriz. Encargo a Abadon (D+2); su red lo encuentra (D+6); la ruta lleva a las cabañas (D+9).",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista"
+   ],
+   "fields": {
+    "dueno": "Rentado por Phineas (con las llaves)"
+   },
+   "relations": [
+    {
+     "targetId": "abadon",
+     "label": "lo localiza"
+    },
+    {
+     "targetId": "la-cabana",
+     "label": "lleva a"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "las-llaves-de-phineas",
+   "type": "Objeto",
+   "name": "Las llaves de Phineas",
+   "notes": "En el expediente del Cap. 2. Se resuelven con el coche (Cap. 10) y la ruta (Cap. 12).",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista"
+   ],
+   "fields": {
+    "dueno": "Phineas"
+   },
+   "relations": [
+    {
+     "targetId": "el-coche-rentado",
+     "label": "abren"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "el-informe-toxicologico",
+   "type": "Objeto",
+   "name": "El informe toxicológico",
+   "notes": "Amanda se lo entrega a Alastor antes de que pase por una oficina donde pudiera alterarse. Dispara la cadena del clímax.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista",
+    "clímax"
+   ],
+   "fields": {
+    "dueno": "Amanda Se-Hong"
+   },
+   "relations": [
+    {
+     "targetId": "amanda-se-hong",
+     "label": "lo entrega"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "el-registro-de-visitas",
+   "type": "Objeto",
+   "name": "El registro de visitas del hospital",
+   "notes": "Cap. 7; se resuelve en el Cap. 15.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista"
+   ],
+   "fields": {
+    "dueno": "El hospital"
+   },
+   "relations": [
+    {
+     "targetId": "el-hospital",
+     "label": "de"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "la-nomina",
+   "type": "Objeto",
+   "name": "La nómina de la productora",
+   "notes": "Los pagos extraordinarios delatan al técnico (Cap. 6 → Cap. 8).",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista"
+   ],
+   "fields": {
+    "dueno": "Oficina de medios"
+   },
+   "relations": [
+    {
+     "targetId": "el-tecnico",
+     "label": "lo delata"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "la-lista-del-arquitecto",
+   "type": "Objeto",
+   "name": "La lista de amigos del arquitecto",
+   "notes": "D+5. El único lugar donde aparece escrito «Maurice Bastet». Nadie lo dice en voz alta.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista",
+    "trilogía"
+   ],
+   "fields": {
+    "dueno": "El arquitecto"
+   },
+   "relations": [
+    {
+     "targetId": "maurice-bastet",
+     "label": "lo nombra"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "la-llamada-de-cancelacion",
+   "type": "Objeto",
+   "name": "La llamada de cancelación",
+   "notes": "Cap. 2 vía Ben; reconstrucción en el Cap. 14 → Cap. 15.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "pista"
+   ],
+   "fields": {
+    "dueno": "María (la recibe)"
+   },
+   "relations": [
+    {
+     "targetId": "maria",
+     "label": "la calla"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "regla-familia-theo",
+   "type": "Nota",
+   "name": "REGLA · La familia de Theo",
+   "notes": "No se menciona absolutamente nada sobre la familia de Theo en ningún capítulo hasta que él mismo la presente, más adelante en la saga. Ni apellido, ni referencia de paso, ni recuerdo.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "continuidad"
+   ],
+   "fields": {},
+   "relations": [
+    {
+     "targetId": "theo-lunette",
+     "label": "sobre"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "regla-pov",
+   "type": "Nota",
+   "name": "REGLA · Punto de vista",
+   "notes": "Tercera persona omnisciente, siempre desde Alastor y Theo. Nada ocurre en pantalla si ninguno de los dos está presente, salvo el prólogo (Ashley) y el extra «El rastro de Maxxine». Lo que no se muestra se deduce, se investiga o se confiesa.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "continuidad"
+   ],
+   "fields": {},
+   "relations": [],
+   "trashed": false
+  },
+  {
+   "id": "marco-narrativo",
+   "type": "Nota",
+   "name": "Marco narrativo · el consultorio",
+   "notes": "La novela abre en el consultorio de Magnolia (D+10, Cap. 1). Desde el puente, flashback inmersivo con cortes al consultorio. El marco se cierra en el Cap. 14. Único punto de separación del dúo: el clímax (Cap. 15).",
+   "image": "",
+   "color": "",
+   "tags": [
+    "estructura"
+   ],
+   "fields": {},
+   "relations": [
+    {
+     "targetId": "daria-magnolia",
+     "label": "marco"
+    }
+   ],
+   "trashed": false
+  },
+  {
+   "id": "linea-de-tiempo",
+   "type": "Nota",
+   "name": "Línea de tiempo D0–D+10",
+   "notes": "D0 concierto y comisaría · D+1 hotel y Tatiana · D+2 Abadon y Salvatierra · D+3 productora y recados · D+4 Phineas despierta y muere · D+5 técnico, planos, Magnolia · D+6 examen de Theo, arresto de Maxxine, coche · D+8 fosa · D+9 cabañas y pelea · D+10 consultorio y clímax.",
+   "image": "",
+   "color": "",
+   "tags": [
+    "estructura"
+   ],
+   "fields": {},
+   "relations": [],
+   "trashed": false
+  },
+  {
+   "id": "capitulos-extra",
+   "type": "Nota",
+   "name": "Capítulos extra",
+   "notes": "1 El circo (noche D+2) · 2 Cena con Beatriz (D+9) · 3 El rastro de Maxxine (D+3 a D+8) · 4 Comida con los Salvatierra (después del 16) · 5 La academia (antes del 14) · 6 Cumpleaños de la señora Brown (flotante) · 7 El día a día del Roi · 8 El juicio de Ben (versión larga del 16).",
+   "image": "",
+   "color": "",
+   "tags": [
+    "estructura"
+   ],
+   "fields": {},
+   "relations": [],
+   "trashed": false
+  }
+ ],
+ "events": [
+  {
+   "id": "ev-00",
+   "title": "D0 · El concierto: María arde al terminar la primera canción",
+   "when": "D0, noche",
+   "order": 0,
+   "chapterId": "prologo",
+   "trashed": false
+  },
+  {
+   "id": "ev-01",
+   "title": "D0 · Alastor en el puente; la llamada de J.J.",
+   "when": "D0",
+   "order": 1,
+   "chapterId": "cap-1",
+   "trashed": false
+  },
+  {
+   "id": "ev-02",
+   "title": "D0 · Alastor encuentra a Theo en la librería",
+   "when": "D0",
+   "order": 2,
+   "chapterId": "cap-1",
+   "trashed": false
+  },
+  {
+   "id": "ev-03",
+   "title": "D0 · Ben empuja a Phineas; Phineas en coma",
+   "when": "D0",
+   "order": 3,
+   "chapterId": "cap-2",
+   "trashed": false
+  },
+  {
+   "id": "ev-04",
+   "title": "D0 · Amanda: la víctima no es Annabeth",
+   "when": "D0, madrugada",
+   "order": 4,
+   "chapterId": "cap-2",
+   "trashed": false
+  },
+  {
+   "id": "ev-05",
+   "title": "D+1 · Tatiana se entrega; Beatriz insiste",
+   "when": "D+1",
+   "order": 5,
+   "chapterId": "cap-3",
+   "trashed": false
+  },
+  {
+   "id": "ev-06",
+   "title": "D+2 · Audiencia con Abadon: encargo del coche",
+   "when": "D+2",
+   "order": 6,
+   "chapterId": "cap-4",
+   "trashed": false
+  },
+  {
+   "id": "ev-07",
+   "title": "D+2 · Los Salvatierra descartan el sabotaje de Tatiana",
+   "when": "D+2",
+   "order": 7,
+   "chapterId": "cap-5",
+   "trashed": false
+  },
+  {
+   "id": "ev-08",
+   "title": "D+3 · La productora: nómina, Alisé, recado a Maxxine",
+   "when": "D+3",
+   "order": 8,
+   "chapterId": "cap-6",
+   "trashed": false
+  },
+  {
+   "id": "ev-09",
+   "title": "D+4 · Phineas despierta; Hunter lo asfixia (fuera de pantalla)",
+   "when": "D+4",
+   "order": 9,
+   "chapterId": "cap-7",
+   "trashed": false
+  },
+  {
+   "id": "ev-10",
+   "title": "D+5 · El técnico atado; pelea Alastor–Maxxine; Theo recomienda a Magnolia",
+   "when": "D+5",
+   "order": 10,
+   "chapterId": "cap-8",
+   "trashed": false
+  },
+  {
+   "id": "ev-11",
+   "title": "D+5 · Planos del hospital y lista del arquitecto",
+   "when": "D+5",
+   "order": 11,
+   "chapterId": "cap-9",
+   "trashed": false
+  },
+  {
+   "id": "ev-12",
+   "title": "D+6 · Examen de Theo (fuera de pantalla); arresto de Maxxine; el coche",
+   "when": "D+6",
+   "order": 12,
+   "chapterId": "cap-10",
+   "trashed": false
+  },
+  {
+   "id": "ev-13",
+   "title": "D+8 · El cuerpo sin nombre: Rafael",
+   "when": "D+8",
+   "order": 13,
+   "chapterId": "cap-11",
+   "trashed": false
+  },
+  {
+   "id": "ev-14",
+   "title": "D+9 · Las cabañas: el cuerpo de Annabeth, la lata, la carta",
+   "when": "D+9",
+   "order": 14,
+   "chapterId": "cap-12",
+   "trashed": false
+  },
+  {
+   "id": "ev-15",
+   "title": "D+9 · La pelea; caso cerrado",
+   "when": "D+9",
+   "order": 15,
+   "chapterId": "cap-13",
+   "trashed": false
+  },
+  {
+   "id": "ev-16",
+   "title": "D+10 · Consultorio de Magnolia; llamada de Amanda",
+   "when": "D+10",
+   "order": 16,
+   "chapterId": "cap-14",
+   "trashed": false
+  },
+  {
+   "id": "ev-17",
+   "title": "D+10 · Clímax: Hunter confiesa y se dispara; Alisé se salva",
+   "when": "D+10",
+   "order": 17,
+   "chapterId": "cap-15",
+   "trashed": false
+  },
+  {
+   "id": "ev-18",
+   "title": "Después · El juicio de Ben",
+   "when": "Después",
+   "order": 18,
+   "chapterId": "cap-16",
+   "trashed": false
+  }
+ ],
+ "reviews": []
+}
