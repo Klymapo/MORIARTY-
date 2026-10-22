@@ -71,13 +71,14 @@ export function segments(text) {
   if (last < text.length) out.push({t: text.slice(last)});
   return out;
 }
-const liveChapters = (p) => p.chapters.filter((c) => !c.trashed);
+// `only` (ID de capítulo) limita la exportación a ese capítulo.
+const liveChapters = (p, only) => p.chapters.filter((c) => !c.trashed && (!only || c.id === only));
 const assetOf = (p, src) => (src.startsWith('asset:') ? p.assets?.[src.slice(6)] : null);
 const dataUrlParts = (d) => d.match(/^data:(image\/[a-z+]+);base64,(.+)$/);
 const extOf = (mime) => ({'image/webp': 'webp', 'image/png': 'png', 'image/jpeg': 'jpg', 'image/gif': 'gif', 'image/svg+xml': 'svg'}[mime] || 'img');
 
 // ---- DOCX ----
-export function docx(p, {author = ''} = {}) {
+export function docx(p, {author = '', only = ''} = {}) {
   const dropCap = p.style?.dropCap !== false;
   const run = (seg) => {
     const pr = [seg.b ? '<w:b/>' : '', seg.i ? '<w:i/>' : '', seg.u ? '<w:u w:val="single"/>' : ''].join('');
@@ -100,7 +101,7 @@ export function docx(p, {author = ''} = {}) {
   const body = [];
   body.push(para([{t: p.title}], 'Title'));
   if (author) body.push(para([{t: author}], 'Subtitle'));
-  liveChapters(p).forEach((c) => {
+  liveChapters(p, only).forEach((c) => {
     body.push(`<w:p><w:pPr><w:pageBreakBefore/><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:t xml:space="preserve">${esc(c.title)}</w:t></w:r></w:p>`);
     let first = dropCap;
     c.scenes.forEach((s, j) => {
@@ -212,9 +213,9 @@ body{font-family:Georgia,serif;line-height:1.6;margin:1em}h1{text-align:center;m
 }
 
 // ---- PDF: vista de impresión (el navegador guarda como PDF) ----
-export function printHtml(p, {author = ''} = {}) {
+export function printHtml(p, {author = '', only = ''} = {}) {
   const dropCap = p.style?.dropCap !== false;
-  const body = liveChapters(p)
+  const body = liveChapters(p, only)
     .map(
       (c) =>
         `<section class="chapter"><h1>${esc(c.title)}</h1>${c.scenes

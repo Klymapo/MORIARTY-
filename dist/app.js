@@ -111,6 +111,13 @@ const libraryView = new LibraryView(() => library, {
     save();
   },
   onBackup: backupLibrary,
+  onExport: (id) => {
+    const b = library.books.find((x) => x.project.id === id);
+    if (!b) return;
+    saveNow();
+    download(`MORIARTY_${slug(b.project.title)}.moriarty.json`, JSON.stringify(b.project, null, 2));
+    notify(`«${b.project.title}» descargado.`);
+  },
   onImport: () => $('#file').click(),
   pickCover: () => pickImage($('#imageFile'), {max: 900, quality: 0.8}),
   notify: (t) => notify(t),
@@ -317,6 +324,7 @@ function sidebar() {
       }),
   );
 }
+const openChapters = new Set();
 function chapterList() {
   $('#chapterList').innerHTML = p.chapters
     .filter(
@@ -324,11 +332,27 @@ function chapterList() {
         !c.trashed &&
         `${c.title} ${c.summary} ${c.scenes.map((s) => s.text).join(' ')}`.toLowerCase().includes(filter.toLowerCase()),
     )
-    .map(
-      (c, i) =>
-        `<button class="${c.id === cid ? 'selected' : ''}" data-chapter="${c.id}"><span class="dot status-${c.status}" style="width:7px;height:7px;border-radius:50%;background:currentColor;flex:0 0 auto"></span>${chapterLabel(c, i)}</button>${c.id === cid ? c.scenes.map((s) => `<button class="scene ${s.id === sid ? 'selected' : ''}" data-scene="${s.id}">▱ ${esc(s.title)}</button>`).join('') : ''}`,
-    )
+    .map((c, i) => {
+      const open = openChapters.has(c.id) || (c.id === cid && !openChapters.has('!' + c.id));
+      const many = c.scenes.length > 1;
+      return `<div class="ch-row ${c.id === cid ? 'current' : ''}"><button class="${c.id === cid ? 'selected' : ''}" data-chapter="${c.id}"><span class="dot status-${c.status}" style="width:7px;height:7px;border-radius:50%;background:currentColor;flex:0 0 auto"></span>${chapterLabel(c, i)}</button>${many ? `<button class="ch-fold" data-fold="${c.id}" aria-expanded="${open}" aria-label="${open ? 'Ocultar' : 'Mostrar'} escenas de ${esc(c.title)}"><small>${c.scenes.length}</small>${icon('chevron')}</button>` : ''}</div>${open && many ? `<div class="scenes">${c.scenes.map((s) => `<button class="scene ${s.id === sid && c.id === cid ? 'selected' : ''}" data-scene="${s.id}" data-of="${c.id}">▱ ${esc(s.title)}</button>`).join('')}</div>` : ''}`;
+    })
     .join('');
+  $$('#chapterList [data-fold]').forEach(
+    (b) =>
+      (b.onclick = (e) => {
+        e.stopPropagation();
+        const id = b.dataset.fold;
+        if (openChapters.has(id) || (id === cid && !openChapters.has('!' + id))) {
+          openChapters.delete(id);
+          if (id === cid) openChapters.add('!' + id);
+        } else {
+          openChapters.add(id);
+          openChapters.delete('!' + id);
+        }
+        chapterList();
+      }),
+  );
   $$('#chapterList [data-chapter]').forEach(
     (b) =>
       (b.onclick = () => {
@@ -339,6 +363,7 @@ function chapterList() {
   $$('#chapterList [data-scene]').forEach(
     (b) =>
       (b.onclick = () => {
+        cid = b.dataset.of;
         sid = b.dataset.scene;
         view = 'write';
         render();
@@ -354,7 +379,7 @@ function paint() {
   $('#projectTitle').value = p.title;
   $('#projectTitle').hidden = home;
   $('#libraryTitle').hidden = !home;
-  for (const id of ['exportBook', 'exportPack', 'txt', 'exportDocx', 'exportEpub', 'exportPdf', 'exportSep']) $('#' + id).hidden = home;
+  for (const id of ['exportBook', 'exportPack', 'txt', 'exportDocx', 'exportEpub', 'exportPdf', 'exportSep', 'exportFmtLabel', 'setAuthor']) $('#' + id).hidden = home;
   $('#searchBtn').hidden = home;
   $$('[data-view]').forEach((b) => {
     b.disabled = !hasBook() && b.dataset.view !== 'library';
@@ -423,7 +448,7 @@ function writeView() {
     goal = p.goals.chapter;
   const tb = (id, label, title, cls = '') => `<button type="button" class="fmt ${cls}" data-fmt="${id}" title="${esc(title)}" aria-label="${esc(title)}">${label}</button>`;
   $('#main').innerHTML =
-    `<div class="toolbar chapter-tools"><span class="eyebrow">ESTUDIO DE ESCRITURA</span><span class="spacer"></span><span class="type-size" role="group" aria-label="Tamaño de letra">${btn('smaller', '', '', 'Letra más pequeña')}${btn('bigger', '', '', 'Letra más grande')}</span>${btn('focus', 'Modo enfoque')}${btn('versions', 'Versiones')}${btn('exportChapter', 'Exportar capítulo')}${btn('reviewStart', 'Revisar escena')}</div><article class="editor"><input id="chapterTitle" class="title" aria-label="Título del capítulo" value="${esc(c.title)}"><details class="chapter-details" ${prefs.detailsOpen ? 'open' : ''}><summary><span class="chip status-${c.status}"><span class="dot"></span>${STATUS_LABEL[c.status]}</span><span>Detalles del capítulo</span>${c.pov ? `<span class="muted pov-hint">· ${esc(c.pov.length > 24 ? c.pov.slice(0, 23) + '…' : c.pov)}</span>` : ''}${linked.length ? `<span class="muted">· ${linked.length} ${linked.length === 1 ? 'ficha' : 'fichas'}</span>` : ''}<span class="spacer"></span><span class="muted">${cw.toLocaleString('es-MX')}${goal ? ` / ${goal.toLocaleString('es-MX')}` : ''} palabras</span></summary><div class="body"><label>Estado<select class="field" data-status>${STATUSES.map((st) => `<option value="${st}" ${st === c.status ? 'selected' : ''}>${STATUS_LABEL[st]}</option>`).join('')}</select></label><label>Punto de vista<input class="field" data-pov value="${esc(c.pov)}" placeholder="¿Quién narra?"></label><label class="wide">Resumen<textarea class="field" data-summary rows="2" placeholder="Qué pasa en este capítulo, en dos líneas.">${esc(c.summary)}</textarea></label><div class="wide"><label>Fichas en este capítulo</label><div class="chips">${linked.map((e) => `<span class="chip type-${e.type}"><span class="dot"></span>${esc(e.name)}<button data-unlink="${e.id}" aria-label="Quitar ${esc(e.name)}">${icon('close')}</button></span>`).join('')}<select class="field" data-link style="width:auto;padding:4px 8px;font-size:12px"><option value="">＋ Vincular ficha…</option>${live
+    `<div class="toolbar chapter-tools"><span class="eyebrow">ESTUDIO DE ESCRITURA</span><span class="spacer"></span><span class="type-size" role="group" aria-label="Tamaño de letra">${btn('smaller', '', '', 'Letra más pequeña')}${btn('bigger', '', '', 'Letra más grande')}</span>${btn('focus', 'Modo enfoque')}<div class="menu" id="chapterMenu"><button id="chapterMenuBtn" data-icon="more" aria-haspopup="true" aria-expanded="false"><span>Capítulo</span></button><div class="menu-list" role="menu"><button id="exportChapter" role="menuitem" data-icon="pack"><div>Exportar capítulo (JSON)<small>Para pasarlo a otro dispositivo o a un chat</small></div></button><button id="exportChapterDocx" role="menuitem" data-icon="exportDocx"><div>Capítulo en Word (.docx)</div></button><button id="exportChapterTxt" role="menuitem" data-icon="text"><div>Capítulo en texto (.txt)</div></button><button id="printChapter" role="menuitem" data-icon="exportPdf"><div>Imprimir capítulo / PDF</div></button><div class="menu-sep"></div><button id="reviewStart" role="menuitem" data-icon="review"><div>Revisar escena<small>Crea una solicitud para una IA o una persona</small></div></button><button id="versions" role="menuitem" data-icon="history"><div>Versiones<small>Copias guardadas de este capítulo</small></div></button><div class="menu-sep"></div><button id="trashChapterMenu" role="menuitem" data-icon="trash"><div>Enviar capítulo a la papelera</div></button></div></div></div><article class="editor"><input id="chapterTitle" class="title" aria-label="Título del capítulo" value="${esc(c.title)}"><details class="chapter-details" ${prefs.detailsOpen ? 'open' : ''}><summary><span class="chip status-${c.status}"><span class="dot"></span>${STATUS_LABEL[c.status]}</span><span>Detalles del capítulo</span>${c.pov ? `<span class="muted pov-hint">· ${esc(c.pov.length > 24 ? c.pov.slice(0, 23) + '…' : c.pov)}</span>` : ''}${linked.length ? `<span class="muted">· ${linked.length} ${linked.length === 1 ? 'ficha' : 'fichas'}</span>` : ''}<span class="spacer"></span><span class="muted">${cw.toLocaleString('es-MX')}${goal ? ` / ${goal.toLocaleString('es-MX')}` : ''} palabras</span></summary><div class="body"><label>Estado<select class="field" data-status>${STATUSES.map((st) => `<option value="${st}" ${st === c.status ? 'selected' : ''}>${STATUS_LABEL[st]}</option>`).join('')}</select></label><label>Punto de vista<input class="field" data-pov value="${esc(c.pov)}" placeholder="¿Quién narra?"></label><label class="wide">Resumen<textarea class="field" data-summary rows="2" placeholder="Qué pasa en este capítulo, en dos líneas.">${esc(c.summary)}</textarea></label><div class="wide"><label>Fichas en este capítulo</label><div class="chips">${linked.map((e) => `<span class="chip type-${e.type}"><span class="dot"></span>${esc(e.name)}<button data-unlink="${e.id}" aria-label="Quitar ${esc(e.name)}">${icon('close')}</button></span>`).join('')}<select class="field" data-link style="width:auto;padding:4px 8px;font-size:12px"><option value="">＋ Vincular ficha…</option>${live
       .filter((e) => !c.entityIds.includes(e.id))
       .map((e) => `<option value="${e.id}">${esc(e.type)} · ${esc(e.name)}</option>`)
       .join('')}</select></div></div></div></details>${goal ? `<div class="book-progress" style="margin:-6px 0 12px"><span class="status-${c.status}" style="flex:${Math.min(cw, goal)}"></span><span style="flex:${Math.max(goal - cw, 0)};background:transparent"></span></div>` : ''}<div class="toolbar"><select id="sceneSelect" class="field" aria-label="Escena" style="width:auto;flex:1">${c.scenes.map((s) => `<option value="${s.id}" ${s.id === sid ? 'selected' : ''}>${esc(s.title)}</option>`).join('')}</select>${btn('addScene', '＋ Escena')}${btn('trashChapter', 'A papelera')}</div><input id="sceneTitle" class="subtitle" aria-label="Título de escena" value="${esc(s.title)}"><div class="fmt-bar" role="toolbar" aria-label="Formato">${tb('b', '<b>N</b>', 'Negrita (Ctrl+B)')}${tb('i', '<i>K</i>', 'Cursiva (Ctrl+I)')}${tb('u', '<u>S</u>', 'Subrayado (Ctrl+U)')}<span class="fmt-sep"></span>${tb('quote', icon('indent'), 'Sangría / cita')}${tb('center', icon('center'), 'Centrar')}<span class="fmt-sep"></span>${tb('sep', icon('separator'), 'Separador de escena (* * *)')}${tb('break', icon('pagebreak'), 'Salto de página')}${tb('image', icon('image'), 'Insertar imagen')}<span class="fmt-sep"></span>${tb('dash', '—', 'Raya de diálogo')}${tb('ellipsis', '…', 'Puntos suspensivos')}${tb('quotes', '«»', 'Comillas latinas')}<span class="spacer"></span>${tb('dropcap', icon('dropcap'), 'Letra capital al inicio del capítulo', p.style.dropCap ? 'on' : '')}${tb('help', icon('keyboard'), 'Atajos de teclado')}${tb('search', icon('search'), 'Buscar y reemplazar (Ctrl+Shift+F)')}${tb('read', reading ? icon('edit') : icon('book'), reading ? 'Volver a escribir' : 'Vista de lectura', reading ? 'on' : '')}</div>${
@@ -550,7 +575,24 @@ function writeView() {
     render();
     notify('Capítulo enviado a la papelera. Puedes recuperarlo desde el manuscrito.');
   });
+  menu('chapterMenu', 'chapterMenuBtn');
   bind('versions', versionsView);
+  bind('trashChapterMenu', () => $('#trashChapter')?.click());
+  bind('exportChapterDocx', async () => {
+    saveNow();
+    const author = await authorName();
+    const url = URL.createObjectURL(docx(p, {author, only: c.id}));
+    Object.assign(document.createElement('a'), {href: url, download: `${slug(p.title)}_${slug(c.title)}.docx`}).click();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  });
+  bind('exportChapterTxt', () => download(`${slug(p.title)}_${slug(c.title)}.txt`, c.title + '\n\n' + c.scenes.map((s) => s.title + '\n\n' + s.text).join('\n\n'), 'text/plain;charset=utf-8'));
+  bind('printChapter', async () => {
+    const author = await authorName();
+    const w = window.open('', '_blank');
+    if (!w) return notify('El navegador bloqueó la ventana. Permite ventanas emergentes para esta app.');
+    w.document.write(printHtml(p, {author, only: c.id}));
+    w.document.close();
+  });
   bind('exportChapter', () => {
     saveNow();
     download(`MORIARTY_${slug(p.title)}_${slug(c.title)}.capitulo.moriarty.json`, JSON.stringify(createChapterPack(p, c.id), null, 2));

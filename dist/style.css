@@ -1197,7 +1197,7 @@ label .field {
   font-size: 13px;
   line-height: 1.35;
   max-width: min(360px, calc(100vw - 36px));
-  z-index: 50;
+  z-index: 36;
   opacity: 0;
   pointer-events: none;
   transition:
@@ -2626,4 +2626,62 @@ kbd { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; background: var
   /* Tarjetas y diálogos a todo lo ancho */
   .library-dialog, dialog.library-dialog { width: calc(100vw - 16px); max-width: none; margin: 8px auto; }
   h1 { font-size: 24px; }
+}
+
+/* ---------- Acordeón de capítulos ---------- */
+.ch-row { display: flex; align-items: stretch; gap: 2px; margin-bottom: 2px; }
+.ch-row > button:first-child { flex: 1; margin-bottom: 0; min-width: 0; }
+.ch-row .ch-fold {
+  width: auto;
+  flex: 0 0 auto;
+  padding: 0 8px;
+  margin: 0;
+  gap: 3px;
+  color: var(--muted);
+  border-radius: var(--radius);
+}
+.ch-row .ch-fold small { font-size: 11px; }
+.ch-row .ch-fold svg { width: 14px; height: 14px; transition: transform var(--t); }
+.ch-row .ch-fold[aria-expanded='true'] svg { transform: rotate(180deg); }
+.ch-row .ch-fold:hover { color: var(--teal); background: var(--teal-soft); }
+aside .scenes { margin: 0 0 4px; border-left: 2px solid var(--line); margin-left: 14px; padding-left: 2px; animation: fade-up 140ms var(--ease); }
+aside .scenes .scene { padding-left: 14px; }
+@media (max-width: 640px) {
+  aside .aside-body .ch-row .ch-fold { width: auto; min-width: 44px; justify-content: center; }
+  aside .aside-body .scenes .scene { padding-left: 14px; }
+}
+
+/* ---------- Menús: etiquetas de grupo y ⋯ en tarjetas ---------- */
+.menu-list .menu-label { display: block; padding: 6px 12px 2px; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+.menu-list button svg { flex-shrink: 0; }
+.menu-list button.danger-text { color: var(--danger); }
+.menu-list button:disabled { opacity: 0.4; }
+.book-menu > button { padding: 8px 10px; }
+.book-menu .menu-list { min-width: 230px; }
+/* Celular: cualquier menú sube como hoja desde abajo, con filas grandes. */
+@media (max-width: 640px) {
+  .menu-list {
+    position: fixed;
+    left: 8px;
+    right: 8px;
+    top: auto;
+    bottom: calc(72px + env(safe-area-inset-bottom));
+    max-height: 70vh;
+    overflow: auto;
+    min-width: 0;
+    padding: 8px;
+    border-radius: 16px;
+    z-index: 40;
+    animation: sheet-up 180ms var(--ease);
+  }
+  .menu.open::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgb(0 0 0 / 0.28);
+    z-index: 39;
+  }
+  .menu-list button { min-height: 48px; font-size: 15px; padding: 10px 12px; }
+  .menu-list small { font-size: 12px; }
+  @keyframes sheet-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 }
