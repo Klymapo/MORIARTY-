@@ -1,10 +1,14 @@
 // MORIARTY — Pizarrón: mapa visual de capítulos, personajes, lugares, objetos y notas, con sus relaciones.
 // SVG plano, sin librerías. Zoom con rueda o pellizco, paneo arrastrando el fondo, nodos arrastrables.
 
-const CW = 176,
-  CH = 78,
-  R = 30;
-const state = {k: 1, tx: 0, ty: 0, sel: null, hidden: new Set(), q: '', fitted: null, drag: null, pointers: new Map()};
+const CW = 184,
+  CH = 80,
+  R = 34,
+  GX = 170,
+  GY = 130,
+  PER_ROW = 7;
+const ISLAND_TITLE = {Capítulo: 'CAPÍTULOS', Personaje: 'PERSONAJES', Lugar: 'LUGARES', Objeto: 'OBJETOS', Nota: 'NOTAS Y GUÍAS'};
+const state = {k: 1, tx: 0, ty: 0, sel: null, hidden: new Set(['Nota']), q: '', fitted: null, drag: null, pointers: new Map()};
 const typeKey = (t) => (t ? t.toLowerCase() : 'capitulo');
 const trunc = (s, n) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
 
@@ -16,8 +20,8 @@ function typeLayout(p, startY, only = null) {
   for (const type of ['Personaje', 'Lugar', 'Objeto', 'Nota']) {
     const list = p.entities.filter((e) => !e.trashed && e.type === type && (!only || only(e)));
     if (!list.length) continue;
-    list.forEach((e, i) => out.set(e.id, {x: 70 + (i % 8) * 150, y: y + Math.floor(i / 8) * 115}));
-    y += Math.ceil(list.length / 8) * 115 + 70;
+    list.forEach((e, i) => out.set(e.id, {x: 90 + (i % PER_ROW) * GX, y: y + Math.floor(i / PER_ROW) * GY}));
+    y += Math.ceil(list.length / PER_ROW) * GY + 90;
   }
   return out;
 }
@@ -26,15 +30,15 @@ function positions(p) {
   const chapters = p.chapters.filter((c) => !c.trashed);
   chapters.forEach((c) => pos.set(c.id, {x: c.x, y: c.y}));
   const maxY = chapters.reduce((m, c) => Math.max(m, c.y + CH), 0);
-  const auto = typeLayout(p, maxY + 130, (e) => e.x === null);
+  const auto = typeLayout(p, maxY + 150, (e) => e.x === null);
   for (const e of p.entities.filter((e) => !e.trashed)) pos.set(e.id, e.x !== null ? {x: e.x, y: e.y} : auto.get(e.id));
   return pos;
 }
 export function autoLayout(p, {all = false} = {}) {
   const chapters = p.chapters.filter((c) => !c.trashed);
-  if (all) chapters.forEach((c, i) => ((c.x = 40 + (i % 6) * (CW + 30)), (c.y = 40 + Math.floor(i / 6) * (CH + 40))));
+  if (all) chapters.forEach((c, i) => ((c.x = 40 + (i % 6) * (CW + 30)), (c.y = 60 + Math.floor(i / 6) * (CH + 40))));
   const maxY = chapters.reduce((m, c) => Math.max(m, c.y + CH), 0);
-  const auto = typeLayout(p, maxY + 130, all ? null : (e) => e.x === null);
+  const auto = typeLayout(p, maxY + 150, all ? null : (e) => e.x === null);
   for (const [id, pt] of auto) {
     const e = p.entities.find((x) => x.id === id);
     e.x = pt.x;
@@ -59,13 +63,14 @@ export function mapView(ctx) {
   const types = ['Capítulo', ...ENTITY_TYPES];
 
   host.innerHTML = `<div class="map-tools"><div class="chips">${types.map((t) => `<button class="chip ${t === 'Capítulo' ? 'type-capitulo' : 'type-' + t} ${state.hidden.has(t) ? 'off' : ''}" data-type="${t}"><span class="dot"></span>${t}${t === 'Capítulo' ? 's' : 's'} <small>${t === 'Capítulo' ? chapters.length : entities.filter((e) => e.type === t).length}</small></button>`).join('')}</div><label class="library-search map-search">${icon('search')}<input id="mapQ" type="search" placeholder="Resaltar en el mapa…" value="${esc(state.q)}" aria-label="Buscar en el mapa"></label><span class="spacer"></span><span class="type-size" role="group" aria-label="Zoom">${btn('zoomOut', '', '', 'Alejar')}${btn('zoomIn', '', '', 'Acercar')}${btn('zoomFit', '', '', 'Ver todo')}</span>${btn('layout', 'Ordenar')}${btn('newEntityMap', '＋ Ficha', 'primary')}</div>
-  <div class="map-stage"><svg id="mapSvg" class="map" role="application" aria-label="Pizarrón"><defs>${entities.map((e) => `<clipPath id="clip-${e.id}"><circle r="${R - 3}"/></clipPath>`).join('')}</defs><g id="world"><g id="edges"></g><g id="nodes"></g></g></svg><aside id="mapPanel" class="map-panel" hidden></aside><svg id="minimap" class="minimap" aria-hidden="true"></svg>${!chapters.length && !entities.length ? `<div class="map-empty">${ctx.art('vacio-pizarron')}<p class="muted">Crea capítulos y fichas, o carga un libro. Aquí los verás conectados.</p></div>` : ''}</div>
+  <div class="map-stage"><svg id="mapSvg" class="map" role="application" aria-label="Pizarrón"><defs>${entities.map((e) => `<clipPath id="clip-${e.id}"><circle r="${R - 3}"/></clipPath>`).join('')}</defs><g id="world"><g id="islands"></g><g id="edges"></g><g id="nodes"></g></g></svg><aside id="mapPanel" class="map-panel" hidden></aside><svg id="minimap" class="minimap" aria-hidden="true"></svg>${!chapters.length && !entities.length ? `<div class="map-empty">${ctx.art('vacio-pizarron')}<p class="muted">Crea capítulos y fichas, o carga un libro. Aquí los verás conectados.</p></div>` : ''}</div>
   <div class="timeline-strip" id="mapTimeline"></div>`;
 
   const svg = $('#mapSvg'),
     world = $('#world'),
     edgesG = $('#edges'),
-    nodesG = $('#nodes');
+    nodesG = $('#nodes'),
+    islandsG = $('#islands');
   const pos = positions(p);
   const nodeOf = (id) => byId.get(id);
   const center = (id) => {
@@ -88,7 +93,7 @@ export function mapView(ctx) {
     const img = n.image
       ? `<image href="${n.image}" x="${-(R - 3)}" y="${-(R - 3)}" width="${2 * (R - 3)}" height="${2 * (R - 3)}" clip-path="url(#clip-${n.id})" preserveAspectRatio="xMidYMid slice"/>`
       : `<image href="${imgFor(n)}" x="${-(R - 3)}" y="${-(R - 3)}" width="${2 * (R - 3)}" height="${2 * (R - 3)}" clip-path="url(#clip-${n.id})" preserveAspectRatio="xMidYMid slice"/>`;
-    return `<g class="node entity type-${n.type} ${dim} ${sel}" data-id="${n.id}" transform="translate(${pt.x},${pt.y})"><circle class="ring" r="${R}" style="${n.color ? 'stroke:' + n.color : ''}"/>${img}<text class="n-label" y="${R + 16}" text-anchor="middle">${esc(trunc(n.name, 22))}</text></g>`;
+    return `<g class="node entity type-${n.type} ${dim} ${sel}" data-id="${n.id}" transform="translate(${pt.x},${pt.y})"><circle class="ring" r="${R}" style="${n.color ? 'stroke:' + n.color : ''}"/>${img}<text class="n-label" y="${R + 16}" text-anchor="middle">${esc(trunc(n.name, 20))}</text></g>`;
   };
   const edgesHtml = () => {
     const out = [];
@@ -111,6 +116,29 @@ export function mapView(ctx) {
             out.push(`<line class="edge rel" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/>${r.label && state.k > 0.6 ? `<g class="edge-label" transform="translate(${mx},${my})"><rect x="${-r.label.length * 3.2 - 5}" y="-9" width="${r.label.length * 6.4 + 10}" height="18" rx="9"/><text y="4" text-anchor="middle">${esc(r.label)}</text></g>` : ''}`);
           }
     return out.join('');
+  };
+  // Islas: un marco tenue con título alrededor de cada grupo (capítulos y cada tipo de ficha), calculado con las posiciones reales.
+  const drawIslands = () => {
+    const groups = new Map();
+    for (const n of [...chapters, ...entities]) {
+      if (!visible(n.id)) continue;
+      const t = n.type || 'Capítulo';
+      const pt = pos.get(n.id);
+      const box = n.type ? {x0: pt.x - R, y0: pt.y - R, x1: pt.x + R, y1: pt.y + R + 22} : {x0: pt.x, y0: pt.y, x1: pt.x + CW, y1: pt.y + CH};
+      const g = groups.get(t) || {x0: Infinity, y0: Infinity, x1: -Infinity, y1: -Infinity, n: 0};
+      g.x0 = Math.min(g.x0, box.x0);
+      g.y0 = Math.min(g.y0, box.y0);
+      g.x1 = Math.max(g.x1, box.x1);
+      g.y1 = Math.max(g.y1, box.y1);
+      g.n++;
+      groups.set(t, g);
+    }
+    islandsG.innerHTML = [...groups]
+      .map(([t, g]) => {
+        const pad = 28;
+        return `<g class="island type-${typeKey(t === 'Capítulo' ? null : t)}"><rect x="${g.x0 - pad}" y="${g.y0 - pad - 18}" width="${g.x1 - g.x0 + 2 * pad}" height="${g.y1 - g.y0 + 2 * pad + 18}" rx="22"/><text x="${g.x0 - pad + 18}" y="${g.y0 - pad + 2}">${ISLAND_TITLE[t] || esc(t)} <tspan class="island-n">${g.n}</tspan></text></g>`;
+      })
+      .join('');
   };
   const drawNodes = () => {
     nodesG.innerHTML = [...chapters, ...entities].filter((n) => visible(n.id)).map(nodeHtml).join('');
@@ -136,10 +164,24 @@ export function mapView(ctx) {
     const b = bbox(),
       W = svg.clientWidth,
       H = svg.clientHeight;
+    const kAll = Math.min(W / (b.w + 80), H / (b.h + 80));
+    // Si para ver todo habría que alejar demasiado (etiquetas ilegibles), se prefiere un zoom legible alineado arriba.
+    const legible = W < 700 ? 0.42 : 0.55;
+    state.k = Math.min(1.2, Math.max(legible, kAll));
+    state.tx = (W - b.w * state.k) / 2 - b.x * state.k;
+    state.ty = state.k > kAll + 0.001 ? 24 - (b.y - 46) * state.k : (H - b.h * state.k) / 2 - b.y * state.k;
+    applyTransform();
+    drawEdges();
+  };
+  const fitAll = () => {
+    const b = bbox(),
+      W = svg.clientWidth,
+      H = svg.clientHeight;
     state.k = Math.min(1.2, Math.max(0.15, Math.min(W / (b.w + 80), H / (b.h + 80))));
     state.tx = (W - b.w * state.k) / 2 - b.x * state.k;
     state.ty = (H - b.h * state.k) / 2 - b.y * state.k;
     applyTransform();
+    drawEdges();
   };
   const zoomAt = (factor, cx, cy) => {
     const k = Math.min(3, Math.max(0.15, state.k * factor));
@@ -224,6 +266,7 @@ export function mapView(ctx) {
     $('#panelClose').onclick = () => ((state.sel = null), redraw(), showPanel());
   };
   const redraw = () => {
+    drawIslands();
     drawEdges();
     drawNodes();
     drawMinimap();
@@ -291,6 +334,7 @@ export function mapView(ctx) {
       pt.y = Math.round(w.y - d.dy);
       d.el.setAttribute('transform', `translate(${pt.x},${pt.y})`);
       drawEdges();
+      drawIslands();
     }
   };
   svg.onpointerup = svg.onpointercancel = (e) => {
@@ -356,7 +400,7 @@ export function mapView(ctx) {
   };
   bind('zoomIn', () => zoomAt(1.25, svg.clientWidth / 2, svg.clientHeight / 2));
   bind('zoomOut', () => zoomAt(1 / 1.25, svg.clientWidth / 2, svg.clientHeight / 2));
-  bind('zoomFit', fit);
+  bind('zoomFit', fitAll);
   bind('layout', async () => {
     const r = await choose('Ordenar el pizarrón', `<p>Capítulos en filas por orden del libro; fichas agrupadas por tipo debajo.</p><label class="check"><input type="checkbox" id="layoutAll"> Reacomodar también lo que ya moví a mano</label>`, [{value: 'go', label: 'Ordenar', primary: true}]);
     if (!r) return;

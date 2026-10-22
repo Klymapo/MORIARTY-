@@ -1,5 +1,5 @@
 // MORIARTY V0.3 — caché para uso sin conexión. Cambiar CACHE al publicar una versión nueva.
-const CACHE = 'moriarty-v04-2';
+const CACHE = 'moriarty-v04-3';
 const FILES = [
   './',
   './index.html',

@@ -1187,14 +1187,16 @@ label .field {
 /* ---------- Toast, splash, overlays ---------- */
 #toast {
   position: fixed;
-  bottom: 70px;
-  left: 50%;
-  transform: translate(-50%, 12px);
+  bottom: 18px;
+  right: 18px;
+  transform: translate(0, 12px);
   background: var(--toast-bg);
   color: var(--toast-fg);
-  padding: 13px 20px;
+  padding: 10px 14px;
   border-radius: 10px;
-  max-width: 90vw;
+  font-size: 13px;
+  line-height: 1.35;
+  max-width: min(360px, calc(100vw - 36px));
   z-index: 50;
   opacity: 0;
   pointer-events: none;
@@ -1205,7 +1207,7 @@ label .field {
 }
 #toast.show {
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translate(0, 0);
   pointer-events: auto;
 }
 #splash {
@@ -2421,4 +2423,64 @@ body::before {
   .fmt-bar {
     top: 44px;
   }
+}
+
+
+/* ---------- V0.4.1: pulido UX ---------- */
+/* Islas del Pizarrón */
+.map .island rect {
+  fill: color-mix(in srgb, currentColor 6%, transparent);
+  stroke: color-mix(in srgb, currentColor 28%, transparent);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 6;
+}
+.map .island text {
+  font: 700 13px var(--sans);
+  letter-spacing: 2px;
+  fill: currentColor;
+  opacity: 0.85;
+}
+.map .island .island-n {
+  font-weight: 500;
+  letter-spacing: 0;
+  opacity: 0.7;
+}
+.map .island.type-capitulo { color: var(--teal); }
+.map .island.type-personaje { color: var(--c-personaje); }
+.map .island.type-lugar { color: var(--c-lugar); }
+.map .island.type-objeto { color: var(--c-objeto); }
+.map .island.type-nota { color: var(--c-nota); }
+.map .n-label { font-size: 13px; }
+/* Navegación: pista de que se puede deslizar en pantallas angostas */
+.nav-wrap { position: relative; }
+.nav-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 1px;
+  width: 44px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--paper));
+  opacity: 0;
+  transition: opacity var(--t);
+}
+.nav-wrap.can-scroll::after { opacity: 1; }
+/* Barra de formato con iconos SVG */
+.fmt-bar .fmt svg { width: 18px; height: 18px; }
+.fmt-bar .fmt .lbl { display: none; }
+/* Editor: fundido al cambiar de escena */
+@keyframes scene-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.manuscript.scene-in { animation: scene-in 160ms var(--ease); }
+/* Atajos */
+.kbd-list { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; align-items: center; font-size: 14px; }
+kbd { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--paper-2); border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 6px; padding: 2px 7px; white-space: nowrap; }
+/* Tracker: estado sin palabras hoy */
+.stat.quiet .ring { opacity: 0.45; }
+.stat .hint { font-size: 12px; color: var(--muted); margin-top: 2px; }
+@media (max-width: 640px) {
+  .chapter-details summary .pov-hint { display: none; }
+  nav button span { display: none; }
+  nav button { padding: 9px 12px; }
+  nav button svg { width: 20px; height: 20px; }
 }

@@ -405,14 +405,18 @@ function writeView() {
     goal = p.goals.chapter;
   const tb = (id, label, title, cls = '') => `<button type="button" class="fmt ${cls}" data-fmt="${id}" title="${esc(title)}" aria-label="${esc(title)}">${label}</button>`;
   $('#main').innerHTML =
-    `<div class="toolbar"><span class="eyebrow">ESTUDIO DE ESCRITURA</span><span class="spacer"></span><span class="type-size" role="group" aria-label="Tamaño de letra">${btn('smaller', '', '', 'Letra más pequeña')}${btn('bigger', '', '', 'Letra más grande')}</span>${btn('focus', 'Modo enfoque')}${btn('versions', 'Versiones')}${btn('exportChapter', 'Exportar capítulo')}${btn('reviewStart', 'Revisar escena')}</div><article class="editor"><input id="chapterTitle" class="title" aria-label="Título del capítulo" value="${esc(c.title)}"><details class="chapter-details" ${c.summary || c.pov || linked.length ? 'open' : ''}><summary><span class="chip status-${c.status}"><span class="dot"></span>${STATUS_LABEL[c.status]}</span><span>Detalles del capítulo</span>${linked.length ? `<span class="muted">· ${linked.length} ${linked.length === 1 ? 'ficha' : 'fichas'}</span>` : ''}<span class="spacer"></span><span class="muted">${cw.toLocaleString('es-MX')}${goal ? ` / ${goal.toLocaleString('es-MX')}` : ''} palabras</span></summary><div class="body"><label>Estado<select class="field" data-status>${STATUSES.map((st) => `<option value="${st}" ${st === c.status ? 'selected' : ''}>${STATUS_LABEL[st]}</option>`).join('')}</select></label><label>Punto de vista<input class="field" data-pov value="${esc(c.pov)}" placeholder="¿Quién narra?"></label><label class="wide">Resumen<textarea class="field" data-summary rows="2" placeholder="Qué pasa en este capítulo, en dos líneas.">${esc(c.summary)}</textarea></label><div class="wide"><label>Fichas en este capítulo</label><div class="chips">${linked.map((e) => `<span class="chip type-${e.type}"><span class="dot"></span>${esc(e.name)}<button data-unlink="${e.id}" aria-label="Quitar ${esc(e.name)}">${icon('close')}</button></span>`).join('')}<select class="field" data-link style="width:auto;padding:4px 8px;font-size:12px"><option value="">＋ Vincular ficha…</option>${live
+    `<div class="toolbar"><span class="eyebrow">ESTUDIO DE ESCRITURA</span><span class="spacer"></span><span class="type-size" role="group" aria-label="Tamaño de letra">${btn('smaller', '', '', 'Letra más pequeña')}${btn('bigger', '', '', 'Letra más grande')}</span>${btn('focus', 'Modo enfoque')}${btn('versions', 'Versiones')}${btn('exportChapter', 'Exportar capítulo')}${btn('reviewStart', 'Revisar escena')}</div><article class="editor"><input id="chapterTitle" class="title" aria-label="Título del capítulo" value="${esc(c.title)}"><details class="chapter-details" ${prefs.detailsOpen ? 'open' : ''}><summary><span class="chip status-${c.status}"><span class="dot"></span>${STATUS_LABEL[c.status]}</span><span>Detalles del capítulo</span>${c.pov ? `<span class="muted pov-hint">· ${esc(c.pov.length > 24 ? c.pov.slice(0, 23) + '…' : c.pov)}</span>` : ''}${linked.length ? `<span class="muted">· ${linked.length} ${linked.length === 1 ? 'ficha' : 'fichas'}</span>` : ''}<span class="spacer"></span><span class="muted">${cw.toLocaleString('es-MX')}${goal ? ` / ${goal.toLocaleString('es-MX')}` : ''} palabras</span></summary><div class="body"><label>Estado<select class="field" data-status>${STATUSES.map((st) => `<option value="${st}" ${st === c.status ? 'selected' : ''}>${STATUS_LABEL[st]}</option>`).join('')}</select></label><label>Punto de vista<input class="field" data-pov value="${esc(c.pov)}" placeholder="¿Quién narra?"></label><label class="wide">Resumen<textarea class="field" data-summary rows="2" placeholder="Qué pasa en este capítulo, en dos líneas.">${esc(c.summary)}</textarea></label><div class="wide"><label>Fichas en este capítulo</label><div class="chips">${linked.map((e) => `<span class="chip type-${e.type}"><span class="dot"></span>${esc(e.name)}<button data-unlink="${e.id}" aria-label="Quitar ${esc(e.name)}">${icon('close')}</button></span>`).join('')}<select class="field" data-link style="width:auto;padding:4px 8px;font-size:12px"><option value="">＋ Vincular ficha…</option>${live
       .filter((e) => !c.entityIds.includes(e.id))
       .map((e) => `<option value="${e.id}">${esc(e.type)} · ${esc(e.name)}</option>`)
-      .join('')}</select></div></div></div></details>${goal ? `<div class="book-progress" style="margin:-6px 0 12px"><span class="status-${c.status}" style="flex:${Math.min(cw, goal)}"></span><span style="flex:${Math.max(goal - cw, 0)};background:transparent"></span></div>` : ''}<div class="toolbar"><select id="sceneSelect" class="field" aria-label="Escena" style="width:auto;flex:1">${c.scenes.map((s) => `<option value="${s.id}" ${s.id === sid ? 'selected' : ''}>${esc(s.title)}</option>`).join('')}</select>${btn('addScene', '＋ Escena')}${btn('trashChapter', 'A papelera')}</div><input id="sceneTitle" class="subtitle" aria-label="Título de escena" value="${esc(s.title)}"><div class="fmt-bar" role="toolbar" aria-label="Formato">${tb('b', '<b>N</b>', 'Negrita (Ctrl+B)')}${tb('i', '<i>K</i>', 'Cursiva (Ctrl+I)')}${tb('u', '<u>S</u>', 'Subrayado (Ctrl+U)')}<span class="fmt-sep"></span>${tb('quote', icon('text'), 'Sangría / cita')}${tb('center', '≡', 'Centrar')}<span class="fmt-sep"></span>${tb('sep', '＊', 'Separador de escena')}${tb('break', '⤓', 'Salto de página')}${tb('image', icon('image'), 'Insertar imagen')}<span class="fmt-sep"></span>${tb('dash', '—', 'Raya de diálogo')}${tb('ellipsis', '…', 'Puntos suspensivos')}${tb('quotes', '«»', 'Comillas latinas')}<span class="spacer"></span>${tb('dropcap', 'A', 'Letra capital al inicio del capítulo', p.style.dropCap ? 'on' : '')}${tb('search', icon('search'), 'Buscar y reemplazar (Ctrl+Shift+F)')}${tb('read', reading ? icon('edit') : icon('book'), reading ? 'Volver a escribir' : 'Vista de lectura', reading ? 'on' : '')}</div>${
+      .join('')}</select></div></div></div></details>${goal ? `<div class="book-progress" style="margin:-6px 0 12px"><span class="status-${c.status}" style="flex:${Math.min(cw, goal)}"></span><span style="flex:${Math.max(goal - cw, 0)};background:transparent"></span></div>` : ''}<div class="toolbar"><select id="sceneSelect" class="field" aria-label="Escena" style="width:auto;flex:1">${c.scenes.map((s) => `<option value="${s.id}" ${s.id === sid ? 'selected' : ''}>${esc(s.title)}</option>`).join('')}</select>${btn('addScene', '＋ Escena')}${btn('trashChapter', 'A papelera')}</div><input id="sceneTitle" class="subtitle" aria-label="Título de escena" value="${esc(s.title)}"><div class="fmt-bar" role="toolbar" aria-label="Formato">${tb('b', '<b>N</b>', 'Negrita (Ctrl+B)')}${tb('i', '<i>K</i>', 'Cursiva (Ctrl+I)')}${tb('u', '<u>S</u>', 'Subrayado (Ctrl+U)')}<span class="fmt-sep"></span>${tb('quote', icon('indent'), 'Sangría / cita')}${tb('center', icon('center'), 'Centrar')}<span class="fmt-sep"></span>${tb('sep', icon('separator'), 'Separador de escena (* * *)')}${tb('break', icon('pagebreak'), 'Salto de página')}${tb('image', icon('image'), 'Insertar imagen')}<span class="fmt-sep"></span>${tb('dash', '—', 'Raya de diálogo')}${tb('ellipsis', '…', 'Puntos suspensivos')}${tb('quotes', '«»', 'Comillas latinas')}<span class="spacer"></span>${tb('dropcap', icon('dropcap'), 'Letra capital al inicio del capítulo', p.style.dropCap ? 'on' : '')}${tb('help', icon('keyboard'), 'Atajos de teclado')}${tb('search', icon('search'), 'Buscar y reemplazar (Ctrl+Shift+F)')}${tb('read', reading ? icon('edit') : icon('book'), reading ? 'Volver a escribir' : 'Vista de lectura', reading ? 'on' : '')}</div>${
       reading
-        ? `<div class="manuscript reading" id="readingView">${toHtml(s.text, {assets: p.assets, dropCap: p.style.dropCap && c.scenes[0].id === s.id}) || '<p class="muted">Nada escrito todavía.</p>'}</div>`
-        : `<textarea id="text" class="manuscript" aria-label="Texto de la escena" placeholder="Escribe aquí. Esta historia es tuya…" spellcheck="true">${esc(s.text)}</textarea>`
+        ? `<div class="manuscript reading scene-in" id="readingView">${toHtml(s.text, {assets: p.assets, dropCap: p.style.dropCap && c.scenes[0].id === s.id}) || '<p class="muted">Nada escrito todavía.</p>'}</div>`
+        : `<textarea id="text" class="manuscript scene-in" aria-label="Texto de la escena" placeholder="Escribe aquí. Esta historia es tuya…" spellcheck="true">${esc(s.text)}</textarea>`
     }<p class="muted">Formato: *cursiva*, **negrita**, __subrayado__, «> » sangría, «---» salto de página. Se ve al leer y al exportar.</p></article>`;
+  $('.chapter-details').ontoggle = (e) => {
+    prefs.detailsOpen = e.target.open;
+    applyPrefs();
+  };
   $('#chapterTitle').oninput = (e) => {
     c.title = e.target.value;
     save();
@@ -445,6 +449,7 @@ function writeView() {
       const f = b.dataset.fmt;
       if (f === 'read') return ((reading = !reading), writeView());
       if (f === 'search') return searchDialog();
+      if (f === 'help') return shortcutsDialog();
       if (f === 'dropcap') {
         p.style.dropCap = !p.style.dropCap;
         save();
@@ -543,8 +548,21 @@ function writeView() {
     render();
   });
 }
+/* ---------- Atajos ---------- */
+function shortcutsDialog() {
+  const rows = [
+    ['Ctrl + B', 'Negrita'],
+    ['Ctrl + I', 'Cursiva'],
+    ['Ctrl + U', 'Subrayado'],
+    ['Ctrl + Shift + F', 'Buscar y reemplazar'],
+    ['--', 'Se convierte en raya (—)'],
+    ['...', 'Se convierte en puntos suspensivos (…)'],
+    ['Esc', 'Cerrar diálogos y salir del modo enfoque'],
+  ];
+  choose('Atajos de teclado', `<div class="kbd-list">${rows.map(([k, v]) => `<kbd>${esc(k)}</kbd><span>${esc(v)}</span>`).join('')}</div><p class="muted" style="margin-top:12px">Formato en el texto: *cursiva*, **negrita**, __subrayado__, «> » sangría, «-> texto <-» centrado, «---» salto de página, «***» separador.</p>`, [{value: 'ok', label: 'Entendido', primary: true}]);
+}
 /* ---------- Buscar y reemplazar ---------- */
-const searchState = {q: '', r: '', cs: false, ww: false};
+const searchState = {q: '', r: '', cs: false, ww: true};
 function searchDialog() {
   $('#searchDialog')?.remove();
   const d = document.createElement('dialog');
@@ -1278,8 +1296,23 @@ menu('exportMenu', 'export');
 menu('importMenu', 'import');
 document.addEventListener('click', () => $$('.menu').forEach((x) => x.classList.remove('open')));
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') $$('.menu').forEach((x) => x.classList.remove('open'));
+  if (e.key === 'Escape') {
+    $$('.menu').forEach((x) => x.classList.remove('open'));
+    if (document.body.classList.contains('focus') && !document.querySelector('dialog[open]')) document.body.classList.remove('focus');
+  }
 });
+// Pista de desplazamiento en la navegación cuando no cabe completa.
+{
+  const nav = $('nav');
+  const wrap = document.createElement('div');
+  wrap.className = 'nav-wrap';
+  nav.replaceWith(wrap);
+  wrap.append(nav);
+  const hint = () => wrap.classList.toggle('can-scroll', nav.scrollWidth - nav.clientWidth - nav.scrollLeft > 8);
+  nav.addEventListener('scroll', hint, {passive: true});
+  window.addEventListener('resize', hint);
+  requestAnimationFrame(hint);
+}
 
 /* ---------- Acciones globales ---------- */
 $$('[data-view]').forEach(
