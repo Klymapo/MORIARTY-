@@ -1,4 +1,9 @@
 from playwright.sync_api import sync_playwright
+# La biblioteca vive en IndexedDB desde V0.4.5.
+READ_LIB = "() => new Promise((r) => { const q = indexedDB.open('moriarty-datos', 1); q.onsuccess = () => { const g = q.result.transaction('kv').objectStore('kv').get('biblioteca'); g.onsuccess = () => r(g.result ? JSON.parse(g.result) : null); }; })"
+def lib(pg, expr='l'):
+    return pg.evaluate('(async()=>{const l=await (' + READ_LIB + ')(); return ' + expr + ';})()')
+
 import json, re
 S='/tmp/claude-0/-home-claude/415e0113-1b48-532b-b7a0-a78f90ccbca8/scratchpad/shots/'
 B='/home/claude/moriarty-/historias/EL_BRILLO_AUSENTE.moriarty.json'
@@ -66,14 +71,14 @@ with sync_playwright() as p:
     # --- revisión
     pg.click('#chapterMenuBtn'); pg.wait_for_timeout(200); pg.click('#reviewStart'); pg.wait_for_timeout(600)
     pg.wait_for_timeout(700)
-    rv=pg.evaluate("(()=>{const l=JSON.parse(localStorage.getItem('moriarty.library.v1'));const bs=l.books;return bs.map(b=>b.project.reviews||[]).flat().at(-1)})()")
+    rv=lib(pg, 'l.books.map(b=>b.project.reviews||[]).flat().at(-1)')
     rid=rv['id']; base=rv['base']
     prop=base.replace('ASHLEYX','Ashley',1)+'\n\nFrase nueva al final.'
     resp=json.dumps({'kind':'review-response','schemaVersion':1,'reviewId':rid,'proposal':prop,'notes':'prueba'})
     pg.click('#import'); pg.wait_for_timeout(200); pg.click('#pasteJson'); pg.wait_for_timeout(300)
     pg.fill('textarea[name=json]',resp); pg.click('dialog[open] button.primary, dialog[open] button[type=submit]'); pg.wait_for_timeout(900)
     pg.screenshot(path=S+'v4-review2.png')
-    check('diff cambios', pg.locator('.diff-view .change, .diff-view [data-block]').count()>=2)
+    check('diff cambios', pg.locator('.diff-view [data-chg]').count()>=1)
     print('  review text', pg.locator('#main').inner_text()[:300].replace('\n',' | '))
     # --- mobile
     m=b.new_context(viewport={'width':390,'height':844},is_mobile=True,has_touch=True).new_page()

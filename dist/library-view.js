@@ -63,14 +63,12 @@ export class LibraryView {
         ? 'Tus libros independientes, listos para seguir creciendo.'
         : 'Abre un libro, empieza otro o reúne tus historias en una saga.');
     document.querySelector('#main').innerHTML =
-      `<section class="library-page"><div class="library-heading"><div><div class="eyebrow">${saga ? 'COLECCIÓN · SAGA' : 'MORIARTY · BIBLIOTECA'}</div><h1>${esc(heading)}</h1><p class="muted">${esc(description)}</p></div><div class="library-actions">${saga ? `<button id="editSaga">${icon('edit')}Editar saga</button>` : `<button id="newSaga">${icon('saga')}Nueva saga</button>`}<button id="newBook" class="primary">${icon('plus')}Nuevo libro</button></div></div><div class="library-tools"><label class="library-search">${icon('search')}<input id="librarySearch" type="search" placeholder="Buscar un libro…" aria-label="Buscar libros" value="${esc(this.query)}"></label><span id="libraryCount" class="muted"></span><span class="spacer"></span><button id="backupLibrary">${icon('download')}Respaldar biblioteca</button><button id="importLibrary">${icon('upload')}Importar</button></div><div id="bookGrid" class="books-grid"></div><div class="library-note">${icon('book')}<span>Cada libro guarda sus propios capítulos, fichas y revisiones.</span></div></section>`;
+      `<section class="library-page"><div class="library-heading"><div><div class="eyebrow">${saga ? 'COLECCIÓN · SAGA' : 'MORIARTY · BIBLIOTECA'}</div><h1>${esc(heading)}</h1><p class="muted">${esc(description)}</p></div><div class="library-actions">${saga ? `<button id="editSaga">${icon('edit')}Editar saga</button>` : `<button id="newSaga">${icon('saga')}Nueva saga</button>`}<button id="newBook" class="primary">${icon('plus')}Nuevo libro</button></div></div><div class="library-tools"><label class="library-search">${icon('search')}<input id="librarySearch" type="search" placeholder="Buscar un libro…" aria-label="Buscar libros" value="${esc(this.query)}"></label><span id="libraryCount" class="muted"></span></div><div id="bookGrid" class="books-grid"></div><div class="library-note">${icon('book')}<span>Cada libro guarda sus propios capítulos, fichas y revisiones.</span></div></section>`;
     document.querySelector('#newBook').onclick = () => this.bookDialog();
     const ns = document.querySelector('#newSaga');
     if (ns) ns.onclick = () => this.sagaDialog();
     const es = document.querySelector('#editSaga');
     if (es) es.onclick = () => this.sagaDialog(saga);
-    document.querySelector('#backupLibrary').onclick = this.callbacks.onBackup;
-    document.querySelector('#importLibrary').onclick = this.callbacks.onImport;
     document.querySelector('#librarySearch').oninput = (e) => {
       this.query = e.target.value;
       this.cards();

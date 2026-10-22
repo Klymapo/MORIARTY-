@@ -2685,3 +2685,27 @@ aside .scenes .scene { padding-left: 14px; }
   .menu-list small { font-size: 12px; }
   @keyframes sheet-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 }
+
+/* ---------- V0.4.5: menos botones ---------- */
+.title-row { display: flex; align-items: center; gap: 10px; }
+.title-row .title { flex: 1; min-width: 0; }
+.title-row #chapterMenuBtn { flex-shrink: 0; }
+.menu-row { display: flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 14px; color: var(--text); }
+.menu-row button { width: auto !important; min-height: 38px; padding: 6px 12px; border: 1px solid var(--line) !important; }
+.focus-exit { display: none; }
+body.focus .focus-exit {
+  display: inline-flex;
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 45;
+  background: var(--white);
+  box-shadow: var(--shadow);
+  opacity: 0.55;
+  transition: opacity var(--t);
+}
+body.focus .focus-exit:hover, body.focus .focus-exit:focus-visible { opacity: 1; }
+@media (max-width: 640px) {
+  .title-row #chapterMenuBtn span { display: none; }
+  body.focus .focus-exit span { display: none; }
+}

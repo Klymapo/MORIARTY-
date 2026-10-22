@@ -23,9 +23,6 @@ import {
   ENTITY_TYPES,
 } from './model.js';
 import {
-  LIBRARY_KEY,
-  LEGACY_KEY,
-  loadLibrary,
   activeBook,
   importIntoLibrary,
   importConflicts,
@@ -35,6 +32,7 @@ import {
 import {LibraryView} from './library-view.js';
 import {icon, actionIcon, decorateIcons, art} from './icons.js';
 import {pickImage} from './media.js';
+import {loadStored, store, rawStored} from './storage.js';
 import {askPersistence, backupNow, listBackups, readBackup, autoVersion} from './backup.js';
 import {toHtml, toggleWrap, toggleLine, insertBlock, autoReplace} from './markup.js';
 import {CHAPTER_TEMPLATES, ENTITY_TEMPLATES, chapterFrom, entityFrom} from './templates.js';
@@ -92,7 +90,7 @@ applyPrefs();
 darkMedia.addEventListener('change', applyTheme);
 
 try {
-  ({library, migrated} = loadLibrary(localStorage));
+  ({library, migrated} = await loadStored());
 } catch {
   library = createLibrary();
   loadFailure = true;
@@ -150,14 +148,8 @@ function backupLibrary() {
   markExported();
   download('MORIARTY_BIBLIOTECA.moriarty.json', JSON.stringify(library, null, 2));
 }
-function downloadRecovery() {
-  for (const key of [LIBRARY_KEY, LEGACY_KEY]) {
-    let raw;
-    try {
-      raw = localStorage.getItem(key);
-    } catch {}
-    if (raw !== null && raw !== undefined) download(key + '.recuperacion.txt', raw, 'text/plain');
-  }
+async function downloadRecovery() {
+  for (const [key, raw] of await rawStored()) download(key + '.recuperacion.txt', raw, 'text/plain');
 }
 
 cid = p.chapters.find((c) => !c.trashed)?.id;
@@ -214,18 +206,28 @@ function saveNow() {
     setSaved('Guardado bloqueado · Recupera un respaldo', 'warn');
     return false;
   }
-  try {
-    if (!loadFailure && hasBook()) logWords(p, wordCount(p));
-    localStorage.setItem(LIBRARY_KEY, JSON.stringify(library));
+  const ok = () => {
+    saveFailed = false;
     setSaved(`Guardado ${new Date().toLocaleTimeString('es-MX', {hour: '2-digit', minute: '2-digit'})}`);
+  };
+  const fail = () => {
+    setSaved('No se pudo guardar', 'warn');
+    // El aviso se ve también en celular, donde el indicador de la cabecera está oculto.
+    if (!saveFailed) notify('⚠ No se pudo guardar en este dispositivo. Exporta → Respaldar biblioteca para no perder cambios.', 12000);
+    saveFailed = true;
+  };
+  try {
+    if (hasBook()) logWords(p, wordCount(p));
+    store(library).then(ok, fail);
     count();
     return true;
   } catch {
-    setSaved('No se pudo guardar · Respalda la biblioteca', 'warn');
+    fail();
     count();
     return false;
   }
 }
+let saveFailed = false;
 function save() {
   if (loadFailure) return saveNow();
   if (saveNow.timer) return;
@@ -448,10 +450,10 @@ function writeView() {
     goal = p.goals.chapter;
   const tb = (id, label, title, cls = '') => `<button type="button" class="fmt ${cls}" data-fmt="${id}" title="${esc(title)}" aria-label="${esc(title)}">${label}</button>`;
   $('#main').innerHTML =
-    `<div class="toolbar chapter-tools"><span class="eyebrow">ESTUDIO DE ESCRITURA</span><span class="spacer"></span><span class="type-size" role="group" aria-label="Tamaño de letra">${btn('smaller', '', '', 'Letra más pequeña')}${btn('bigger', '', '', 'Letra más grande')}</span>${btn('focus', 'Modo enfoque')}<div class="menu" id="chapterMenu"><button id="chapterMenuBtn" data-icon="more" aria-haspopup="true" aria-expanded="false"><span>Capítulo</span></button><div class="menu-list" role="menu"><button id="exportChapter" role="menuitem" data-icon="pack"><div>Exportar capítulo (JSON)<small>Para pasarlo a otro dispositivo o a un chat</small></div></button><button id="exportChapterDocx" role="menuitem" data-icon="exportDocx"><div>Capítulo en Word (.docx)</div></button><button id="exportChapterTxt" role="menuitem" data-icon="text"><div>Capítulo en texto (.txt)</div></button><button id="printChapter" role="menuitem" data-icon="exportPdf"><div>Imprimir capítulo / PDF</div></button><div class="menu-sep"></div><button id="reviewStart" role="menuitem" data-icon="review"><div>Revisar escena<small>Crea una solicitud para una IA o una persona</small></div></button><button id="versions" role="menuitem" data-icon="history"><div>Versiones<small>Copias guardadas de este capítulo</small></div></button><div class="menu-sep"></div><button id="trashChapterMenu" role="menuitem" data-icon="trash"><div>Enviar capítulo a la papelera</div></button></div></div></div><article class="editor"><input id="chapterTitle" class="title" aria-label="Título del capítulo" value="${esc(c.title)}"><details class="chapter-details" ${prefs.detailsOpen ? 'open' : ''}><summary><span class="chip status-${c.status}"><span class="dot"></span>${STATUS_LABEL[c.status]}</span><span>Detalles del capítulo</span>${c.pov ? `<span class="muted pov-hint">· ${esc(c.pov.length > 24 ? c.pov.slice(0, 23) + '…' : c.pov)}</span>` : ''}${linked.length ? `<span class="muted">· ${linked.length} ${linked.length === 1 ? 'ficha' : 'fichas'}</span>` : ''}<span class="spacer"></span><span class="muted">${cw.toLocaleString('es-MX')}${goal ? ` / ${goal.toLocaleString('es-MX')}` : ''} palabras</span></summary><div class="body"><label>Estado<select class="field" data-status>${STATUSES.map((st) => `<option value="${st}" ${st === c.status ? 'selected' : ''}>${STATUS_LABEL[st]}</option>`).join('')}</select></label><label>Punto de vista<input class="field" data-pov value="${esc(c.pov)}" placeholder="¿Quién narra?"></label><label class="wide">Resumen<textarea class="field" data-summary rows="2" placeholder="Qué pasa en este capítulo, en dos líneas.">${esc(c.summary)}</textarea></label><div class="wide"><label>Fichas en este capítulo</label><div class="chips">${linked.map((e) => `<span class="chip type-${e.type}"><span class="dot"></span>${esc(e.name)}<button data-unlink="${e.id}" aria-label="Quitar ${esc(e.name)}">${icon('close')}</button></span>`).join('')}<select class="field" data-link style="width:auto;padding:4px 8px;font-size:12px"><option value="">＋ Vincular ficha…</option>${live
+    `<article class="editor"><div class="title-row"><input id="chapterTitle" class="title" aria-label="Título del capítulo" value="${esc(c.title)}"><div class="menu" id="chapterMenu"><button id="chapterMenuBtn" data-icon="more" aria-haspopup="true" aria-expanded="false"><span>Capítulo</span></button><div class="menu-list" role="menu"><button id="focus" role="menuitem" data-icon="focus"><div>Modo enfoque<small>Solo el texto; Esc o el botón flotante para salir</small></div></button><div class="menu-row" data-keep><span>Tamaño de letra</span><span class="spacer"></span>${btn('smaller', '', '', 'Letra más pequeña')}${btn('bigger', '', '', 'Letra más grande')}</div><div class="menu-sep"></div><button id="exportChapter" role="menuitem" data-icon="pack"><div>Exportar capítulo (JSON)<small>Para pasarlo a otro dispositivo o a un chat</small></div></button><button id="exportChapterDocx" role="menuitem" data-icon="exportDocx"><div>Capítulo en Word (.docx)</div></button><button id="exportChapterTxt" role="menuitem" data-icon="text"><div>Capítulo en texto (.txt)</div></button><button id="printChapter" role="menuitem" data-icon="exportPdf"><div>Imprimir capítulo / PDF</div></button><div class="menu-sep"></div><button id="reviewStart" role="menuitem" data-icon="review"><div>Revisar escena<small>Crea una solicitud para una IA o una persona</small></div></button><button id="versions" role="menuitem" data-icon="history"><div>Versiones<small>Copias guardadas de este capítulo</small></div></button><div class="menu-sep"></div><button id="trashChapter" role="menuitem" class="danger-text" data-icon="trash"><div>Enviar capítulo a la papelera</div></button></div></div></div><details class="chapter-details" ${prefs.detailsOpen ? 'open' : ''}><summary><span class="chip status-${c.status}"><span class="dot"></span>${STATUS_LABEL[c.status]}</span><span>Detalles del capítulo</span>${c.pov ? `<span class="muted pov-hint">· ${esc(c.pov.length > 24 ? c.pov.slice(0, 23) + '…' : c.pov)}</span>` : ''}${linked.length ? `<span class="muted">· ${linked.length} ${linked.length === 1 ? 'ficha' : 'fichas'}</span>` : ''}<span class="spacer"></span><span class="muted">${cw.toLocaleString('es-MX')}${goal ? ` / ${goal.toLocaleString('es-MX')}` : ''} palabras</span></summary><div class="body"><label>Estado<select class="field" data-status>${STATUSES.map((st) => `<option value="${st}" ${st === c.status ? 'selected' : ''}>${STATUS_LABEL[st]}</option>`).join('')}</select></label><label>Punto de vista<input class="field" data-pov value="${esc(c.pov)}" placeholder="¿Quién narra?"></label><label class="wide">Resumen<textarea class="field" data-summary rows="2" placeholder="Qué pasa en este capítulo, en dos líneas.">${esc(c.summary)}</textarea></label><div class="wide"><label>Fichas en este capítulo</label><div class="chips">${linked.map((e) => `<span class="chip type-${e.type}"><span class="dot"></span>${esc(e.name)}<button data-unlink="${e.id}" aria-label="Quitar ${esc(e.name)}">${icon('close')}</button></span>`).join('')}<select class="field" data-link style="width:auto;padding:4px 8px;font-size:12px"><option value="">＋ Vincular ficha…</option>${live
       .filter((e) => !c.entityIds.includes(e.id))
       .map((e) => `<option value="${e.id}">${esc(e.type)} · ${esc(e.name)}</option>`)
-      .join('')}</select></div></div></div></details>${goal ? `<div class="book-progress" style="margin:-6px 0 12px"><span class="status-${c.status}" style="flex:${Math.min(cw, goal)}"></span><span style="flex:${Math.max(goal - cw, 0)};background:transparent"></span></div>` : ''}<div class="toolbar"><select id="sceneSelect" class="field" aria-label="Escena" style="width:auto;flex:1">${c.scenes.map((s) => `<option value="${s.id}" ${s.id === sid ? 'selected' : ''}>${esc(s.title)}</option>`).join('')}</select>${btn('addScene', '＋ Escena')}${btn('trashChapter', 'A papelera')}</div><input id="sceneTitle" class="subtitle" aria-label="Título de escena" value="${esc(s.title)}"><div class="fmt-bar" role="toolbar" aria-label="Formato">${tb('b', '<b>N</b>', 'Negrita (Ctrl+B)')}${tb('i', '<i>K</i>', 'Cursiva (Ctrl+I)')}${tb('u', '<u>S</u>', 'Subrayado (Ctrl+U)')}<span class="fmt-sep"></span>${tb('quote', icon('indent'), 'Sangría / cita')}${tb('center', icon('center'), 'Centrar')}<span class="fmt-sep"></span>${tb('sep', icon('separator'), 'Separador de escena (* * *)')}${tb('break', icon('pagebreak'), 'Salto de página')}${tb('image', icon('image'), 'Insertar imagen')}<span class="fmt-sep"></span>${tb('dash', '—', 'Raya de diálogo')}${tb('ellipsis', '…', 'Puntos suspensivos')}${tb('quotes', '«»', 'Comillas latinas')}<span class="spacer"></span>${tb('dropcap', icon('dropcap'), 'Letra capital al inicio del capítulo', p.style.dropCap ? 'on' : '')}${tb('help', icon('keyboard'), 'Atajos de teclado')}${tb('search', icon('search'), 'Buscar y reemplazar (Ctrl+Shift+F)')}${tb('read', reading ? icon('edit') : icon('book'), reading ? 'Volver a escribir' : 'Vista de lectura', reading ? 'on' : '')}</div>${
+      .join('')}</select></div></div></div></details>${goal ? `<div class="book-progress" style="margin:-6px 0 12px"><span class="status-${c.status}" style="flex:${Math.min(cw, goal)}"></span><span style="flex:${Math.max(goal - cw, 0)};background:transparent"></span></div>` : ''}<div class="toolbar"><select id="sceneSelect" class="field" aria-label="Escena" style="width:auto;flex:1">${c.scenes.map((s) => `<option value="${s.id}" ${s.id === sid ? 'selected' : ''}>${esc(s.title)}</option>`).join('')}</select>${btn('addScene', '＋ Escena')}</div><input id="sceneTitle" class="subtitle" aria-label="Título de escena" value="${esc(s.title)}"><div class="fmt-bar" role="toolbar" aria-label="Formato">${tb('b', '<b>N</b>', 'Negrita (Ctrl+B)')}${tb('i', '<i>K</i>', 'Cursiva (Ctrl+I)')}${tb('u', '<u>S</u>', 'Subrayado (Ctrl+U)')}<span class="fmt-sep"></span>${tb('quote', icon('indent'), 'Sangría / cita')}${tb('center', icon('center'), 'Centrar')}<span class="fmt-sep"></span>${tb('sep', icon('separator'), 'Separador de escena (* * *)')}${tb('break', icon('pagebreak'), 'Salto de página')}${tb('image', icon('image'), 'Insertar imagen')}<span class="fmt-sep"></span>${tb('dash', '—', 'Raya de diálogo')}${tb('ellipsis', '…', 'Puntos suspensivos')}${tb('quotes', '«»', 'Comillas latinas')}<span class="spacer"></span>${tb('dropcap', icon('dropcap'), 'Letra capital al inicio del capítulo', p.style.dropCap ? 'on' : '')}${tb('help', icon('keyboard'), 'Atajos de teclado')}${tb('search', icon('search'), 'Buscar y reemplazar (Ctrl+Shift+F)')}${tb('read', reading ? icon('edit') : icon('book'), reading ? 'Volver a escribir' : 'Vista de lectura', reading ? 'on' : '')}</div>${
       reading
         ? `<div class="manuscript reading scene-in" id="readingView">${toHtml(s.text, {assets: p.assets, dropCap: p.style.dropCap && c.scenes[0].id === s.id}) || '<p class="muted">Nada escrito todavía.</p>'}</div>`
         : `<textarea id="text" class="manuscript scene-in" aria-label="Texto de la escena" placeholder="Escribe aquí. Esta historia es tuya…" spellcheck="true">${esc(s.text)}</textarea>`
@@ -563,8 +565,7 @@ function writeView() {
     select(c, s);
   });
   bind('focus', () => {
-    const active = document.body.classList.toggle('focus');
-    $('#focus').innerHTML = icon('focus') + '<span>' + (active ? 'Salir de enfoque' : 'Modo enfoque') + '</span>';
+    document.body.classList.add('focus');
     $('#text')?.focus();
   });
   bind('trashChapter', () => {
@@ -577,7 +578,6 @@ function writeView() {
   });
   menu('chapterMenu', 'chapterMenuBtn');
   bind('versions', versionsView);
-  bind('trashChapterMenu', () => $('#trashChapter')?.click());
   bind('exportChapterDocx', async () => {
     saveNow();
     const author = await authorName();
@@ -1274,7 +1274,7 @@ async function importData(data, sourceName = 'archivo') {
     busy(false);
     if (!confirm('El guardado actual es ilegible. Se descargará una copia de recuperación antes de abrir este respaldo. ¿Continuar?'))
       return;
-    downloadRecovery();
+    await downloadRecovery();
   }
   busy('Guardando…', 80);
   await yieldFrame();
@@ -1351,7 +1351,10 @@ function menu(id, triggerId) {
     t.setAttribute('aria-expanded', open);
     $$('.menu').forEach((x) => x !== m && x.classList.remove('open'));
   };
-  $$('.menu-list button', m).forEach((b) => b.addEventListener('click', () => m.classList.remove('open')));
+  $$('.menu-list button', m).forEach((b) => {
+    if (!b.closest('[data-keep]')) b.addEventListener('click', () => m.classList.remove('open'));
+    else b.addEventListener('click', (e) => e.stopPropagation());
+  });
 }
 menu('exportMenu', 'export');
 menu('importMenu', 'import');
@@ -1362,6 +1365,13 @@ document.addEventListener('keydown', (e) => {
     if (document.body.classList.contains('focus') && !document.querySelector('dialog[open]')) document.body.classList.remove('focus');
   }
 });
+{
+  const exit = document.createElement('button');
+  exit.className = 'focus-exit';
+  exit.innerHTML = icon('close') + '<span>Salir de enfoque</span>';
+  exit.onclick = () => document.body.classList.remove('focus');
+  document.body.append(exit);
+}
 // Pista de desplazamiento en la navegación cuando no cabe completa.
 {
   const nav = $('nav');
@@ -1509,10 +1519,10 @@ bind('new', () => {
   libraryView.bookDialog();
 });
 bind('downloadRecovery', downloadRecovery);
-bind('resetLibrary', () => {
+bind('resetLibrary', async () => {
   if (!confirm('Se descargará el guardado ilegible para recuperarlo antes de iniciar una biblioteca nueva. ¿Continuar?'))
     return;
-  downloadRecovery();
+  await downloadRecovery();
   library = createLibrary();
   syncActive();
   loadFailure = false;
@@ -1586,7 +1596,7 @@ requestAnimationFrame(() => {
   splash.classList.add('hide');
   setTimeout(() => splash.remove(), 400);
 });
-const APP_VERSION = '0.4.1';
+const APP_VERSION = '0.4.5';
 $('#appVersion').textContent = `Tienes la ${APP_VERSION}. Trae la última versión publicada.`;
 let swReg = null;
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {

@@ -75,6 +75,10 @@
    "ok": true
   },
   {
+   "prueba": "botón flotante sale del modo enfoque",
+   "ok": true
+  },
+  {
    "prueba": "modo oscuro automático",
    "ok": true
   },
@@ -92,6 +96,10 @@
   },
   {
    "prueba": "móvil 390px: escribir sin desplazamiento horizontal",
+   "ok": true
+  },
+  {
+   "prueba": "libro con 68 imágenes cargado 3 veces sigue ahí tras recargar",
    "ok": true
   },
   {

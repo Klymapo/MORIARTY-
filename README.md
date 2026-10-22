@@ -78,6 +78,10 @@ Las ilustraciones de `dist/img/` (logo, arranque, estados vacíos, retratos por 
 
 Las portadas y las imágenes de ficha se guardan dentro del JSON como data URL (base64), comprimidas al subirlas (512 px para fichas, 900 px para portadas, WebP o JPEG). Los SVG con código se rechazan.
 
+## Almacenamiento
+
+Desde V0.4.5 la biblioteca se guarda en **IndexedDB** del navegador (cientos de MB). Antes vivía en `localStorage`, que solo admite ~5 MB: un libro con imágenes lo llenaba y el guardado fallaba en silencio. Al abrir la app por primera vez con V0.4.5, lo que hubiera en `localStorage` se mueve a IndexedDB (la copia anterior se conserva como `biblioteca-localstorage-migrada`). Si algo no se puede guardar, aparece un aviso visible.
+
 ## Formato del manuscrito
 
 El texto sigue siendo texto plano (portable y editable desde cualquier chat). Marcas: `*cursiva*`, `**negrita**`, `__subrayado__`, `> ` al inicio = sangría/cita, `-> texto <-` = centrado, `---` sola = salto de página, `***` sola = separador de escena, `![pie de foto](asset:ID)` = imagen guardada en `assets` del libro. Se interpretan en la vista de lectura y en DOCX, EPUB y PDF; en el editor se ven las marcas. No hay editor WYSIWYG a propósito: el JSON se mantiene legible y el texto nunca depende de HTML.
