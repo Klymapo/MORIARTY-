@@ -218,6 +218,10 @@ const slug = (t) =>
     .toUpperCase()
     .slice(0, 40) || 'MORIARTY';
 
+// Si el título ya trae su número o es Prólogo/Extra/Epílogo, no se antepone otro.
+const ownNumber = (t) => /^\s*(\d+|pr[oó]logo|ep[ií]logo|extra|interludio)\b/i.test(t);
+const chapterLabel = (c, i) => (ownNumber(c.title) ? esc(c.title) : `${i + 1}. ${esc(c.title)}`);
+
 /* ---------- Barra lateral ---------- */
 function sidebar() {
   const el = $('#sidebar');
@@ -259,7 +263,7 @@ function chapterList() {
     )
     .map(
       (c, i) =>
-        `<button class="${c.id === cid ? 'selected' : ''}" data-chapter="${c.id}"><span class="dot status-${c.status}" style="width:7px;height:7px;border-radius:50%;background:currentColor;flex:0 0 auto"></span>${i + 1}. ${esc(c.title)}</button>${c.id === cid ? c.scenes.map((s) => `<button class="scene ${s.id === sid ? 'selected' : ''}" data-scene="${s.id}">▱ ${esc(s.title)}</button>`).join('') : ''}`,
+        `<button class="${c.id === cid ? 'selected' : ''}" data-chapter="${c.id}"><span class="dot status-${c.status}" style="width:7px;height:7px;border-radius:50%;background:currentColor;flex:0 0 auto"></span>${chapterLabel(c, i)}</button>${c.id === cid ? c.scenes.map((s) => `<button class="scene ${s.id === sid ? 'selected' : ''}" data-scene="${s.id}">▱ ${esc(s.title)}</button>`).join('') : ''}`,
     )
     .join('');
   $$('#chapterList [data-chapter]').forEach(
@@ -462,7 +466,7 @@ function boardView() {
   });
   const live = p.chapters.filter((c) => !c.trashed);
   const chapterCard = (c, i) =>
-    `<button class="chapter-icon" data-open="${c.id}" ${free ? `style="left:${c.x}px;top:${c.y}px"` : ''}><span class="chapter-band" style="background:${c.color || 'transparent'}"></span><span class="status-dot status-${c.status}" title="${STATUS_LABEL[c.status]}"></span>${icon('book', 'chapter-glyph')}<b>${String(i + 1).padStart(2, '0')} · ${esc(c.title)}</b><small>ACTO ${c.act}${c.entityIds.length ? ` · ${c.entityIds.length} FICHAS` : ''}</small></button>`;
+    `<button class="chapter-icon" data-open="${c.id}" ${free ? `style="left:${c.x}px;top:${c.y}px"` : ''}><span class="chapter-band" style="background:${c.color || 'transparent'}"></span><span class="status-dot status-${c.status}" title="${STATUS_LABEL[c.status]}"></span>${icon('book', 'chapter-glyph')}<b>${ownNumber(c.title) ? esc(c.title) : `${String(i + 1).padStart(2, '0')} · ${esc(c.title)}`}</b><small>ACTO ${c.act}${c.entityIds.length ? ` · ${c.entityIds.length} FICHAS` : ''}</small></button>`;
   $('#board').innerHTML = free
     ? `<div class="canvas"><div class="canvas-inner">${live.map(chapterCard).join('')}</div></div>`
     : `<div class="grid">${live.map((c, i) => `<div class="chapter-wrap">${chapterCard(c, i)}<div class="toolbar"><button data-move="${c.id}" data-dir="-1" aria-label="Subir capítulo" ${i === 0 ? 'disabled' : ''}>↑</button><button data-move="${c.id}" data-dir="1" aria-label="Bajar capítulo" ${i === live.length - 1 ? 'disabled' : ''}>↓</button><select data-act="${c.id}" aria-label="Acto de ${esc(c.title)}">${[1, 2, 3].map((n) => `<option ${c.act === n ? 'selected' : ''}>${n}</option>`).join('')}</select></div></div>`).join('')}</div>`;

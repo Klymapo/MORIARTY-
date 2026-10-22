@@ -1595,3 +1595,45 @@ body::before {
     padding: 7px;
   }
 }
+
+/* ---------- Semáforo del libro y portadas propias ---------- */
+.book-progress {
+  display: flex;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--line);
+  margin: 4px 0 6px;
+  gap: 2px;
+}
+.book-progress span {
+  background: currentColor;
+  min-width: 6px;
+}
+.book-progress-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.book-progress-legend b {
+  color: var(--text);
+}
+.book-title {
+  font: 500 18px/1.25 var(--serif);
+  margin: 0 0 6px;
+}
+.book-cover.cover-custom {
+  background-size: cover;
+  background-position: center;
+  aspect-ratio: 2 / 3;
+  min-height: 0;
+}
+.book-cover.cover-custom::after {
+  display: none;
+}
+.book-cover.cover-custom > span {
+  display: none;
+}
