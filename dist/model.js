@@ -16,7 +16,7 @@ export const FIELDS = {
 export const IMAGE_LIMIT = 1.5 * 1024 * 1024; // caracteres del data URL
 
 export const uid = () => globalThis.crypto.randomUUID();
-export const scene = () => ({id: uid(), title: 'Nueva escena', text: ''});
+export const scene = (title = 'Nueva escena', text = '') => ({id: uid(), title, text});
 export const chapter = () => ({
   id: uid(),
   title: 'Nuevo capítulo',
@@ -42,12 +42,31 @@ export const entity = (type = 'Personaje') => ({
   tags: [],
   fields: {},
   relations: [],
+  x: null,
+  y: null,
   trashed: false,
 });
 export const event = () => ({id: uid(), title: 'Nuevo acontecimiento', when: '', order: 0, chapterId: '', trashed: false});
+export const goals = () => ({daily: 500, total: 80000, chapter: 3000, deadline: ''});
+export const milestone = (date = '', title = '') => ({id: uid(), date, title, done: false});
 export function createProject(title = 'Mi nueva novela') {
-  return {schemaVersion: SCHEMA, id: uid(), title, cover: '', chapters: [chapter()], entities: [], events: [], reviews: []};
+  return {
+    schemaVersion: SCHEMA,
+    id: uid(),
+    title,
+    cover: '',
+    chapters: [chapter()],
+    entities: [],
+    events: [],
+    reviews: [],
+    goals: goals(),
+    milestones: [],
+    log: {},
+    assets: {},
+    style: {dropCap: true},
+  };
 }
+export const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 const str = (x) => typeof x === 'string';
 const safeId = (x) => str(x) && /^[A-Za-z0-9_-]{1,128}$/.test(x);
@@ -80,7 +99,14 @@ export function migrate(p) {
     e.tags ??= [];
     e.fields ??= {};
     e.relations ??= [];
+    e.x ??= null;
+    e.y ??= null;
   }
+  q.goals = {...goals(), ...(q.goals && typeof q.goals === 'object' ? q.goals : {})};
+  q.assets ??= {};
+  q.style = {dropCap: true, ...(q.style && typeof q.style === 'object' ? q.style : {})};
+  q.milestones ??= [];
+  q.log ??= {};
   (q.events || []).forEach((e, i) => (e.order ??= i));
   return q;
 }
@@ -128,7 +154,8 @@ export function validate(input) {
       typeof e.fields !== 'object' ||
       Array.isArray(e.fields) ||
       !Object.entries(e.fields).every(([k, v]) => /^[a-z]{1,32}$/.test(k) && str(v)) ||
-      !Array.isArray(e.relations)
+      !Array.isArray(e.relations) ||
+      !((e.x === null && e.y === null) || (Number.isFinite(e.x) && Number.isFinite(e.y)))
     )
       fail();
     id(e.id);
@@ -180,6 +207,25 @@ export function validate(input) {
       fail();
     id(e.id);
   }
+  const g = p.goals;
+  if (
+    !g ||
+    typeof g !== 'object' ||
+    ![g.daily, g.total, g.chapter].every((n) => Number.isInteger(n) && n >= 0 && n <= 10000000) ||
+    !(g.deadline === '' || (str(g.deadline) && DATE_RE.test(g.deadline)))
+  )
+    fail();
+  if (!p.assets || typeof p.assets !== 'object' || Array.isArray(p.assets)) fail();
+  for (const [k, a] of Object.entries(p.assets)) if (!safeId(k) || !a || !str(a.alt) || !image(a.data) || a.data === '') fail();
+  if (!p.style || typeof p.style.dropCap !== 'boolean') fail();
+  if (!Array.isArray(p.milestones)) fail();
+  for (const m of p.milestones) {
+    if (!m || !str(m.title) || m.title.length > 200 || !(m.date === '' || DATE_RE.test(m.date)) || typeof m.done !== 'boolean') fail();
+    id(m.id);
+  }
+  if (!p.log || typeof p.log !== 'object' || Array.isArray(p.log)) fail();
+  for (const [k, v] of Object.entries(p.log))
+    if (!DATE_RE.test(k) || !v || !Number.isInteger(v.start) || !Number.isInteger(v.end) || v.start < 0 || v.end < 0) fail();
   for (const r of p.reviews) {
     if (
       !r ||
@@ -208,9 +254,23 @@ export function restore(c, id) {
   snapshot(c, 'Antes de recuperar');
   c.scenes = copy;
 }
-export function applyReview(s, r) {
+export function applyReview(s, r, text = r.proposal) {
   if (s.text !== r.base) throw Error('El original cambió. Conservamos la propuesta, pero debes iniciar otra revisión.');
-  s.text = r.proposal;
+  s.text = text;
+}
+// Respuesta de revisión (la escribe una IA o una persona a partir de MORIARTY_SOLICITUD.json).
+export function validateReviewResponse(data) {
+  if (!data || data.kind !== 'review-response') return null;
+  if (!safeId(data.reviewId) || !str(data.proposal)) fail('Respuesta de revisión inválida: faltan reviewId o proposal.');
+  return {reviewId: data.reviewId, proposal: data.proposal, notes: str(data.notes) ? data.notes : ''};
+}
+// Bitácora diaria de palabras: log[fecha] = {start, end}. Devuelve las palabras escritas hoy.
+export function logWords(p, total, today = new Date().toISOString().slice(0, 10)) {
+  const days = Object.keys(p.log).sort();
+  const last = days.filter((d) => d < today).at(-1);
+  if (!p.log[today]) p.log[today] = {start: last ? p.log[last].end : total, end: total};
+  else p.log[today].end = total;
+  return p.log[today].end - p.log[today].start;
 }
 
 // ---- Paquetes parciales (kind: moriarty-pack) ----

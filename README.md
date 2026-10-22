@@ -1,8 +1,10 @@
-# MORIARTY V0.3
+# MORIARTY V0.4
 
 Estudio personal de escritura con biblioteca de libros y sagas. Sin dependencias externas, cuentas obligatorias ni APIs de pago.
 
-**Novedades V0.3 (2026-10-22):** base visual nueva (tokens, modo oscuro automático, tipografías Literata e Inter empaquetadas en local bajo OFL, transiciones entre espacios, pantalla de arranque, legibilidad del manuscrito con tamaño de letra ajustable), formato **JSON v2** (fichas con imagen, color, etiquetas, campos por tipo y relaciones; capítulos con resumen, punto de vista, estado y fichas vinculadas; acontecimientos ordenables), **carga por partes** (paquetes de fichas/capítulos/acontecimientos, pegar JSON, arrastrar y soltar), portadas e imágenes de ficha comprimidas en el navegador, guardado con pausa corta y vuelta al último espacio abierto. Especificación en `docs/MORIARTY_JSON_V2.md`. El Pizarrón visual (reemplazo de Tablero y Archivo) llega en V0.4.
+**Novedades V0.4 (2026-10-22):** **Pizarrón** interactivo (mapa SVG con capítulos y fichas arrastrables, relaciones, filtros por tipo, zoom, minimapa, franja de cronología; subpestañas Mapa / Capítulos / Fichas / Cronología que sustituyen a Tablero y Archivo), **Tracker** (palabras de hoy, racha, meta diaria/total/por capítulo, fecha límite con ritmo proyectado, calendario mensual, fechas clave), **revisiones cambio por cambio** (respuesta JSON de una IA o persona, diferencias resaltadas, aceptar o rechazar cada cambio, editar la propuesta), **buscar y reemplazar** en todo el libro (Ctrl+Shift+F), **formato ligero** del manuscrito con barra de herramientas y vista de lectura (negrita, cursiva, subrayado, sangría, centrado, separador, salto de página, imágenes dentro del capítulo, letra capital, raya, comillas latinas, `--` → `—`, `...` → `…`), **plantillas** de capítulo y de ficha (primer capítulo, tres escenas, flashback, ilustrado; arco de personaje, mapa, escaleta, línea de vida, regla del mundo), **exportar DOCX, EPUB y PDF** (impresión), eliminar sagas, y tema **claro / oscuro / automático** a mano. Detalle del formato en `docs/MORIARTY_JSON_V2.md`.
+
+**Novedades V0.3 (2026-10-22):** base visual nueva (tokens, modo oscuro automático, tipografías Literata e Inter empaquetadas en local bajo OFL, transiciones entre espacios, pantalla de arranque, legibilidad del manuscrito con tamaño de letra ajustable), formato **JSON v2** (fichas con imagen, color, etiquetas, campos por tipo y relaciones; capítulos con resumen, punto de vista, estado y fichas vinculadas; acontecimientos ordenables), **carga por partes** (paquetes de fichas/capítulos/acontecimientos, pegar JSON, arrastrar y soltar), portadas e imágenes de ficha comprimidas en el navegador, guardado con pausa corta y vuelta al último espacio abierto. Especificación en `docs/MORIARTY_JSON_V2.md`.
 
 ## Ejecutar
 
@@ -76,13 +78,21 @@ Las ilustraciones de `dist/img/` (logo, arranque, estados vacíos, retratos por 
 
 Las portadas y las imágenes de ficha se guardan dentro del JSON como data URL (base64), comprimidas al subirlas (512 px para fichas, 900 px para portadas, WebP o JPEG). Los SVG con código se rechazan.
 
+## Formato del manuscrito
+
+El texto sigue siendo texto plano (portable y editable desde cualquier chat). Marcas: `*cursiva*`, `**negrita**`, `__subrayado__`, `> ` al inicio = sangría/cita, `-> texto <-` = centrado, `---` sola = salto de página, `***` sola = separador de escena, `![pie de foto](asset:ID)` = imagen guardada en `assets` del libro. Se interpretan en la vista de lectura y en DOCX, EPUB y PDF; en el editor se ven las marcas. No hay editor WYSIWYG a propósito: el JSON se mantiene legible y el texto nunca depende de HTML.
+
+## Revisiones
+
+*Escribir → Revisar escena* crea una solicitud (`review-request`) con el texto base. Se descarga o copia, se pasa a una IA o a una persona, y la respuesta vuelve como JSON `review-response` (campo `proposal` con el texto completo revisado y `notes` opcional) por *Cargar → Pegar JSON* o arrastrando el archivo. La app muestra las diferencias palabra por palabra y deja aceptar o rechazar cada cambio antes de aplicar; aplicar guarda antes una versión del capítulo.
+
 ## Verificar
 
 ```sh
 npm test
 ```
 
-Las pruebas no requieren instalar dependencias (21 de dominio y biblioteca). La verificación en navegador V0.3 está en `evidencia/v0.3/verificar_v03.py` (23/23 comprobaciones en Chromium 141; actualizado el 2026-10-22, escritorio, oscuro, 320/390 px y sin conexión); esos scripts de QA requieren Python, Playwright y Chromium, no son dependencias de la aplicación.
+Las pruebas no requieren instalar dependencias (21 de dominio y biblioteca). La verificación en navegador V0.3 está en `evidencia/v0.4/verificar_v04.py` (23/23 comprobaciones en Chromium 141; actualizado el 2026-10-22, escritorio, oscuro, 320/390 px y sin conexión); esos scripts de QA requieren Python, Playwright y Chromium, no son dependencias de la aplicación.
 
 Responsable: Admin / Atátoriz. Código original MIT; ver LICENSE. Documento maestro y diseño V0.2 en `docs/`.
 

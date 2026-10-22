@@ -14,6 +14,9 @@ import {
   packConflicts,
   mergePack,
   wordCount,
+  logWords,
+  validateReviewResponse,
+  milestone,
   STATUSES,
   STATUS_LABEL,
   FIELDS,
@@ -33,6 +36,13 @@ import {LibraryView} from './library-view.js';
 import {icon, actionIcon, decorateIcons, art} from './icons.js';
 import {pickImage} from './media.js';
 import {askPersistence, backupNow, listBackups, readBackup, autoVersion} from './backup.js';
+import {toHtml, toggleWrap, toggleLine, insertBlock, autoReplace} from './markup.js';
+import {CHAPTER_TEMPLATES, ENTITY_TEMPLATES, chapterFrom, entityFrom} from './templates.js';
+import {search as searchBook, replaceOne, replaceAll} from './search.js';
+import {diffBlocks, applyBlocks, countChanges} from './diff.js';
+import {docx, epub, printHtml} from './exporter.js';
+import {trackerView} from './tracker.js';
+import {mapView} from './board.js';
 
 const $ = (s) => document.querySelector(s),
   $$ = (s, root = document) => [...root.querySelectorAll(s)],
@@ -52,18 +62,34 @@ let library,
   reviewId = null,
   tab = 'original',
   loadFailure = false,
-  migrated = false;
+  migrated = false,
+  mapTab = 'mapa';
+const darkMedia = matchMedia('(prefers-color-scheme: dark)');
 let prefs = {fontSize: 19};
 try {
   prefs = {...prefs, ...JSON.parse(localStorage.getItem(PREFS_KEY) || '{}')};
 } catch {}
-applyPrefs();
+function applyTheme() {
+  const t = prefs.theme || 'auto';
+  const root = document.documentElement;
+  if (t === 'auto') root.removeAttribute('data-theme');
+  else root.dataset.theme = t;
+  root.dataset.scheme = t === 'auto' ? (darkMedia.matches ? 'dark' : 'light') : t;
+  const b = $('#theme');
+  if (b) {
+    b.innerHTML = icon(root.dataset.scheme === 'dark' ? 'moon' : 'sun') + `<span>${{auto: 'Automático', light: 'Claro', dark: 'Oscuro'}[t]}</span>`;
+    b.title = `Tema: ${{auto: 'automático (según el sistema)', light: 'claro', dark: 'oscuro'}[t]}. Toca para cambiar.`;
+  }
+}
 function applyPrefs() {
   document.documentElement.style.setProperty('--manuscript-size', prefs.fontSize + 'px');
+  applyTheme();
   try {
     localStorage.setItem(PREFS_KEY, JSON.stringify(prefs));
   } catch {}
 }
+applyPrefs();
+darkMedia.addEventListener('change', applyTheme);
 
 try {
   ({library, migrated} = loadLibrary(localStorage));
@@ -127,7 +153,10 @@ if (prefs.last && prefs.last.book === p.id && !loadFailure) {
     cid = c.id;
     sid = c.scenes.some((s) => s.id === prefs.last.sid) ? prefs.last.sid : c.scenes[0].id;
   }
-  if (['write', 'board', 'archive', 'timeline', 'review'].includes(prefs.last.view)) view = prefs.last.view;
+  const old = {board: 'capitulos', archive: 'fichas', timeline: 'cronologia'};
+  if (old[prefs.last.view]) (view = 'map'), (mapTab = old[prefs.last.view]);
+  else if (['write', 'map', 'tracker', 'review'].includes(prefs.last.view)) view = prefs.last.view;
+  if (prefs.last.mapTab) mapTab = prefs.last.mapTab;
 }
 function current() {
   return p.chapters.find((c) => c.id === cid && !c.trashed);
@@ -170,6 +199,7 @@ function saveNow() {
     return false;
   }
   try {
+    if (!loadFailure) logWords(p, wordCount(p));
     localStorage.setItem(LIBRARY_KEY, JSON.stringify(library));
     setSaved(`Guardado ${new Date().toLocaleTimeString('es-MX', {hour: '2-digit', minute: '2-digit'})}`);
     count();
@@ -209,6 +239,8 @@ function download(name, text, type = 'application/json') {
 function btn(id, text, cls = '', title = '') {
   return `<button id="${id}" class="${cls}" ${title ? `title="${esc(title)}" aria-label="${esc(title)}"` : ''}>${icon(actionIcon(id))}${text ? `<span>${esc(text.replace(/^[＋←]\s*/u, ''))}</span>` : ''}</button>`;
 }
+// Donde pintan las vistas: dentro del Pizarrón (#subview) o en #main.
+const main = () => $('#subview') || $('#main');
 function bind(id, fn) {
   const el = $('#' + id);
   if (el) el.onclick = fn;
@@ -244,13 +276,20 @@ function sidebar() {
     chapterList();
   };
   chapterList();
-  bind('addChapter', () => {
-    const c = chapter();
+  bind('addChapter', async () => {
+    const tpl = await choose(
+      'Nuevo capítulo',
+      `<div class="tpl-list">${CHAPTER_TEMPLATES.map((t, i) => `<label class="tpl"><input type="radio" name="tpl" value="${t.id}" ${i === 0 ? 'checked' : ''}><b>${esc(t.name)}</b><small>${esc(t.desc)}</small></label>`).join('')}</div>`,
+      [{value: 'ok', label: 'Crear capítulo', primary: true}],
+    );
+    if (!tpl) return;
+    const c = chapterFrom(choose.lastPick || 'blank');
     const n = p.chapters.length;
     c.x = 40 + (n % 7) * 200;
     c.y = 40 + Math.floor(n / 7) * 160;
     p.chapters.push(c);
     view = 'write';
+    reading = false;
     save();
     select(c);
   });
@@ -299,9 +338,8 @@ function paint() {
   $('#projectTitle').value = p.title;
   $('#projectTitle').hidden = home;
   $('#libraryTitle').hidden = !home;
-  $('#exportBook').hidden = home;
-  $('#exportPack').hidden = home;
-  $('#txt').hidden = home;
+  for (const id of ['exportBook', 'exportPack', 'txt', 'exportDocx', 'exportEpub', 'exportPdf', 'exportSep']) $('#' + id).hidden = home;
+  $('#searchBtn').hidden = home;
   $$('[data-view]').forEach((b) => {
     b.classList.toggle('active', b.dataset.view === view);
     if (b.dataset.view === view) b.setAttribute('aria-current', 'page');
@@ -309,17 +347,30 @@ function paint() {
   });
   if (home) libraryView.render();
   else {
+    $('#main').innerHTML = '';
     sidebar();
-    ({write: writeView, board: boardView, archive: archiveView, timeline: timelineView, review: reviewView})[view]();
+    ({write: writeView, map: pizarronView, tracker: () => trackerView(ctx), review: reviewView})[view]();
   }
   $('#recoveryBanner').hidden = !loadFailure;
   count();
   decorateIcons();
 }
+/* ---------- Pizarrón: mapa, capítulos, fichas, cronología ---------- */
+function pizarronView() {
+  const tabs = [
+    ['mapa', 'Mapa', 'board'],
+    ['capitulos', 'Capítulos', 'book'],
+    ['fichas', 'Fichas', 'archive'],
+    ['cronologia', 'Cronología', 'timeline'],
+  ];
+  $('#main').innerHTML = `<div class="subtabs" role="tablist">${tabs.map(([id, label, ic]) => `<button role="tab" aria-selected="${mapTab === id}" class="${mapTab === id ? 'active' : ''}" data-tab="${id}">${icon(ic)}<span>${label}</span></button>`).join('')}</div><div id="subview"></div>`;
+  $$('[data-tab]').forEach((b) => (b.onclick = () => ((mapTab = b.dataset.tab), render())));
+  ({mapa: () => mapView(ctx), capitulos: boardView, fichas: archiveView, cronologia: timelineView})[mapTab]();
+}
 function render() {
   const changed = view !== lastView;
   lastView = view;
-  prefs.last = {book: p.id, view, cid, sid};
+  prefs.last = {book: p.id, view, cid, sid, mapTab};
   applyPrefs();
   if (changed && document.startViewTransition && !document.body.classList.contains('focus')) {
     document.startViewTransition(paint);
@@ -327,6 +378,19 @@ function render() {
 }
 
 /* ---------- Escribir ---------- */
+let reading = false;
+const chapterWords = (c) => c.scenes.reduce((n, s) => n + (s.text.trim() ? s.text.trim().split(/\s+/u).length : 0), 0);
+async function insertImage(ta) {
+  const r = await pickImage($('#imageFile'), {max: 1400, quality: 0.82});
+  if (!r) return;
+  if (r.error) return notify(r.error);
+  const alt = await choose('Pie de foto', `<label>Descripción o pie de foto (opcional)<input class="field" name="alt" id="imgAlt" maxlength="200" placeholder="Mapa de Verlhaven"></label>`, [{value: 'ok', label: 'Insertar', primary: true}]);
+  if (!alt) return;
+  const id = uid();
+  p.assets[id] = {data: r, alt: choose.lastText || ''};
+  insertBlock(ta, `![${choose.lastText || ''}](asset:${id})`);
+  save();
+}
 function writeView() {
   const c = current(),
     s = selectedScene();
@@ -337,11 +401,18 @@ function writeView() {
   }
   const live = p.entities.filter((e) => !e.trashed);
   const linked = c.entityIds.map((id) => live.find((e) => e.id === id)).filter(Boolean);
+  const cw = chapterWords(c),
+    goal = p.goals.chapter;
+  const tb = (id, label, title, cls = '') => `<button type="button" class="fmt ${cls}" data-fmt="${id}" title="${esc(title)}" aria-label="${esc(title)}">${label}</button>`;
   $('#main').innerHTML =
-    `<div class="toolbar"><span class="eyebrow">ESTUDIO DE ESCRITURA</span><span class="spacer"></span><span class="type-size" role="group" aria-label="Tamaño de letra">${btn('smaller', '', '', 'Letra más pequeña')}${btn('bigger', '', '', 'Letra más grande')}</span>${btn('focus', 'Modo enfoque')}${btn('versions', 'Versiones')}${btn('exportChapter', 'Exportar capítulo')}${btn('reviewStart', 'Revisar escena')}</div><article class="editor"><input id="chapterTitle" class="title" aria-label="Título del capítulo" value="${esc(c.title)}"><details class="chapter-details" ${c.summary || c.pov || linked.length ? 'open' : ''}><summary><span class="chip status-${c.status}"><span class="dot"></span>${STATUS_LABEL[c.status]}</span><span>Detalles del capítulo</span>${linked.length ? `<span class="muted">· ${linked.length} ${linked.length === 1 ? 'ficha' : 'fichas'}</span>` : ''}</summary><div class="body"><label>Estado<select class="field" data-status>${STATUSES.map((st) => `<option value="${st}" ${st === c.status ? 'selected' : ''}>${STATUS_LABEL[st]}</option>`).join('')}</select></label><label>Punto de vista<input class="field" data-pov value="${esc(c.pov)}" placeholder="¿Quién narra?"></label><label class="wide">Resumen<textarea class="field" data-summary rows="2" placeholder="Qué pasa en este capítulo, en dos líneas.">${esc(c.summary)}</textarea></label><div class="wide"><label>Fichas en este capítulo</label><div class="chips">${linked.map((e) => `<span class="chip type-${e.type}"><span class="dot"></span>${esc(e.name)}<button data-unlink="${e.id}" aria-label="Quitar ${esc(e.name)}">${icon('close')}</button></span>`).join('')}<select class="field" data-link style="width:auto;padding:4px 8px;font-size:12px"><option value="">＋ Vincular ficha…</option>${live
+    `<div class="toolbar"><span class="eyebrow">ESTUDIO DE ESCRITURA</span><span class="spacer"></span><span class="type-size" role="group" aria-label="Tamaño de letra">${btn('smaller', '', '', 'Letra más pequeña')}${btn('bigger', '', '', 'Letra más grande')}</span>${btn('focus', 'Modo enfoque')}${btn('versions', 'Versiones')}${btn('exportChapter', 'Exportar capítulo')}${btn('reviewStart', 'Revisar escena')}</div><article class="editor"><input id="chapterTitle" class="title" aria-label="Título del capítulo" value="${esc(c.title)}"><details class="chapter-details" ${c.summary || c.pov || linked.length ? 'open' : ''}><summary><span class="chip status-${c.status}"><span class="dot"></span>${STATUS_LABEL[c.status]}</span><span>Detalles del capítulo</span>${linked.length ? `<span class="muted">· ${linked.length} ${linked.length === 1 ? 'ficha' : 'fichas'}</span>` : ''}<span class="spacer"></span><span class="muted">${cw.toLocaleString('es-MX')}${goal ? ` / ${goal.toLocaleString('es-MX')}` : ''} palabras</span></summary><div class="body"><label>Estado<select class="field" data-status>${STATUSES.map((st) => `<option value="${st}" ${st === c.status ? 'selected' : ''}>${STATUS_LABEL[st]}</option>`).join('')}</select></label><label>Punto de vista<input class="field" data-pov value="${esc(c.pov)}" placeholder="¿Quién narra?"></label><label class="wide">Resumen<textarea class="field" data-summary rows="2" placeholder="Qué pasa en este capítulo, en dos líneas.">${esc(c.summary)}</textarea></label><div class="wide"><label>Fichas en este capítulo</label><div class="chips">${linked.map((e) => `<span class="chip type-${e.type}"><span class="dot"></span>${esc(e.name)}<button data-unlink="${e.id}" aria-label="Quitar ${esc(e.name)}">${icon('close')}</button></span>`).join('')}<select class="field" data-link style="width:auto;padding:4px 8px;font-size:12px"><option value="">＋ Vincular ficha…</option>${live
       .filter((e) => !c.entityIds.includes(e.id))
       .map((e) => `<option value="${e.id}">${esc(e.type)} · ${esc(e.name)}</option>`)
-      .join('')}</select></div></div></div></details><div class="toolbar"><select id="sceneSelect" class="field" aria-label="Escena" style="width:auto;flex:1">${c.scenes.map((s) => `<option value="${s.id}" ${s.id === sid ? 'selected' : ''}>${esc(s.title)}</option>`).join('')}</select>${btn('addScene', '＋ Escena')}${btn('trashChapter', 'A papelera')}</div><input id="sceneTitle" class="subtitle" aria-label="Título de escena" value="${esc(s.title)}"><textarea id="text" class="manuscript" aria-label="Texto de la escena" placeholder="Escribe aquí. Esta historia es tuya…" spellcheck="true">${esc(s.text)}</textarea><p class="muted">Texto plano · Guardado local · Exporta un respaldo para llevarlo a otro dispositivo.</p></article>`;
+      .join('')}</select></div></div></div></details>${goal ? `<div class="book-progress" style="margin:-6px 0 12px"><span class="status-${c.status}" style="flex:${Math.min(cw, goal)}"></span><span style="flex:${Math.max(goal - cw, 0)};background:transparent"></span></div>` : ''}<div class="toolbar"><select id="sceneSelect" class="field" aria-label="Escena" style="width:auto;flex:1">${c.scenes.map((s) => `<option value="${s.id}" ${s.id === sid ? 'selected' : ''}>${esc(s.title)}</option>`).join('')}</select>${btn('addScene', '＋ Escena')}${btn('trashChapter', 'A papelera')}</div><input id="sceneTitle" class="subtitle" aria-label="Título de escena" value="${esc(s.title)}"><div class="fmt-bar" role="toolbar" aria-label="Formato">${tb('b', '<b>N</b>', 'Negrita (Ctrl+B)')}${tb('i', '<i>K</i>', 'Cursiva (Ctrl+I)')}${tb('u', '<u>S</u>', 'Subrayado (Ctrl+U)')}<span class="fmt-sep"></span>${tb('quote', icon('text'), 'Sangría / cita')}${tb('center', '≡', 'Centrar')}<span class="fmt-sep"></span>${tb('sep', '＊', 'Separador de escena')}${tb('break', '⤓', 'Salto de página')}${tb('image', icon('image'), 'Insertar imagen')}<span class="fmt-sep"></span>${tb('dash', '—', 'Raya de diálogo')}${tb('ellipsis', '…', 'Puntos suspensivos')}${tb('quotes', '«»', 'Comillas latinas')}<span class="spacer"></span>${tb('dropcap', 'A', 'Letra capital al inicio del capítulo', p.style.dropCap ? 'on' : '')}${tb('search', icon('search'), 'Buscar y reemplazar (Ctrl+Shift+F)')}${tb('read', reading ? icon('edit') : icon('book'), reading ? 'Volver a escribir' : 'Vista de lectura', reading ? 'on' : '')}</div>${
+      reading
+        ? `<div class="manuscript reading" id="readingView">${toHtml(s.text, {assets: p.assets, dropCap: p.style.dropCap && c.scenes[0].id === s.id}) || '<p class="muted">Nada escrito todavía.</p>'}</div>`
+        : `<textarea id="text" class="manuscript" aria-label="Texto de la escena" placeholder="Escribe aquí. Esta historia es tuya…" spellcheck="true">${esc(s.text)}</textarea>`
+    }<p class="muted">Formato: *cursiva*, **negrita**, __subrayado__, «> » sangría, «---» salto de página. Se ve al leer y al exportar.</p></article>`;
   $('#chapterTitle').oninput = (e) => {
     c.title = e.target.value;
     save();
@@ -353,11 +424,51 @@ function writeView() {
     chapterList();
     save();
   };
-  $('#text').oninput = (e) => {
-    s.text = e.target.value;
-    autoVersion(c);
-    save();
-  };
+  const ta = $('#text');
+  if (ta) {
+    ta.oninput = (e) => {
+      if (e.inputType === 'insertText') autoReplace(ta);
+      s.text = ta.value;
+      autoVersion(c);
+      save();
+    };
+    ta.onkeydown = (e) => {
+      if (!(e.ctrlKey || e.metaKey)) return;
+      const k = e.key.toLowerCase();
+      if (k === 'b') (e.preventDefault(), toggleWrap(ta, '**'));
+      else if (k === 'i') (e.preventDefault(), toggleWrap(ta, '*'));
+      else if (k === 'u') (e.preventDefault(), toggleWrap(ta, '__'));
+    };
+  }
+  $$('[data-fmt]').forEach((b) => {
+    b.onclick = () => {
+      const f = b.dataset.fmt;
+      if (f === 'read') return ((reading = !reading), writeView());
+      if (f === 'search') return searchDialog();
+      if (f === 'dropcap') {
+        p.style.dropCap = !p.style.dropCap;
+        save();
+        return writeView();
+      }
+      if (!ta) return notify('Vuelve a escribir para dar formato.');
+      if (f === 'b') toggleWrap(ta, '**');
+      else if (f === 'i') toggleWrap(ta, '*');
+      else if (f === 'u') toggleWrap(ta, '__');
+      else if (f === 'quote' || f === 'center') toggleLine(ta, f);
+      else if (f === 'sep') insertBlock(ta, '***');
+      else if (f === 'break') insertBlock(ta, '---');
+      else if (f === 'image') insertImage(ta);
+      else if (f === 'dash') (ta.setRangeText('—', ta.selectionStart, ta.selectionEnd, 'end'), ta.dispatchEvent(new Event('input')), ta.focus());
+      else if (f === 'ellipsis') (ta.setRangeText('…', ta.selectionStart, ta.selectionEnd, 'end'), ta.dispatchEvent(new Event('input')), ta.focus());
+      else if (f === 'quotes') {
+        const sel = ta.value.slice(ta.selectionStart, ta.selectionEnd);
+        ta.setRangeText('«' + sel + '»', ta.selectionStart, ta.selectionEnd, 'end');
+        if (!sel) ta.setSelectionRange(ta.selectionStart - 1, ta.selectionStart - 1);
+        ta.dispatchEvent(new Event('input'));
+        ta.focus();
+      }
+    };
+  });
   $('#sceneSelect').onchange = (e) => {
     sid = e.target.value;
     render();
@@ -406,7 +517,7 @@ function writeView() {
   bind('focus', () => {
     const active = document.body.classList.toggle('focus');
     $('#focus').innerHTML = icon('focus') + '<span>' + (active ? 'Salir de enfoque' : 'Modo enfoque') + '</span>';
-    $('#text').focus();
+    $('#text')?.focus();
   });
   bind('trashChapter', () => {
     c.trashed = true;
@@ -432,6 +543,111 @@ function writeView() {
     render();
   });
 }
+/* ---------- Buscar y reemplazar ---------- */
+const searchState = {q: '', r: '', cs: false, ww: false};
+function searchDialog() {
+  $('#searchDialog')?.remove();
+  const d = document.createElement('dialog');
+  d.id = 'searchDialog';
+  d.className = 'library-dialog search-dialog';
+  d.innerHTML = `<div class="dialog-heading"><h2>Buscar y reemplazar</h2><button type="button" id="closeSearch" aria-label="Cerrar">${icon('close')}</button></div>
+  <div class="search-form"><label>Buscar<input class="field" id="sq" value="${esc(searchState.q)}" autocomplete="off"></label><label>Reemplazar por<input class="field" id="sr" value="${esc(searchState.r)}" autocomplete="off"></label></div>
+  <div class="toolbar" style="margin:6px 0 10px"><label class="check"><input type="checkbox" id="scs" ${searchState.cs ? 'checked' : ''}> Mayúsculas y minúsculas</label><label class="check"><input type="checkbox" id="sww" ${searchState.ww ? 'checked' : ''}> Palabra completa</label><span class="spacer"></span><span id="sCount" class="muted"></span></div>
+  <div id="sResults" class="search-results"></div>
+  <div class="dialog-actions"><button type="button" id="sReplaceAll" class="primary" disabled>${icon('replace')}Reemplazar todo</button></div>`;
+  document.body.append(d);
+  d.addEventListener('close', () => d.remove());
+  const run = () => {
+    searchState.q = $('#sq').value;
+    searchState.r = $('#sr').value;
+    searchState.cs = $('#scs').checked;
+    searchState.ww = $('#sww').checked;
+    const results = searchState.q ? searchBook(p, searchState.q, {caseSensitive: searchState.cs, wholeWord: searchState.ww}) : [];
+    $('#sCount').textContent = searchState.q ? `${results.length} ${results.length === 1 ? 'coincidencia' : 'coincidencias'}` : '';
+    $('#sReplaceAll').disabled = !results.length;
+    $('#sResults').innerHTML = results.length
+      ? results
+          .slice(0, 200)
+          .map(
+            (r, i) =>
+              `<div class="search-hit"><div class="hit-where">${esc(r.field.where)} <small class="muted">· ${esc(r.field.what)}</small></div><div class="hit-text">${esc(r.before)}<mark>${esc(r.match)}</mark>${esc(r.after)}</div><div class="hit-actions"><button type="button" data-go="${i}">Ir</button><button type="button" data-rep="${i}">Reemplazar</button></div></div>`,
+          )
+          .join('') + (results.length > 200 ? `<p class="muted">Se muestran 200 de ${results.length}.</p>` : '')
+      : searchState.q
+        ? `<div class="library-empty">${art('vacio-busqueda', 'art art-sm')}<p class="muted">Sin coincidencias.</p></div>`
+        : '';
+    $$('[data-rep]', d).forEach(
+      (b) =>
+        (b.onclick = () => {
+          const r = results[Number(b.dataset.rep)];
+          if (r.field.kind === 'scene') snapshot(r.field.chapter, 'Antes de reemplazar');
+          if (replaceOne(r, searchState.r)) {
+            save();
+            run();
+            if (view === 'write') writeView();
+          }
+        }),
+    );
+    $$('[data-go]', d).forEach(
+      (b) =>
+        (b.onclick = () => {
+          const r = results[Number(b.dataset.go)];
+          d.close();
+          if (r.field.kind === 'scene' || r.field.kind === 'chapter') {
+            reading = false;
+            view = 'write';
+            cid = r.field.chapter.id;
+            sid = r.field.scene?.id || r.field.chapter.scenes[0].id;
+            render();
+            const ta = $('#text');
+            if (ta && r.field.what === 'texto') {
+              ta.focus();
+              ta.setSelectionRange(r.index, r.index + r.length);
+              const line = ta.value.slice(0, r.index).split('\n').length;
+              ta.scrollTop = Math.max(0, (line - 4) * parseFloat(getComputedStyle(ta).lineHeight));
+            }
+          } else if (r.field.kind === 'entity') {
+            view = 'map';
+            mapTab = 'fichas';
+            archiveView.type = '';
+            render();
+            $(`[data-entity="${r.field.entity.id}"]`)?.scrollIntoView({block: 'center'});
+          } else if (r.field.kind === 'event') {
+            view = 'map';
+            mapTab = 'cronologia';
+            render();
+          } else {
+            view = 'tracker';
+            render();
+          }
+        }),
+    );
+  };
+  let t;
+  for (const id of ['sq', 'sr']) $('#' + id).oninput = () => (clearTimeout(t), (t = setTimeout(run, 200)));
+  for (const id of ['scs', 'sww']) $('#' + id).onchange = run;
+  $('#closeSearch').onclick = () => d.close();
+  $('#sReplaceAll').onclick = async () => {
+    const n = searchBook(p, searchState.q, {caseSensitive: searchState.cs, wholeWord: searchState.ww}).length;
+    const ok = await choose('Reemplazar todo', `<p>Se van a cambiar <b>${n}</b> coincidencias de «${esc(searchState.q)}» por «${esc(searchState.r)}» en todo el libro.</p><p class="muted">Cada capítulo tocado guarda antes una versión «Antes de reemplazar».</p>`, [{value: 'go', label: `Reemplazar ${n}`, primary: true}]);
+    if (!ok) return;
+    const done = replaceAll(p, searchState.q, searchState.r, {caseSensitive: searchState.cs, wholeWord: searchState.ww});
+    save();
+    notify(`${done} reemplazos hechos.`);
+    run();
+    if (view !== 'library') paint();
+  };
+  d.showModal();
+  $('#sq').focus();
+  if (searchState.q) run();
+}
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'f' && view !== 'library') {
+    e.preventDefault();
+    searchDialog();
+  }
+});
+
 function versionsView() {
   const c = current();
   $('#main').innerHTML =
@@ -469,7 +685,7 @@ function versionsView() {
 
 /* ---------- Tablero ---------- */
 function boardView() {
-  $('#main').innerHTML =
+  main().innerHTML =
     `<div class="toolbar"><div><div class="eyebrow">ESTRUCTURA NARRATIVA</div><h1>Una historia, pieza por pieza.</h1></div><span class="spacer"></span>${btn('order', 'Orden del libro', free ? '' : 'primary')}${btn('free', 'Lienzo libre', free ? 'primary' : '')}</div><p class="muted">${free ? 'Arrastra los iconos sin cambiar el orden del libro. Selecciona y presiona Enter para abrir.' : 'Un icono por capítulo. Las flechas cambian el orden del manuscrito; Enter o doble clic abre el documento.'} El Pizarrón visual con fichas y relaciones llega en V0.4.</p><div id="board"></div>`;
   bind('order', () => {
     free = false;
@@ -540,48 +756,25 @@ function boardView() {
 
 /* ---------- Archivo (fichas v2) ---------- */
 const typeIcon = {Personaje: 'user', Lugar: 'pin', Objeto: 'box', Nota: 'note'};
-function archiveView() {
-  const live = p.entities.filter((e) => !e.trashed);
-  const targets = [
-    ...live.map((e) => ({id: e.id, label: `${e.type} · ${e.name}`})),
+/* ---------- Fichas: tarjeta reutilizable (Archivo y Pizarrón) ---------- */
+function entityTargets() {
+  return [
+    ...p.entities.filter((e) => !e.trashed).map((e) => ({id: e.id, label: `${e.type} · ${e.name}`})),
     ...p.chapters.filter((c) => !c.trashed).map((c) => ({id: c.id, label: `Capítulo · ${c.title}`})),
   ];
-  const typeFilter = archiveView.type || '';
-  const shown = live.filter((e) => !typeFilter || e.type === typeFilter);
-  $('#main').innerHTML =
-    `<div class="toolbar"><div><div class="eyebrow">ARCHIVO NARRATIVO</div><h1>Todo lo que habita tu historia.</h1></div><span class="spacer"></span><select id="entityType" class="field" style="width:auto" aria-label="Tipo de la nueva ficha">${ENTITY_TYPES.map((t) => `<option>${t}</option>`).join('')}</select>${btn('addEntity', '＋ Nueva ficha', 'primary')}</div><div class="chips" style="margin-bottom:14px"><button class="chip ${typeFilter === '' ? 'primary' : ''}" data-filter="">Todas <small>${live.length}</small></button>${ENTITY_TYPES.map((t) => `<button class="chip type-${t} ${typeFilter === t ? 'selected' : ''}" data-filter="${t}" ${typeFilter === t ? 'style="border-color:currentColor"' : ''}><span class="dot"></span>${t}s <small>${live.filter((e) => e.type === t).length}</small></button>`).join('')}</div><div class="grid">${
-      shown
-        .map(
-          (e) =>
-            `<section class="panel entry" data-entity="${e.id}" style="border-top:4px solid ${e.color || 'var(--c-' + e.type.toLowerCase() + ')'}"><div class="head"><button class="portrait" data-portrait aria-label="Cambiar imagen de ${esc(e.name)}" title="Cambiar imagen">${e.image ? `<img src="${e.image}" alt="">` : art('ficha-' + e.type.toLowerCase(), 'portrait-default')}</button><div style="flex:1;min-width:0"><span class="eyebrow type-${e.type}">${esc(e.type)}</span><input class="name" data-name value="${esc(e.name)}" aria-label="Nombre"></div></div>${FIELDS[e.type].length ? `<div class="fields">${FIELDS[e.type].map(([k, l]) => `<label>${l}<input class="field" data-field="${k}" value="${esc(e.fields[k] || '')}"></label>`).join('')}</div>` : ''}<label>Descripción y notas<textarea class="field" data-notes rows="4">${esc(e.notes)}</textarea></label><label>Etiquetas <span class="muted">(separadas por coma)</span><input class="field" data-tags value="${esc(e.tags.join(', '))}" placeholder="aliado, acto 2, secreto"></label><div class="relations"><label>Relaciones</label>${e.relations
+}
+function entityCard(e, targets = entityTargets()) {
+  return `<section class="panel entry" data-entity="${e.id}" style="border-top:4px solid ${e.color || 'var(--c-' + e.type.toLowerCase() + ')'}"><div class="head"><button class="portrait" data-portrait aria-label="Cambiar imagen de ${esc(e.name)}" title="Cambiar imagen">${e.image ? `<img src="${e.image}" alt="">` : art('ficha-' + e.type.toLowerCase(), 'portrait-default')}</button><div style="flex:1;min-width:0"><span class="eyebrow type-${e.type}">${esc(e.type)}</span><input class="name" data-name value="${esc(e.name)}" aria-label="Nombre"></div></div>${FIELDS[e.type].length ? `<div class="fields">${FIELDS[e.type].map(([k, l]) => `<label>${l}<input class="field" data-field="${k}" value="${esc(e.fields[k] || '')}"></label>`).join('')}</div>` : ''}<label>Descripción y notas<textarea class="field" data-notes rows="4">${esc(e.notes)}</textarea></label><label>Etiquetas <span class="muted">(separadas por coma)</span><input class="field" data-tags value="${esc(e.tags.join(', '))}" placeholder="aliado, acto 2, secreto"></label><div class="relations"><label>Relaciones</label>${e.relations
               .map(
                 (r, i) =>
                   `<div class="relation"><input class="field" data-rel-label="${i}" value="${esc(r.label)}" placeholder="vive en, odia a, aparece en…" aria-label="Relación"><select class="field" data-rel-target="${i}" aria-label="Con quién">${targets.map((t) => `<option value="${t.id}" ${t.id === r.targetId ? 'selected' : ''}>${esc(t.label)}</option>`).join('')}</select><button data-rel-remove="${i}" aria-label="Quitar relación" class="ghost">${icon('close')}</button></div>`,
               )
-              .join('')}<button data-add-relation class="ghost" ${targets.length < 2 ? 'disabled' : ''}>${icon('link')}<span>Añadir relación</span></button></div><div class="foot"><div class="color-swatches" role="group" aria-label="Color">${SWATCHES.map((col) => `<button class="swatch ${e.color === col ? 'selected' : ''}" data-color="${col}" style="background:${col || 'var(--line)'}" aria-label="${col || 'Sin color'}"></button>`).join('')}</div><span class="spacer"></span>${e.image ? `<button data-remove-image class="ghost">Quitar imagen</button>` : ''}<button data-trash class="ghost">A papelera</button></div></section>`,
-        )
-        .join('') ||
-      `<div class="library-empty">${typeFilter ? art('ficha-' + typeFilter.toLowerCase(), 'art art-sm') : art('vacio-pizarron')}<h2>${typeFilter ? `Sin ${typeFilter.toLowerCase()}s todavía.` : 'Crea tu primera ficha.'}</h2><p class="muted">Puedes empezar solo con un nombre, o cargar un paquete de fichas desde el menú Cargar.</p></div>`
-    }</div><details style="margin-top:18px"><summary class="muted">Fichas en papelera</summary>${p.entities
-      .filter((e) => e.trashed)
-      .map((e) => `<button data-recover-entity="${e.id}">↶ ${esc(e.name)}</button>`)
-      .join('')}</details>`;
-  $$('[data-filter]').forEach(
-    (b) =>
-      (b.onclick = () => {
-        archiveView.type = b.dataset.filter;
-        archiveView();
-      }),
-  );
-  bind('addEntity', () => {
-    const e = entity($('#entityType').value);
-    p.entities.unshift(e);
-    archiveView.type = '';
-    save();
-    archiveView();
-    $(`[data-entity="${e.id}"] [data-name]`)?.select();
-  });
-  $$('[data-entity]').forEach((el) => {
+              .join('')}<button data-add-relation class="ghost" ${targets.length < 2 ? 'disabled' : ''}>${icon('link')}<span>Añadir relación</span></button></div><div class="foot"><div class="color-swatches" role="group" aria-label="Color">${SWATCHES.map((col) => `<button class="swatch ${e.color === col ? 'selected' : ''}" data-color="${col}" style="background:${col || 'var(--line)'}" aria-label="${col || 'Sin color'}"></button>`).join('')}</div><span class="spacer"></span>${e.image ? `<button data-remove-image class="ghost">Quitar imagen</button>` : ''}<button data-trash class="ghost">A papelera</button></div></section>`;
+}
+// rerender: función que vuelve a pintar la vista que contiene las tarjetas.
+function bindEntityCards(targets, rerender, root = document) {
+  const archiveView = rerender;
+  $$('[data-entity]', root).forEach((el) => {
     const e = p.entities.find((e) => e.id === el.dataset.entity);
     const on = (sel, fn) => {
       const x = el.querySelector(sel);
@@ -644,6 +837,49 @@ function archiveView() {
       archiveView();
     };
   });
+}
+
+function archiveView() {
+  const live = p.entities.filter((e) => !e.trashed);
+  const targets = [
+    ...live.map((e) => ({id: e.id, label: `${e.type} · ${e.name}`})),
+    ...p.chapters.filter((c) => !c.trashed).map((c) => ({id: c.id, label: `Capítulo · ${c.title}`})),
+  ];
+  const typeFilter = archiveView.type || '';
+  const shown = live.filter((e) => !typeFilter || e.type === typeFilter);
+  main().innerHTML =
+    `<div class="toolbar"><div><div class="eyebrow">ARCHIVO NARRATIVO</div><h1>Todo lo que habita tu historia.</h1></div><span class="spacer"></span><select id="entityType" class="field" style="width:auto" aria-label="Tipo de la nueva ficha">${ENTITY_TYPES.map((t) => `<option>${t}</option>`).join('')}</select>${btn('addEntity', '＋ Nueva ficha', 'primary')}</div><div class="chips" style="margin-bottom:14px"><button class="chip ${typeFilter === '' ? 'primary' : ''}" data-filter="">Todas <small>${live.length}</small></button>${ENTITY_TYPES.map((t) => `<button class="chip type-${t} ${typeFilter === t ? 'selected' : ''}" data-filter="${t}" ${typeFilter === t ? 'style="border-color:currentColor"' : ''}><span class="dot"></span>${t}s <small>${live.filter((e) => e.type === t).length}</small></button>`).join('')}</div><div class="grid">${
+      shown
+        .map((e) => entityCard(e, targets))
+        .join('') ||
+      `<div class="library-empty">${typeFilter ? art('ficha-' + typeFilter.toLowerCase(), 'art art-sm') : art('vacio-pizarron')}<h2>${typeFilter ? `Sin ${typeFilter.toLowerCase()}s todavía.` : 'Crea tu primera ficha.'}</h2><p class="muted">Puedes empezar solo con un nombre, o cargar un paquete de fichas desde el menú Cargar.</p></div>`
+    }</div><details style="margin-top:18px"><summary class="muted">Fichas en papelera</summary>${p.entities
+      .filter((e) => e.trashed)
+      .map((e) => `<button data-recover-entity="${e.id}">↶ ${esc(e.name)}</button>`)
+      .join('')}</details>`;
+  $$('[data-filter]').forEach(
+    (b) =>
+      (b.onclick = () => {
+        archiveView.type = b.dataset.filter;
+        archiveView();
+      }),
+  );
+  bind('addEntity', async () => {
+    const type = $('#entityType').value;
+    const tpl = await choose(
+      `Nueva ficha`,
+      `<div class="tpl-list">${ENTITY_TEMPLATES.map((t, i) => `<label class="tpl"><input type="radio" name="tpl" value="${t.id}" ${i === 0 ? 'checked' : ''}><b>${esc(t.name)}</b><small>${esc(t.type ? t.type + ' · ' : type + ' · ')}${esc(t.desc)}</small></label>`).join('')}</div>`,
+      [{value: 'ok', label: 'Crear ficha', primary: true}],
+    );
+    if (!tpl) return;
+    const e = entityFrom(choose.lastPick || 'blank', type);
+    p.entities.unshift(e);
+    archiveView.type = '';
+    save();
+    archiveView();
+    $(`[data-entity="${e.id}"] [data-name]`)?.select();
+  });
+  bindEntityCards(targets, archiveView);
   $$('[data-recover-entity]').forEach(
     (b) =>
       (b.onclick = () => {
@@ -657,7 +893,7 @@ function archiveView() {
 /* ---------- Cronología ---------- */
 function timelineView() {
   const live = p.events.filter((e) => !e.trashed).sort((a, b) => a.order - b.order);
-  $('#main').innerHTML =
+  main().innerHTML =
     `<div class="toolbar"><div><div class="eyebrow">CRONOLOGÍA</div><h1>Lo que ocurrió. Cuándo se cuenta.</h1></div><span class="spacer"></span>${btn('addEvent', '＋ Acontecimiento', 'primary')}</div><p class="muted">Ordena acontecimientos con las flechas. La fecha es libre: “Tres días antes” también sirve. No reordena capítulos.</p><div class="grid">${
       live
         .map(
@@ -725,56 +961,100 @@ function timelineView() {
 }
 
 /* ---------- Revisiones ---------- */
+const reviewAccepted = new Map(); // reviewId → Set de cambios aceptados
+let reviewEditing = false;
 function reviewView() {
   let r = p.reviews.find((r) => r.id === reviewId) || p.reviews.at(-1);
   if (!r) {
-    $('#main').innerHTML =
-      '<h1>Tu mesa de revisión.</h1><div class="notice">Abre una escena en Escribir y elige Revisar escena. Puedes pegar una propuesta manualmente. La conexión con IA y Drive está pendiente.</div>';
+    $('#main').innerHTML = `<h1>Tu mesa de revisión.</h1><div class="notice">Abre una escena en Escribir y elige <b>Revisar escena</b>. Descarga la solicitud, pásasela a una IA o a una persona, y carga la respuesta (o pega la propuesta). Aquí verás los cambios uno por uno.</div><details class="panel" style="margin-top:14px"><summary>Formato de la respuesta (para una IA)</summary><pre class="code">{
+  "kind": "review-response",
+  "reviewId": "(el id de la solicitud)",
+  "proposal": "texto completo revisado",
+  "notes": "comentarios opcionales"
+}</pre></details>`;
     return;
   }
   reviewId = r.id;
   const c = p.chapters.find((c) => c.id === r.chapterId),
     s = c.scenes.find((s) => s.id === r.sceneId);
-  $('#main').innerHTML =
-    `<div class="eyebrow">REVISIÓN MANUAL · SIN CONEXIÓN IA</div><h1>Dos miradas sobre la misma escena.</h1><div class="toolbar"><select id="reviewSelect" class="field" style="width:auto" aria-label="Revisión">${p.reviews.map((x, i) => `<option value="${x.id}" ${x.id === r.id ? 'selected' : ''}>Revisión ${i + 1}</option>`).join('')}</select><span>${esc(c.title)} / ${esc(s?.title || 'Escena de otra versión')}</span></div><label>Instrucción de revisión<input id="instruction" class="field" value="${esc(r.instruction)}" placeholder="Corrige puntuación y conserva mi voz"></label><div class="tabs">${btn('originalTab', 'Original', tab === 'original' ? 'primary' : '')}${btn('proposalTab', 'Propuesta', tab === 'proposal' ? 'primary' : '')}</div><div class="split"><section class="panel ${tab !== 'original' ? 'mobile-hidden' : ''}"><h2>Original enviado</h2><textarea class="field" readonly aria-label="Original enviado">${esc(r.base)}</textarea></section><section class="panel ${tab !== 'proposal' ? 'mobile-hidden' : ''}"><h2>Propuesta editable</h2><textarea id="proposal" class="field" aria-label="Propuesta de revisión">${esc(r.proposal)}</textarea></section></div><div class="toolbar" style="margin-top:14px">${btn('apply', 'Aplicar propuesta completa', 'primary')}${btn('request', 'Descargar solicitud JSON')}</div><p class="muted">Comparación manual de escena completa; aceptación por cambio y resaltado de diferencias quedan para otra entrega. Aplicar crea una versión previa.</p>`;
+  const blocks = diffBlocks(r.base, r.proposal);
+  const n = countChanges(blocks);
+  if (!reviewAccepted.has(r.id)) reviewAccepted.set(r.id, new Set([...Array(n).keys()]));
+  const acc = reviewAccepted.get(r.id);
+  for (const k of [...acc]) if (k >= n) acc.delete(k);
+  const stale = s && s.text !== r.base;
+  let k = 0;
+  const diffHtml = blocks
+    .map((b) => {
+      if (b.type === 'same') return esc(b.text).replace(/\n/g, '<br>');
+      const i = k++;
+      const on = acc.has(i);
+      return `<span class="chg ${on ? 'on' : ''}" data-chg="${i}" role="checkbox" aria-checked="${on}" tabindex="0" title="${on ? 'Aceptado · toca para rechazar' : 'Rechazado · toca para aceptar'}"><del>${esc(b.before).replace(/\n/g, '<br>') || '∅'}</del><ins>${esc(b.after).replace(/\n/g, '<br>') || '∅'}</ins></span>`;
+    })
+    .join('');
+  $('#main').innerHTML = `<div class="eyebrow">REVISIÓN · CAMBIO POR CAMBIO</div><h1>Dos miradas sobre la misma escena.</h1>
+  <div class="toolbar"><select id="reviewSelect" class="field" style="width:auto" aria-label="Revisión">${p.reviews.map((x, i) => `<option value="${x.id}" ${x.id === r.id ? 'selected' : ''}>Revisión ${i + 1} · ${esc(p.chapters.find((c) => c.id === x.chapterId)?.title || '')}</option>`).join('')}</select><span class="muted">${esc(c.title)} / ${esc(s?.title || 'Escena de otra versión')}</span><span class="spacer"></span>${btn('request', 'Descargar solicitud')}${btn('copyRequest', 'Copiar solicitud')}</div>
+  <label>Instrucción de revisión<input id="instruction" class="field" value="${esc(r.instruction)}" placeholder="Corrige puntuación y conserva mi voz"></label>
+  ${r.notes ? `<div class="notice"><b>Notas de quien revisó:</b> ${esc(r.notes)}</div>` : ''}
+  ${stale ? '<div class="notice">El texto de la escena cambió después de pedir esta revisión. Puedes leer los cambios, pero para aplicarlos inicia otra revisión.</div>' : ''}
+  <div class="toolbar review-bar"><span class="muted">${n ? `${acc.size} de ${n} cambios aceptados` : 'Sin diferencias entre el original y la propuesta.'}</span><span class="spacer"></span>${btn('acceptAll', 'Aceptar todos')}${btn('rejectAll', 'Rechazar todos')}${btn('editProposal', reviewEditing ? 'Ver cambios' : 'Editar propuesta')}</div>
+  ${reviewEditing ? `<section class="panel"><h2>Propuesta</h2><textarea id="proposal" class="field manuscript" style="min-height:40vh">${esc(r.proposal)}</textarea><p class="muted">Pega aquí la propuesta completa. Al volver a «Ver cambios» se recalculan las diferencias.</p></section>` : `<section class="panel diff-view manuscript">${diffHtml || '<p class="muted">Vacío.</p>'}</section><p class="muted"><del>tachado</del> es lo que se quita; <ins>subrayado</ins> es lo nuevo. Toca un cambio para aceptarlo o rechazarlo.</p>`}
+  <div class="toolbar" style="margin-top:14px">${btn('apply', n ? `Aplicar ${acc.size} ${acc.size === 1 ? 'cambio' : 'cambios'}` : 'Nada que aplicar', 'primary')}</div><p class="muted">Aplicar guarda antes una versión del capítulo.</p>`;
   $('#reviewSelect').onchange = (e) => {
     reviewId = e.target.value;
+    reviewEditing = false;
     reviewView();
   };
   $('#instruction').oninput = (e) => {
     r.instruction = e.target.value;
     save();
   };
-  $('#proposal').oninput = (e) => {
-    r.proposal = e.target.value;
-    save();
-  };
-  bind('originalTab', () => {
-    tab = 'original';
-    reviewView();
+  const pr = $('#proposal');
+  if (pr)
+    pr.oninput = (e) => {
+      r.proposal = e.target.value;
+      reviewAccepted.delete(r.id);
+      save();
+    };
+  $$('[data-chg]').forEach((el) => {
+    const toggle = () => {
+      const i = Number(el.dataset.chg);
+      acc.has(i) ? acc.delete(i) : acc.add(i);
+      reviewView();
+    };
+    el.onclick = toggle;
+    el.onkeydown = (e) => (e.key === ' ' || e.key === 'Enter') && (e.preventDefault(), toggle());
   });
-  bind('proposalTab', () => {
-    tab = 'proposal';
-    reviewView();
+  bind('acceptAll', () => ((reviewAccepted.set(r.id, new Set([...Array(n).keys()])), reviewView())));
+  bind('rejectAll', () => ((reviewAccepted.set(r.id, new Set()), reviewView())));
+  bind('editProposal', () => ((reviewEditing = !reviewEditing), reviewView()));
+  const requestJson = () => JSON.stringify({schemaVersion: 1, kind: 'review-request', id: r.id, reviewId: r.id, chapter: c.title, scene: s?.title || '', instruction: r.instruction, base: r.base, responseFormat: {kind: 'review-response', reviewId: r.id, proposal: '(texto completo revisado)', notes: '(opcional)'}}, null, 2);
+  bind('request', () => download('MORIARTY_SOLICITUD.json', requestJson()));
+  bind('copyRequest', async () => {
+    try {
+      await navigator.clipboard.writeText(requestJson());
+      notify('Solicitud copiada. Pégala en el chat con la instrucción.');
+    } catch {
+      notify('No se pudo copiar; descarga la solicitud.');
+    }
   });
   bind('apply', () => {
-    if (!s) {
-      notify('La escena ya no existe en esta versión.');
-      return;
-    }
+    if (!s) return notify('La escena ya no existe en esta versión.');
+    if (!n) return;
     try {
-      if (s.text !== r.base) throw Error('El original cambió. Inicia otra revisión para evitar sobrescribirlo.');
-      snapshot(c, 'Antes de aplicar propuesta');
-      applyReview(s, r);
+      const merged = applyBlocks(blocks, acc);
+      snapshot(c, 'Antes de aplicar revisión');
+      applyReview(s, r, merged);
+      r.base = merged;
+      r.proposal = merged;
+      reviewAccepted.delete(r.id);
       save();
-      notify('Propuesta aplicada. La versión anterior quedó guardada.');
+      notify(`${acc.size} cambios aplicados. La versión anterior quedó guardada.`);
+      reviewView();
     } catch (e) {
       notify(e.message);
     }
   });
-  bind('request', () =>
-    download('MORIARTY_SOLICITUD.json', JSON.stringify({schemaVersion: 1, kind: 'review-request', ...r}, null, 2)),
-  );
 }
 
 /* ---------- Diálogo de elección ---------- */
@@ -787,12 +1067,21 @@ function choose(title, html, options) {
     d.className = 'library-dialog';
     d.innerHTML = `<div class="dialog-heading"><h2>${esc(title)}</h2></div>${html}<div class="dialog-actions choice-actions"><button type="button" data-choice="">Cancelar</button>${options.map((o) => `<button type="button" data-choice="${esc(o.value)}" class="${o.primary ? 'primary' : ''}">${esc(o.label)}</button>`).join('')}</div>`;
     document.body.append(d);
+    d.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.matches('input')) {
+        e.preventDefault();
+        d.querySelector('[data-choice].primary')?.click();
+      }
+    });
     let value = null;
     $$('[data-choice]', d).forEach(
       (b) =>
         (b.onclick = () => {
           value = b.dataset.choice || null;
           choose.lastPick = d.querySelector('input[type=radio]:checked')?.value || '';
+          choose.lastText = d.querySelector('input[type=text], input:not([type]), textarea')?.value || '';
+          choose.lastDate = d.querySelector('input[type=date]')?.value || '';
+          choose.lastChecked = !!d.querySelector('input[type=checkbox]:checked');
           d.close();
         }),
     );
@@ -806,6 +1095,30 @@ const listHtml = (items) => `<ul class="choice-list">${items.slice(0, 6).map((t)
 async function importData(data, sourceName = 'archivo') {
   busy('Validando ' + sourceName + '…', 30);
   await yieldFrame();
+  const rr = validateReviewResponse(data);
+  if (rr) {
+    let target = p.reviews.find((x) => x.id === rr.reviewId);
+    if (!target)
+      for (const b of library.books) {
+        const found = b.project.reviews.find((x) => x.id === rr.reviewId);
+        if (found) {
+          openBook(b.project.id);
+          target = found;
+          break;
+        }
+      }
+    if (!target) throw Error('No encuentro una revisión con ese reviewId en tu biblioteca.');
+    target.proposal = rr.proposal;
+    target.notes = rr.notes;
+    reviewAccepted.delete(target.id);
+    reviewId = target.id;
+    reviewEditing = false;
+    view = 'review';
+    saveNow();
+    render();
+    notify('Respuesta de revisión cargada. Acepta o rechaza cada cambio.');
+    return;
+  }
   if (data?.kind === 'moriarty-pack') {
     if (loadFailure) throw Error('Recupera un respaldo antes de cargar paquetes.');
     const conflicts = packConflicts(p, data);
@@ -994,6 +1307,64 @@ bind('exportPack', () => {
     JSON.stringify(createPack(p, {entities: true, chapters: false, events: false}), null, 2),
   );
 });
+async function authorName() {
+  if (prefs.author !== undefined) return prefs.author;
+  await choose('Nombre de autor', `<label>Cómo quieres firmar (puedes dejarlo vacío)<input class="field" name="author" placeholder="Atátoriz"></label><p class="muted">Se guarda en este dispositivo y lo puedes cambiar desde Exportar.</p>`, [{value: 'ok', label: 'Guardar', primary: true}]);
+  prefs.author = choose.lastText || '';
+  applyPrefs();
+  return prefs.author;
+}
+bind('exportDocx', async () => {
+  saveNow();
+  const author = await authorName();
+  busy('Armando el DOCX…');
+  await yieldFrame();
+  try {
+    const blob = docx(p, {author});
+    const url = URL.createObjectURL(blob);
+    const a = Object.assign(document.createElement('a'), {href: url, download: `${slug(p.title)}.docx`});
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+    markExported();
+  } finally {
+    busy(false);
+  }
+});
+bind('exportEpub', async () => {
+  saveNow();
+  const author = await authorName();
+  busy('Armando el EPUB…');
+  await yieldFrame();
+  try {
+    const blob = epub(p, {author});
+    const url = URL.createObjectURL(blob);
+    const a = Object.assign(document.createElement('a'), {href: url, download: `${slug(p.title)}.epub`});
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+    markExported();
+  } finally {
+    busy(false);
+  }
+});
+bind('exportPdf', async () => {
+  saveNow();
+  const author = await authorName();
+  const w = window.open('', '_blank');
+  if (!w) return notify('El navegador bloqueó la ventana. Permite ventanas emergentes para esta app.');
+  w.document.write(printHtml(p, {author}));
+  w.document.close();
+  markExported();
+});
+bind('setAuthor', async () => {
+  prefs.author = undefined;
+  await authorName();
+  notify(prefs.author ? `Firmarás como «${prefs.author}».` : 'Sin nombre de autor.');
+});
+bind('theme', () => {
+  prefs.theme = {auto: 'light', light: 'dark', dark: 'auto'}[prefs.theme || 'auto'];
+  applyPrefs();
+});
+bind('searchBtn', () => view !== 'library' && searchDialog());
 bind('txt', () =>
   download(
     `MORIARTY_${slug(p.title)}.txt`,
@@ -1063,6 +1434,24 @@ document.addEventListener('keydown', (e) => {
     notify('Guardado.');
   }
 });
+
+/* ---------- Contexto compartido con los módulos (tracker, pizarrón) ---------- */
+const ctx = {
+  get p() { return p; },
+  get library() { return library; },
+  get cid() { return cid; },
+  set cid(v) { cid = v; },
+  get sid() { return sid; },
+  set sid(v) { sid = v; },
+  get prefs() { return prefs; },
+  applyPrefs,
+  $, $$, esc, btn, bind, save, saveNow, notify, download, choose, listHtml, icon, art,
+  main, entityCard, bindEntityCards, entityTargets, chapterLabel, ownNumber, chapterWords,
+  go(v, tab) { view = v; if (tab) mapTab = tab; render(); },
+  openChapter(c) { view = 'write'; reading = false; select(c); },
+  rerender: () => paint(),
+  uid, milestone, STATUSES, STATUS_LABEL, ENTITY_TYPES,
+};
 
 /* ---------- Arranque ---------- */
 render();

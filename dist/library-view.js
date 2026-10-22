@@ -1,4 +1,4 @@
-import {addBook, addSaga, moveBook, trashBook, restoreBook, purgeBook, liveBooks} from './library.js';
+import {addBook, addSaga, moveBook, trashBook, restoreBook, purgeBook, liveBooks, removeSaga} from './library.js';
 import {icon, art, COVERS} from './icons.js';
 import {STATUSES, STATUS_LABEL} from './model.js';
 // Semáforo del libro: cuántos capítulos hay en cada estado.
@@ -233,9 +233,17 @@ export class LibraryView {
   sagaDialog(saga) {
     this.dialog(
       saga ? 'Editar saga' : 'Una nueva saga',
-      `<label>Nombre de la saga<input class="field" name="title" id="sagaTitle" value="${esc(saga?.title || '')}" maxlength="200" placeholder="El nombre que une tus historias" required autofocus></label><label>Descripción<textarea class="field" name="description" id="sagaDescription" rows="3" placeholder="¿Qué comparten estos libros?">${esc(saga?.description || '')}</textarea></label>`,
+      `<label>Nombre de la saga<input class="field" name="title" id="sagaTitle" value="${esc(saga?.title || '')}" maxlength="200" placeholder="El nombre que une tus historias" required autofocus></label><label>Descripción<textarea class="field" name="description" id="sagaDescription" rows="3" placeholder="¿Qué comparten estos libros?">${esc(saga?.description || '')}</textarea></label>${saga ? `<details class="danger-zone"><summary class="muted">Eliminar esta saga</summary><p class="muted">Los libros no se borran: quedan como independientes.</p><label class="check"><input type="checkbox" name="_delete" value="1"> Sí, eliminar la saga «${esc(saga.title)}» al guardar</label></details>` : ''}`,
       saga ? 'Guardar cambios' : 'Crear saga',
       (data) => {
+        if (data.get('_delete') === '1') {
+          removeSaga(this.getLibrary(), saga.id);
+          this.scope = 'all';
+          this.callbacks.onChange();
+          this.render();
+          this.callbacks.notify?.('Saga eliminada. Sus libros siguen en la biblioteca, ahora como independientes.');
+          return;
+        }
         const title = data.get('title').trim();
         if (!title) throw Error('Escribe un nombre para la saga.');
         if (saga) {

@@ -233,3 +233,32 @@ test('auto versions: one every 10 minutes, at most 15 per chapter, manual ones u
   assert.equal(c.versions[0].label, 'Mía');
   assert.ok(validate(Object.assign(createProject(), {chapters: [c]})));
 });
+
+import {removeSaga} from '../dist/library.js';
+import {logWords, validateReviewResponse, milestone} from '../dist/model.js';
+test('removing a saga frees its books and keeps them', () => {
+  const l = createLibrary(), s = addSaga(l, 'Saga');
+  addBook(l, 'A', s.id);
+  removeSaga(l, s.id);
+  assert.equal(l.sagas.length, 0);
+  assert.equal(l.books.length, 2);
+  assert.ok(l.books.every((b) => b.sagaId === ''));
+  assert.ok(validateLibrary(l));
+});
+test('daily word log, goals and milestones validate; review responses are checked', () => {
+  const p = createProject();
+  assert.equal(logWords(p, 100, '2026-10-21'), 0);
+  assert.equal(logWords(p, 350, '2026-10-21'), 250);
+  assert.equal(logWords(p, 500, '2026-10-22'), 150, 'el inicio del día es el cierre del anterior');
+  p.milestones.push(milestone('2026-11-01', 'Entregar acto 1'));
+  p.goals.deadline = '2026-12-31';
+  assert.ok(validate(p));
+  const bad = structuredClone(p);
+  bad.log['ayer'] = {start: 0, end: 1};
+  assert.throws(() => validate(bad));
+  const v1 = validate(JSON.parse(JSON.stringify({...p, schemaVersion: 1, goals: undefined, log: undefined, milestones: undefined})));
+  assert.equal(v1.goals.daily, 500);
+  assert.deepEqual(validateReviewResponse({kind: 'review-response', reviewId: 'abc', proposal: 'x'}), {reviewId: 'abc', proposal: 'x', notes: ''});
+  assert.throws(() => validateReviewResponse({kind: 'review-response'}));
+  assert.equal(validateReviewResponse({kind: 'otro'}), null);
+});

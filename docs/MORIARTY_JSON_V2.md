@@ -27,9 +27,16 @@ Carga: menú **Cargar → Abrir archivo JSON**, **Pegar JSON**, o arrastrar el a
   "chapters": [ … ],
   "entities": [ … ],
   "events": [ … ],
-  "reviews": []
+  "reviews": [],
+  "goals": {"daily": 500, "total": 80000, "chapter": 3000, "deadline": ""},
+  "milestones": [{"id": "m1", "date": "2026-12-01", "title": "Primer borrador"}],
+  "log": {"2026-10-22": 15314},
+  "assets": {"foto1": {"data": "data:image/webp;base64,…", "alt": "Pie de foto"}},
+  "style": {"dropCap": true}
 }
 ```
+
+Campos nuevos en V0.4 (todos opcionales; la migración los rellena): `goals` (metas de palabras; `deadline` en `AAAA-MM-DD` o vacío), `milestones` (fechas clave del Tracker), `log` (palabras totales del libro al cierre de cada día, lo llena la app), `assets` (imágenes insertadas en el texto con `![alt](asset:ID)`; mismo límite de tamaño que `cover`), `style.dropCap` (letra capital al inicio de cada capítulo al leer y exportar). Las fichas tienen además `x` e `y` (posición en el Pizarrón; `null` = colocar automáticamente).
 
 `cover`: `""` o un data URL de imagen (`data:image/webp;base64,…`, también png/jpeg/gif/svg+xml), máximo 1.5 M de caracteres.
 
@@ -108,6 +115,20 @@ Carga: menú **Cargar → Abrir archivo JSON**, **Pegar JSON**, o arrastrar el a
 ```
 
 Cualquiera de las tres listas puede faltar o ir vacía, pero no las tres. Los capítulos del paquete se colocan al final del libro; los acontecimientos, después de los existentes. **Exportar → Exportar paquete de fichas** genera uno desde el libro activo.
+
+## Respuesta de revisión
+
+```json
+{
+  "kind": "review-response",
+  "schemaVersion": 1,
+  "reviewId": "ID que trae la solicitud",
+  "proposal": "Texto completo de la escena ya revisado.",
+  "notes": "Opcional: qué se cambió y por qué."
+}
+```
+
+La solicitud (`review-request`) que genera la app incluye `base` (texto original), `instruction` y este formato en `responseFormat`. Al cargar la respuesta, la app busca la revisión por `reviewId` en todos los libros y muestra las diferencias cambio por cambio.
 
 ## Paquete de capítulo
 

@@ -208,3 +208,11 @@ export function purgeBook(library, id) {
   library.books.splice(i, 1);
   ensureActive(library);
 }
+
+// Eliminar una saga: sus libros quedan como independientes; ningún libro se borra.
+export function removeSaga(library, id) {
+  const i = library.sagas.findIndex((s) => s.id === id);
+  if (i < 0) throw Error('La saga no existe.');
+  for (const b of library.books) if (b.sagaId === id) b.sagaId = '';
+  library.sagas.splice(i, 1);
+}

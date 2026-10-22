@@ -39,6 +39,15 @@ const paths = {
   palette: 'M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2s-1-1.5 0-2.5S17 15 18 15a3 3 0 0 0 0-6c-1 0-2 1-2-1s-1-5-4-5z M8 10h.1 M8 14h.1 M12 7h.1',
   menu: 'M4 7h16 M4 12h16 M4 17h16',
   more: 'M12 6h.1 M12 12h.1 M12 18h.1',
+  moon: 'M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z',
+  calendar: 'M4 5h16v16H4z M4 10h16 M8 3v4 M16 3v4',
+  target: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2z',
+  flag: 'M5 21V4 M5 4h13l-3 4 3 4H5',
+  replace: 'M4 7h11l-3-3 M20 17H9l3 3 M4 7v4 M20 17v-4',
+  zoomIn: 'M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16z M21 21l-5-5 M10 7v6 M7 10h6',
+  zoomOut: 'M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16z M21 21l-5-5 M7 10h6',
+  fit: 'M4 9V4h5 M20 9V4h-5 M4 15v5h5 M20 15v5h-5 M9 9h6v6H9z',
+  shuffle: 'M3 7h4l10 10h4 M17 4l4 3-4 3 M3 17h4l3-3 M14 10l3-3h4 M17 20l4-3-4-3',
   sun: 'M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z M12 2v2 M12 20v2 M2 12h2 M20 12h2 M5 5l1.5 1.5 M17.5 17.5 19 19 M5 19l1.5-1.5 M17.5 6.5 19 5',
 };
 export function icon(name, cls = '') {
@@ -56,6 +65,25 @@ const map = {
   addRelation: 'link',
   pizarron: 'board',
   exportChapter: 'download',
+  zoomIn: 'zoomIn',
+  zoomOut: 'zoomOut',
+  zoomFit: 'fit',
+  layout: 'shuffle',
+  newEntityMap: 'plus',
+  addMilestone: 'flag',
+  calPrev: 'back',
+  calNext: 'arrow',
+  acceptAll: 'check',
+  rejectAll: 'close',
+  editProposal: 'edit',
+  copyRequest: 'clipboard',
+  openChapter: 'write',
+  theme: 'sun',
+  search: 'search',
+  tracker: 'timeline',
+  exportDocx: 'file',
+  exportEpub: 'book',
+  exportPdf: 'text',
   export: 'download',
   import: 'upload',
   new: 'plus',
@@ -102,6 +130,6 @@ export function decorateIcons(root = document) {
 
 // Ilustraciones de Argos (dist/img). Devuelve <picture> con versión clara y oscura.
 export function art(name, cls = 'art') {
-  return `<picture class="${cls}"><source srcset="img/${name}-oscuro.webp" media="(prefers-color-scheme: dark)"><img src="img/${name}-claro.webp" alt="" decoding="async"></picture>`;
+  return `<span class="${cls}"><img class="art-light" src="img/${name}-claro.webp" alt="" decoding="async"><img class="art-dark" src="img/${name}-oscuro.webp" alt="" decoding="async"></span>`;
 }
 export const COVERS = ['portada-tinta', 'portada-petroleo', 'portada-ambar'];
