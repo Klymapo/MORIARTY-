@@ -5,13 +5,14 @@ const safeId = (x) => typeof x === 'string' && /^[A-Za-z0-9_-]{1,128}$/.test(x);
 const fail = () => {
   throw Error('Biblioteca MORIARTY inválida o de versión incompatible.');
 };
-export function createLibrary(project = createProject('Mi primer libro')) {
-  const book = {project: validate(project), sagaId: '', synopsis: ''};
+// Sin libro inicial: la biblioteca puede estar vacía (activeBookId = '') y la app muestra el estado vacío.
+export function createLibrary(project = null) {
+  const book = project ? {project: validate(project), sagaId: '', synopsis: ''} : null;
   return {
     kind: 'moriarty-library',
     schemaVersion: 1,
-    activeBookId: book.project.id,
-    books: [book],
+    activeBookId: book ? book.project.id : '',
+    books: book ? [book] : [],
     sagas: [],
   };
 }
@@ -21,7 +22,7 @@ export function validateLibrary(data) {
     data.kind !== 'moriarty-library' ||
     data.schemaVersion !== 1 ||
     !Array.isArray(data.books) ||
-    !data.books.length ||
+    typeof data.activeBookId !== 'string' ||
     !Array.isArray(data.sagas)
   )
     fail();
@@ -52,7 +53,7 @@ export function validateLibrary(data) {
     if (books.has(b.project.id)) fail();
     books.add(b.project.id);
   }
-  if (!books.has(data.activeBookId)) fail();
+  if (data.activeBookId !== '' && !books.has(data.activeBookId)) fail();
   return structuredClone(data);
 }
 export function loadLibrary(storage) {
@@ -176,7 +177,7 @@ export function importIntoLibrary(library, data, mode = 'copy') {
       resultIds.set(b.project.id, copy.project.id);
     }
   }
-  next.activeBookId = resultIds.get(incoming.activeBookId);
+  next.activeBookId = resultIds.get(incoming.activeBookId) || liveBooks(next)[0]?.project.id || '';
   return validateLibrary(next);
 }
 
@@ -185,8 +186,8 @@ export const liveBooks = (library) => library.books.filter((b) => !b.trashed);
 function ensureActive(library) {
   const active = activeBook(library);
   if (active && !active.trashed) return;
-  const next = liveBooks(library)[0] || addBook(library, 'Mi nuevo libro');
-  library.activeBookId = next.project.id;
+  const next = liveBooks(library)[0];
+  library.activeBookId = next ? next.project.id : '';
 }
 export function trashBook(library, id) {
   const book = library.books.find((b) => b.project.id === id);

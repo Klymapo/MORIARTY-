@@ -112,7 +112,7 @@ test('events in a pack keep chapter links to pack chapters and get sequential or
 });
 
 test('library import of a v1 book migrates and remaps entity references', () => {
-  const lib = createLibrary();
+  const lib = createLibrary(createProject('Mi primer libro'));
   const next = importIntoLibrary(lib, v1());
   assert.equal(next.books[1].project.schemaVersion, SCHEMA);
   const p = createProject();
@@ -126,7 +126,7 @@ test('library import of a v1 book migrates and remaps entity references', () => 
 
 import {addBook, trashBook, restoreBook, purgeBook, liveBooks, moveBook, addSaga} from '../dist/library.js';
 test('book trash is reversible, purge only from trash, active book always live', () => {
-  const l = createLibrary();
+  const l = createLibrary(createProject('Mi primer libro'));
   const a = l.books[0];
   const b = addBook(l, 'Dos');
   trashBook(l, b.project.id);
@@ -138,16 +138,16 @@ test('book trash is reversible, purge only from trash, active book always live',
   assert.throws(() => purgeBook(l, b.project.id), /papelera/);
   trashBook(l, a.project.id);
   trashBook(l, b.project.id);
-  assert.equal(liveBooks(l).length, 1, 'a fresh book is created when everything is trashed');
-  assert.equal(l.books.find((x) => x.project.id === l.activeBookId).trashed, undefined);
+  assert.equal(liveBooks(l).length, 0, 'no fresh book is created when everything is trashed');
+  assert.equal(l.activeBookId, '');
   purgeBook(l, a.project.id);
-  assert.equal(l.books.length, 2);
+  assert.equal(l.books.length, 1);
   const bad = structuredClone(l);
   bad.books[0].trashed = 'sí';
   assert.throws(() => validateLibrary(bad));
 });
 test('saga ordering skips trashed volumes', () => {
-  const l = createLibrary(), s = addSaga(l, 'Saga');
+  const l = createLibrary(createProject('Mi primer libro')), s = addSaga(l, 'Saga');
   const x = addBook(l, 'X', s.id), y = addBook(l, 'Y', s.id), z = addBook(l, 'Z', s.id);
   trashBook(l, y.project.id);
   moveBook(l, z.project.id, -1);
@@ -174,7 +174,7 @@ test('same book from another device: detect, replace (old to trash) or copy', ()
   const copied = importIntoLibrary(deviceA, fromB, 'copy');
   assert.equal(copied.books.length, 2);
   assert.notEqual(copied.books[1].project.id, p.id);
-  const fresh = importIntoLibrary(createLibrary(), fromB);
+  const fresh = importIntoLibrary(createLibrary(createProject('Mi primer libro')), fromB);
   assert.equal(fresh.books[1].project.id, p.id, 'libro nuevo conserva su ID');
 });
 test('chapter pack: replace same chapter keeps old text as a version; other book gets a copy', () => {
@@ -237,7 +237,7 @@ test('auto versions: one every 10 minutes, at most 15 per chapter, manual ones u
 import {removeSaga} from '../dist/library.js';
 import {logWords, validateReviewResponse, milestone} from '../dist/model.js';
 test('removing a saga frees its books and keeps them', () => {
-  const l = createLibrary(), s = addSaga(l, 'Saga');
+  const l = createLibrary(createProject('Mi primer libro')), s = addSaga(l, 'Saga');
   addBook(l, 'A', s.id);
   removeSaga(l, s.id);
   assert.equal(l.sagas.length, 0);

@@ -29,6 +29,7 @@ const paths = {
   separator: 'M4 12h3 M10 12h4 M17 12h3 M12 6l1.5 2.5h-3z M12 18l1.5-2.5h-3z',
   pagebreak: 'M5 3h10l4 4v3 M5 3v7 M5 14v7h14v-7 M3 12h3 M9 12h3 M15 12h3 M21 12h0',
   dropcap: 'M3 20 8 5l5 15 M4.5 15h7 M15 8h6 M15 12h6 M15 16h6 M15 20h6',
+  refresh: 'M20 12a8 8 0 1 1-2.3-5.7 M20 4v5h-5',
   help: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 1-1 1.7 M12 17h.01',
   keyboard: 'M3 6h18v12H3z M7 10h.01 M11 10h.01 M15 10h.01 M7 14h10',
   file: 'M4 3h10l6 6v12H4z M14 3v6h6 M8 13h8 M8 17h6',
@@ -125,6 +126,11 @@ export function decorateIcons(root = document) {
       else if (el.hasAttribute('data-down')) name = 'down';
       else if (el.hasAttribute('data-trash')) name = 'trash';
       else name = 'restore';
+    }
+    if (el.firstElementChild) {
+      // Botones con estructura propia (menús con título y descripción): solo se antepone el icono.
+      el.insertAdjacentHTML('afterbegin', icon(name));
+      continue;
     }
     const label = el.textContent.replace(/^[✎▦▱◷◇↑↓↶＋]\s*/u, '');
     const text = document.createElement('span');

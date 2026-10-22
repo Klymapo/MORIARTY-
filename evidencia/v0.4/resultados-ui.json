@@ -11,6 +11,10 @@
    "ok": true
   },
   {
+   "prueba": "instalación nueva: biblioteca vacía, sin libro de relleno",
+   "ok": true
+  },
+  {
    "prueba": "paquete con capítulo abre ese capítulo en Escribir",
    "ok": true
   },

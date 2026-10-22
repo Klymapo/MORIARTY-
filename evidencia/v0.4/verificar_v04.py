@@ -8,6 +8,11 @@ from playwright.sync_api import sync_playwright
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 URL = 'http://localhost:8077/'
+def seed_book(pg):
+    # Instalación nueva: la biblioteca empieza vacía; se crea un libro como lo haría una persona.
+    if pg.locator('#emptyNewBook').count():
+        pg.click('#emptyNewBook'); pg.wait_for_timeout(300); pg.fill('#libraryDialog input[name=title]', 'Novela de prueba'); pg.click('#libraryDialog button[type=submit]'); pg.wait_for_timeout(600)
+        pg.click('[data-view=library]'); pg.wait_for_timeout(400)
 results = []
 def check(name, cond):
     results.append({'prueba': name, 'ok': bool(cond)})
@@ -35,6 +40,9 @@ with sync_playwright() as p:
     pg.goto(URL); pg.wait_for_timeout(800)
     check('arranque: splash desaparece', pg.locator('#splash').count() == 0)
     check('fuentes locales cargadas', pg.evaluate("document.fonts.check('16px Literata') && document.fonts.check('16px Inter')"))
+    check('instalación nueva: biblioteca vacía, sin libro de relleno', pg.locator('[data-open-book]').count() == 0 and pg.locator('#emptyNewBook').count() == 1)
+    pg.click('#emptyNewBook'); pg.wait_for_timeout(300); pg.fill('#libraryDialog input[name=title]', 'Novela de prueba'); pg.click('#libraryDialog button[type=submit]'); pg.wait_for_timeout(600)
+    pg.click('[data-view=library]'); pg.wait_for_timeout(400)
     pg.screenshot(path=f'{HERE}/01-biblioteca-escritorio.png')
     # Cargar paquete por pegado
     pg.click('[data-open-book]'); pg.wait_for_timeout(500)
@@ -104,7 +112,7 @@ with sync_playwright() as p:
 
     # ---- Modo oscuro ----
     ctx = b.new_context(viewport={'width': 1440, 'height': 900}, color_scheme='dark')
-    pg = run(ctx, 'oscuro'); pg.goto(URL); pg.wait_for_timeout(800)
+    pg = run(ctx, 'oscuro'); pg.goto(URL); pg.wait_for_timeout(800); seed_book(pg)
     bg = pg.evaluate("getComputedStyle(document.body).backgroundColor")
     check('modo oscuro automático', bg == 'rgb(21, 25, 29)')
     pg.screenshot(path=f'{HERE}/06-biblioteca-oscuro.png')
@@ -114,7 +122,7 @@ with sync_playwright() as p:
     # ---- Móvil ----
     for w in (320, 390):
         ctx = b.new_context(viewport={'width': w, 'height': 780}, device_scale_factor=2, is_mobile=True, has_touch=True)
-        pg = run(ctx, f'movil{w}'); pg.goto(URL); pg.wait_for_timeout(800)
+        pg = run(ctx, f'movil{w}'); pg.goto(URL); pg.wait_for_timeout(800); seed_book(pg)
         check(f'móvil {w}px: sin desplazamiento horizontal', pg.evaluate("document.documentElement.scrollWidth <= window.innerWidth"))
         pg.screenshot(path=f'{HERE}/08-biblioteca-movil-{w}.png')
         pg.click('[data-open-book]'); pg.wait_for_timeout(500)

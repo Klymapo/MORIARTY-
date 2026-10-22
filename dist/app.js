@@ -97,12 +97,17 @@ try {
   library = createLibrary();
   loadFailure = true;
 }
-p = activeBook(library).project;
+// Sin libro activo (biblioteca vacía) se trabaja sobre un proyecto suelto que no se guarda: la app solo muestra la Biblioteca.
+const NO_BOOK = createProject('Sin libro');
+const syncActive = () => (p = activeBook(library)?.project || NO_BOOK);
+const hasBook = () => p !== NO_BOOK;
+syncActive();
 
 const libraryView = new LibraryView(() => library, {
   onOpen: openBook,
   onChange: () => {
-    p = activeBook(library).project;
+    syncActive();
+    if (!hasBook()) view = 'library';
     save();
   },
   onBackup: backupLibrary,
@@ -113,7 +118,11 @@ const libraryView = new LibraryView(() => library, {
 
 function openBook(id) {
   library.activeBookId = id;
-  p = activeBook(library).project;
+  syncActive();
+  if (!hasBook()) {
+    view = 'library';
+    return render();
+  }
   cid = p.chapters.find((c) => !c.trashed)?.id;
   sid = current()?.scenes[0].id;
   filter = '';
@@ -199,7 +208,7 @@ function saveNow() {
     return false;
   }
   try {
-    if (!loadFailure) logWords(p, wordCount(p));
+    if (!loadFailure && hasBook()) logWords(p, wordCount(p));
     localStorage.setItem(LIBRARY_KEY, JSON.stringify(library));
     setSaved(`Guardado ${new Date().toLocaleTimeString('es-MX', {hour: '2-digit', minute: '2-digit'})}`);
     count();
@@ -341,6 +350,7 @@ function paint() {
   for (const id of ['exportBook', 'exportPack', 'txt', 'exportDocx', 'exportEpub', 'exportPdf', 'exportSep']) $('#' + id).hidden = home;
   $('#searchBtn').hidden = home;
   $$('[data-view]').forEach((b) => {
+    b.disabled = !hasBook() && b.dataset.view !== 'library';
     b.classList.toggle('active', b.dataset.view === view);
     if (b.dataset.view === view) b.setAttribute('aria-current', 'page');
     else b.removeAttribute('aria-current');
@@ -368,6 +378,7 @@ function pizarronView() {
   ({mapa: () => mapView(ctx), capitulos: boardView, fichas: archiveView, cronologia: timelineView})[mapTab]();
 }
 function render() {
+  if (!hasBook() && view !== 'library') view = 'library';
   const changed = view !== lastView;
   lastView = view;
   prefs.last = {book: p.id, view, cid, sid, mapTab};
@@ -704,7 +715,7 @@ function versionsView() {
 /* ---------- Tablero ---------- */
 function boardView() {
   main().innerHTML =
-    `<div class="toolbar"><div><div class="eyebrow">ESTRUCTURA NARRATIVA</div><h1>Una historia, pieza por pieza.</h1></div><span class="spacer"></span>${btn('order', 'Orden del libro', free ? '' : 'primary')}${btn('free', 'Lienzo libre', free ? 'primary' : '')}</div><p class="muted">${free ? 'Arrastra los iconos sin cambiar el orden del libro. Selecciona y presiona Enter para abrir.' : 'Un icono por capítulo. Las flechas cambian el orden del manuscrito; Enter o doble clic abre el documento.'} El Pizarrón visual con fichas y relaciones llega en V0.4.</p><div id="board"></div>`;
+    `<div class="toolbar"><div><div class="eyebrow">ESTRUCTURA NARRATIVA</div><h1>Una historia, pieza por pieza.</h1></div><span class="spacer"></span>${btn('order', 'Orden del libro', free ? '' : 'primary')}${btn('free', 'Lienzo libre', free ? 'primary' : '')}</div><p class="muted">${free ? 'Arrastra los iconos sin cambiar el orden del libro. Selecciona y presiona Enter para abrir.' : 'Un icono por capítulo. Las flechas cambian el orden del manuscrito; Enter o doble clic abre el documento.'}</p><div id="board"></div>`;
   bind('order', () => {
     free = false;
     boardView();
@@ -1169,6 +1180,7 @@ async function importData(data, sourceName = 'archivo') {
     busy('Incorporando al libro…', 70);
     await yieldFrame();
     const book = activeBook(library);
+    if (!book) throw Error('Crea o abre un libro antes de cargar un paquete.');
     book.project = merged;
     p = merged;
     const n = {e: data.entities?.length || 0, c: data.chapters?.length || 0, v: data.events?.length || 0};
@@ -1318,6 +1330,7 @@ document.addEventListener('keydown', (e) => {
 $$('[data-view]').forEach(
   (b) =>
     (b.onclick = () => {
+      if (!hasBook() && b.dataset.view !== 'library') return notify('Crea o abre un libro primero.');
       view = b.dataset.view;
       document.body.classList.remove('focus');
       render();
@@ -1428,7 +1441,7 @@ bind('restoreBackup', async () => {
     await backupNow(library, totalWords());
     library = data;
     loadFailure = false;
-    p = activeBook(library).project;
+    syncActive();
     cid = p.chapters.find((c) => !c.trashed)?.id;
     sid = current()?.scenes[0].id;
     view = 'library';
@@ -1452,10 +1465,10 @@ bind('resetLibrary', () => {
     return;
   downloadRecovery();
   library = createLibrary();
-  p = activeBook(library).project;
+  syncActive();
   loadFailure = false;
-  cid = p.chapters[0].id;
-  sid = current().scenes[0].id;
+  cid = undefined;
+  sid = undefined;
   view = 'library';
   save();
   render();
@@ -1524,5 +1537,31 @@ requestAnimationFrame(() => {
   splash.classList.add('hide');
   setTimeout(() => splash.remove(), 400);
 });
-if ('serviceWorker' in navigator && location.protocol !== 'file:')
-  navigator.serviceWorker.register('./sw.js').catch(() => notify('Modo sin conexión no disponible en este navegador.'));
+const APP_VERSION = '0.4.1';
+$('#appVersion').textContent = `Tienes la ${APP_VERSION}. Trae la última versión publicada.`;
+let swReg = null;
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  navigator.serviceWorker
+    .register('./sw.js')
+    .then((reg) => {
+      swReg = reg;
+      reg.addEventListener('updatefound', () => {
+        const w = reg.installing;
+        w?.addEventListener('statechange', () => {
+          if (w.state === 'activated' && navigator.serviceWorker.controller) notify('Hay una versión nueva de MORIARTY. Cargar → Actualizar la app.', 8000);
+        });
+      });
+    })
+    .catch(() => notify('Modo sin conexión no disponible en este navegador.'));
+}
+bind('updateApp', async () => {
+  if (!navigator.onLine) return notify('Sin conexión: la app se actualiza cuando vuelvas a tener internet.');
+  saveNow();
+  busy('Buscando la última versión…');
+  try {
+    if (swReg) await swReg.update();
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((k) => k.startsWith('moriarty-')).map((k) => caches.delete(k)));
+  } catch {}
+  location.reload();
+});
