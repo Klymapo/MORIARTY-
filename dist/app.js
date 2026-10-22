@@ -78,6 +78,7 @@ const libraryView = new LibraryView(() => library, {
   onBackup: backupLibrary,
   onImport: () => $('#file').click(),
   pickCover: () => pickImage($('#imageFile'), {max: 900, quality: 0.8}),
+  notify: (t) => notify(t),
 });
 
 function openBook(id) {
@@ -182,7 +183,7 @@ document.addEventListener('visibilitychange', () => document.hidden && saveNow.t
 function count() {
   if (view === 'library') {
     $('#words').textContent =
-      `${library.books.length} ${library.books.length === 1 ? 'libro' : 'libros'} · ${library.sagas.length} ${library.sagas.length === 1 ? 'saga' : 'sagas'}`;
+      `${library.books.filter((b) => !b.trashed).length} ${library.books.filter((b) => !b.trashed).length === 1 ? 'libro' : 'libros'} · ${library.sagas.length} ${library.sagas.length === 1 ? 'saga' : 'sagas'}`;
     return;
   }
   $('#words').textContent =

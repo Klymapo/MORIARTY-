@@ -123,3 +123,33 @@ test('library import of a v1 book migrates and remaps entity references', () => 
   assert.equal(n2.books[1].project.chapters[0].entityIds[0], n2.books[1].project.entities[0].id);
   assert.ok(validateLibrary(n2));
 });
+
+import {addBook, trashBook, restoreBook, purgeBook, liveBooks, moveBook, addSaga} from '../dist/library.js';
+test('book trash is reversible, purge only from trash, active book always live', () => {
+  const l = createLibrary();
+  const a = l.books[0];
+  const b = addBook(l, 'Dos');
+  trashBook(l, b.project.id);
+  assert.equal(liveBooks(l).length, 1);
+  assert.equal(l.activeBookId, a.project.id, 'active moves to a live book');
+  assert.ok(validateLibrary(l));
+  restoreBook(l, b.project.id);
+  assert.equal(liveBooks(l).length, 2);
+  assert.throws(() => purgeBook(l, b.project.id), /papelera/);
+  trashBook(l, a.project.id);
+  trashBook(l, b.project.id);
+  assert.equal(liveBooks(l).length, 1, 'a fresh book is created when everything is trashed');
+  assert.equal(l.books.find((x) => x.project.id === l.activeBookId).trashed, undefined);
+  purgeBook(l, a.project.id);
+  assert.equal(l.books.length, 2);
+  const bad = structuredClone(l);
+  bad.books[0].trashed = 'sí';
+  assert.throws(() => validateLibrary(bad));
+});
+test('saga ordering skips trashed volumes', () => {
+  const l = createLibrary(), s = addSaga(l, 'Saga');
+  const x = addBook(l, 'X', s.id), y = addBook(l, 'Y', s.id), z = addBook(l, 'Z', s.id);
+  trashBook(l, y.project.id);
+  moveBook(l, z.project.id, -1);
+  assert.deepEqual(liveBooks(l).filter((b) => b.sagaId === s.id).map((b) => b.project.title), ['Z', 'X']);
+});

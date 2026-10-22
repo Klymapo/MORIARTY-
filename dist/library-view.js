@@ -1,4 +1,4 @@
-import {addBook, addSaga, moveBook} from './library.js';
+import {addBook, addSaga, moveBook, trashBook, restoreBook, purgeBook, liveBooks} from './library.js';
 import {icon, art, COVERS} from './icons.js';
 const esc = (x) =>
   String(x).replace(
@@ -24,12 +24,15 @@ export class LibraryView {
   }
   render() {
     const lib = this.getLibrary();
-    if (!['all', 'independent'].includes(this.scope) && !lib.sagas.some((s) => s.id === this.scope))
+    const live = liveBooks(lib),
+      trashed = lib.books.filter((b) => b.trashed);
+    if (this.scope === 'trash' && !trashed.length) this.scope = 'all';
+    if (!['all', 'independent', 'trash'].includes(this.scope) && !lib.sagas.some((s) => s.id === this.scope))
       this.scope = 'all';
     const sidebar = document.querySelector('#sidebar');
     const scopeButton = (id, name, type, count) =>
       `<button data-scope="${esc(id)}" class="library-filter ${this.scope === id ? 'selected' : ''}">${icon(type)}<span>${esc(name)}</span><small>${count}</small></button>`;
-    sidebar.innerHTML = `<div class="eyebrow">TU ESTANTERÍA</div>${scopeButton('all', 'Todos los libros', 'library', lib.books.length)}${scopeButton('independent', 'Independientes', 'book', lib.books.filter((b) => !b.sagaId).length)}<div class="saga-heading"><h3>Sagas</h3><button id="sidebarNewSaga" aria-label="Crear saga" title="Crear saga">${icon('plus')}</button></div><div class="saga-filters">${lib.sagas.map((s) => scopeButton(s.id, s.title, 'saga', lib.books.filter((b) => b.sagaId === s.id).length)).join('') || '<p class="muted library-hint">Agrupa aquí los libros que comparten una historia.</p>'}</div><div class="library-storage"><span class="eyebrow">TU ESPACIO PERSONAL</span><p>Guardado en este dispositivo. Respalda tu biblioteca para llevarla contigo.</p></div>`;
+    sidebar.innerHTML = `<div class="eyebrow">TU ESTANTERÍA</div>${scopeButton('all', 'Todos los libros', 'library', live.length)}${scopeButton('independent', 'Independientes', 'book', live.filter((b) => !b.sagaId).length)}<div class="saga-heading"><h3>Sagas</h3><button id="sidebarNewSaga" aria-label="Crear saga" title="Crear saga">${icon('plus')}</button></div><div class="saga-filters">${lib.sagas.map((s) => scopeButton(s.id, s.title, 'saga', live.filter((b) => b.sagaId === s.id).length)).join('') || '<p class="muted library-hint">Agrupa aquí los libros que comparten una historia.</p>'}</div>${trashed.length ? `<div class="saga-heading"><h3>Papelera</h3></div>${scopeButton('trash', 'Libros en papelera', 'trash', trashed.length)}` : ''}<div class="library-storage"><span class="eyebrow">TU ESPACIO PERSONAL</span><p>Guardado en este dispositivo. Respalda tu biblioteca para llevarla contigo.</p></div>`;
     sidebar.querySelectorAll('[data-scope]').forEach(
       (btn) =>
         (btn.onclick = () => {
@@ -42,10 +45,12 @@ export class LibraryView {
     const saga = lib.sagas.find((s) => s.id === this.scope);
     const heading =
       saga?.title ||
-      (this.scope === 'independent' ? 'Historias con su propio mundo.' : 'Cada historia tiene su lugar.');
+      (this.scope === 'trash' ? 'Papelera de libros.' : this.scope === 'independent' ? 'Historias con su propio mundo.' : 'Cada historia tiene su lugar.');
     const description =
       saga?.description ||
-      (this.scope === 'independent'
+      (this.scope === 'trash'
+        ? 'Nada aquí se ha borrado. Recupera un libro o elimínalo definitivamente.'
+        : this.scope === 'independent'
         ? 'Tus libros independientes, listos para seguir creciendo.'
         : 'Abre un libro, empieza otro o reúne tus historias en una saga.');
     document.querySelector('#main').innerHTML =
@@ -65,8 +70,12 @@ export class LibraryView {
   }
   cards() {
     const lib = this.getLibrary();
-    const scoped = lib.books.filter(
-      (b) => this.scope === 'all' || (this.scope === 'independent' ? !b.sagaId : b.sagaId === this.scope),
+    const inTrash = this.scope === 'trash';
+    const scoped = lib.books.filter((b) =>
+      inTrash
+        ? b.trashed
+        : !b.trashed &&
+          (this.scope === 'all' || (this.scope === 'independent' ? !b.sagaId : b.sagaId === this.scope)),
     );
     const query = this.query.trim().toLocaleLowerCase();
     const books = scoped.filter((b) =>
@@ -78,15 +87,15 @@ export class LibraryView {
       books
         .map((b) => {
           const saga = lib.sagas.find((s) => s.id === b.sagaId),
-            siblings = lib.books.filter((x) => x.sagaId === b.sagaId),
+            siblings = lib.books.filter((x) => x.sagaId === b.sagaId && !x.trashed),
             index = siblings.indexOf(b),
             id = esc(b.project.id);
           const color = (saga ? lib.sagas.indexOf(saga) : lib.books.indexOf(b)) % 3;
           const coverUrl = b.project.cover || `img/${COVERS[color]}.webp`;
-          return `<article class="book-card" data-book="${id}"><button data-open-book="${id}" aria-label="Abrir ${esc(b.project.title)}" style="background-image:url(${coverUrl})" class="book-cover ${b.project.cover ? 'cover-custom' : 'cover-default'}"><span class="cover-kicker">${saga ? esc(saga.title) : 'LIBRO INDEPENDIENTE'}</span><span></span><span class="cover-title">${esc(b.project.title) || 'Libro sin título'}</span><span class="cover-bottom">${saga ? `VOLUMEN ${String(index + 1).padStart(2, '0')}` : 'MORIARTY'}</span></button><div class="book-info"><div class="book-meta">${saga ? `${icon('saga')}<span>${esc(saga.title)} · ${index + 1}</span>` : `${icon('book')}<span>Independiente</span>`}${lib.activeBookId === b.project.id ? '<span class="current-book">En curso</span>' : ''}</div><p class="book-synopsis ${b.synopsis ? '' : 'muted'}">${esc(b.synopsis) || 'Una historia por descubrir. Añade una sinopsis para darle su lugar.'}</p><div class="book-stats">${plural(b.project.chapters.filter((c) => !c.trashed).length, 'capítulo', 'capítulos')}<span>·</span>${words(b.project).toLocaleString('es-MX')} palabras</div><div class="book-actions"><button class="open-book" data-open-book="${id}">Abrir libro ${icon('arrow')}</button><button data-edit-book="${id}" aria-label="Editar ${esc(b.project.title)}" title="Editar libro">${icon('edit')}</button>${saga ? `<button data-book-move="${id}" data-delta="-1" ${index === 0 ? 'disabled' : ''} aria-label="Adelantar ${esc(b.project.title)} en la saga" title="Adelantar en saga">${icon('up')}</button><button data-book-move="${id}" data-delta="1" ${index === siblings.length - 1 ? 'disabled' : ''} aria-label="Retrasar ${esc(b.project.title)} en la saga" title="Retrasar en saga">${icon('down')}</button>` : ''}</div></div></article>`;
+          return `<article class="book-card" data-book="${id}"><button data-open-book="${id}" aria-label="Abrir ${esc(b.project.title)}" style="background-image:url(${coverUrl})" class="book-cover ${b.project.cover ? 'cover-custom' : 'cover-default'}"><span class="cover-kicker">${saga ? esc(saga.title) : 'LIBRO INDEPENDIENTE'}</span><span></span><span class="cover-title">${esc(b.project.title) || 'Libro sin título'}</span><span class="cover-bottom">${saga ? `VOLUMEN ${String(index + 1).padStart(2, '0')}` : 'MORIARTY'}</span></button><div class="book-info"><div class="book-meta">${saga ? `${icon('saga')}<span>${esc(saga.title)} · ${index + 1}</span>` : `${icon('book')}<span>Independiente</span>`}${lib.activeBookId === b.project.id ? '<span class="current-book">En curso</span>' : ''}</div><p class="book-synopsis ${b.synopsis ? '' : 'muted'}">${esc(b.synopsis) || 'Una historia por descubrir. Añade una sinopsis para darle su lugar.'}</p><div class="book-stats">${plural(b.project.chapters.filter((c) => !c.trashed).length, 'capítulo', 'capítulos')}<span>·</span>${words(b.project).toLocaleString('es-MX')} palabras</div><div class="book-actions">${inTrash ? `<button class="open-book" data-restore-book="${id}">${icon('restore')}Recuperar</button><button data-purge-book="${id}" class="danger-text" aria-label="Eliminar definitivamente ${esc(b.project.title)}" title="Eliminar definitivamente">${icon('trash')}</button>` : `<button class="open-book" data-open-book="${id}">Abrir libro ${icon('arrow')}</button><button data-edit-book="${id}" aria-label="Editar ${esc(b.project.title)}" title="Editar libro">${icon('edit')}</button><button data-trash-book="${id}" aria-label="Enviar ${esc(b.project.title)} a la papelera" title="Enviar a la papelera">${icon('trash')}</button>`}${saga && !inTrash ? `<button data-book-move="${id}" data-delta="-1" ${index === 0 ? 'disabled' : ''} aria-label="Adelantar ${esc(b.project.title)} en la saga" title="Adelantar en saga">${icon('up')}</button><button data-book-move="${id}" data-delta="1" ${index === siblings.length - 1 ? 'disabled' : ''} aria-label="Retrasar ${esc(b.project.title)} en la saga" title="Retrasar en saga">${icon('down')}</button>` : ''}</div></div></article>`;
         })
         .join('') ||
-      `<div class="library-empty">${art(query ? 'vacio-busqueda' : 'vacio-biblioteca')}<h2>${query ? 'No encontramos ese libro.' : 'Aquí empieza una nueva historia.'}</h2><p class="muted">${query ? 'Prueba con otro título o una palabra de la sinopsis.' : 'Crea el primer libro de esta colección o importa uno que ya tengas.'}</p>${query ? '' : '<button class="primary" id="emptyNewBook">' + icon('plus') + 'Crear un libro</button>'}</div>`;
+      `<div class="library-empty">${art(query ? 'vacio-busqueda' : 'vacio-biblioteca')}<h2>${query ? 'No encontramos ese libro.' : 'Aquí empieza una nueva historia.'}</h2><p class="muted">${query ? 'Prueba con otro título o una palabra de la sinopsis.' : 'Crea el primer libro de esta colección o importa uno que ya tengas.'}</p>${query || inTrash ? '' : '<button class="primary" id="emptyNewBook">' + icon('plus') + 'Crear un libro</button>'}</div>`;
     grid
       .querySelectorAll('[data-open-book]')
       .forEach((btn) => (btn.onclick = () => this.callbacks.onOpen(btn.dataset.openBook)));
@@ -103,6 +112,42 @@ export class LibraryView {
           this.callbacks.onChange();
           this.cards();
           grid.querySelector(`[data-book="${btn.dataset.bookMove}"] [data-edit-book]`)?.focus();
+        }),
+    );
+    grid.querySelectorAll('[data-trash-book]').forEach(
+      (btn) =>
+        (btn.onclick = () => {
+          const book = trashBook(lib, btn.dataset.trashBook);
+          this.callbacks.onChange();
+          this.render();
+          this.callbacks.notify?.(`«${book.project.title}» está en la papelera de libros. Puedes recuperarlo cuando quieras.`);
+        }),
+    );
+    grid.querySelectorAll('[data-restore-book]').forEach(
+      (btn) =>
+        (btn.onclick = () => {
+          const book = restoreBook(lib, btn.dataset.restoreBook);
+          this.callbacks.onChange();
+          this.render();
+          this.callbacks.notify?.(`«${book.project.title}» volvió a tu biblioteca.`);
+        }),
+    );
+    grid.querySelectorAll('[data-purge-book]').forEach(
+      (btn) =>
+        (btn.onclick = () => {
+          const book = lib.books.find((b) => b.project.id === btn.dataset.purgeBook);
+          this.dialog(
+            'Eliminar definitivamente',
+            `<p>Vas a borrar <b>${esc(book.project.title)}</b> con todos sus capítulos, fichas, versiones y revisiones. <b>No se puede deshacer.</b></p><p class="muted">Si quieres conservar una copia, cancela y usa Exportar → Respaldar biblioteca antes.</p><label>Escribe el título del libro para confirmar<input class="field" name="confirm" autocomplete="off" required></label>`,
+            'Eliminar para siempre',
+            (data) => {
+              if (data.get('confirm').trim() !== book.project.title.trim()) throw Error('El título no coincide.');
+              purgeBook(lib, book.project.id);
+              this.callbacks.onChange();
+              this.render();
+              this.callbacks.notify?.('Libro eliminado definitivamente.');
+            },
+          );
         }),
     );
     const empty = grid.querySelector('#emptyNewBook');

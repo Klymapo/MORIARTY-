@@ -44,7 +44,8 @@ export function validateLibrary(data) {
       !b ||
       typeof b.synopsis !== 'string' ||
       typeof b.sagaId !== 'string' ||
-      (b.sagaId && !sagas.has(b.sagaId))
+      (b.sagaId && !sagas.has(b.sagaId)) ||
+      (b.trashed !== undefined && typeof b.trashed !== 'boolean')
     )
       fail();
     validate(b.project);
@@ -81,7 +82,7 @@ export function addSaga(library, title, description = '') {
 export function moveBook(library, id, delta) {
   const book = library.books.find((b) => b.project.id === id);
   if (!book || ![1, -1].includes(delta)) return;
-  const group = library.books.filter((b) => b.sagaId === book.sagaId);
+  const group = library.books.filter((b) => b.sagaId === book.sagaId && !b.trashed);
   const target = group[group.indexOf(book) + delta];
   if (!target) return;
   const i = library.books.indexOf(book),
@@ -132,10 +133,40 @@ export function importIntoLibrary(library, data) {
     project: cloneProject(b.project),
     sagaId: sagas.get(b.sagaId) || '',
     synopsis: b.synopsis,
+    trashed: false,
   }));
   next.books.push(...imported);
   next.activeBookId = imported.find(
     (b, i) => incoming.books[i].project.id === incoming.activeBookId,
   ).project.id;
   return validateLibrary(next);
+}
+
+// ---- Papelera de libros (no destructiva hasta "Eliminar definitivamente") ----
+export const liveBooks = (library) => library.books.filter((b) => !b.trashed);
+function ensureActive(library) {
+  const active = activeBook(library);
+  if (active && !active.trashed) return;
+  const next = liveBooks(library)[0] || addBook(library, 'Mi nuevo libro');
+  library.activeBookId = next.project.id;
+}
+export function trashBook(library, id) {
+  const book = library.books.find((b) => b.project.id === id);
+  if (!book) throw Error('El libro no existe.');
+  book.trashed = true;
+  ensureActive(library);
+  return book;
+}
+export function restoreBook(library, id) {
+  const book = library.books.find((b) => b.project.id === id);
+  if (!book) throw Error('El libro no existe.');
+  book.trashed = false;
+  return book;
+}
+export function purgeBook(library, id) {
+  const i = library.books.findIndex((b) => b.project.id === id);
+  if (i < 0) throw Error('El libro no existe.');
+  if (!library.books[i].trashed) throw Error('Primero envía el libro a la papelera.');
+  library.books.splice(i, 1);
+  ensureActive(library);
 }
