@@ -2517,7 +2517,113 @@ kbd { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; background: var
 .stat .hint { font-size: 12px; color: var(--muted); margin-top: 2px; }
 @media (max-width: 640px) {
   .chapter-details summary .pov-hint { display: none; }
-  nav button span { display: none; }
   nav button { padding: 9px 12px; }
   nav button svg { width: 20px; height: 20px; }
+}
+
+/* ---------- V0.4.3: celular ---------- */
+.aside-toggle { display: none; }
+@media (max-width: 640px) {
+  .shell { display: block; }
+  /* Panel del manuscrito plegado: una barra con libro › capítulo; toca para desplegar. */
+  aside {
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .aside-toggle {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 0;
+    background: var(--paper-2);
+    text-align: left;
+    min-height: 44px;
+  }
+  .aside-toggle .aside-book {
+    font: 600 12px var(--sans);
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 38%;
+    flex-shrink: 0;
+  }
+  .aside-toggle .aside-book::after { content: ' ›'; }
+  .aside-toggle .aside-ch {
+    flex: 1;
+    min-width: 0;
+    font: 600 14px var(--sans);
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .aside-toggle svg { transition: transform var(--t); flex-shrink: 0; }
+  body.aside-open .aside-toggle svg { transform: rotate(180deg); }
+  .aside-body { display: none; padding: 10px 12px 14px; max-height: 60vh; overflow: auto; }
+  body.aside-open .aside-body { display: block; animation: fade-up 160ms var(--ease); }
+  aside .aside-body button { width: 100%; font-size: 14px; display: flex; min-height: 42px; }
+  aside .aside-body .scene { padding-left: 28px; font-size: 13px; }
+  /* Sin título en la cabecera: va en la barra del manuscrito. */
+  #projectTitle { display: none; }
+  #libraryTitle { font-size: 14px; }
+  /* Navegación abajo, al alcance del pulgar. */
+  .nav-wrap { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; }
+  .nav-wrap::after { display: none; }
+  nav {
+    position: static;
+    justify-content: space-around;
+    gap: 0;
+    padding: 4px 4px calc(4px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+    border-bottom: 0;
+    box-shadow: 0 -4px 16px -8px rgb(0 0 0 / 0.25);
+  }
+  nav button { flex: 1; flex-direction: column; gap: 3px; padding: 7px 4px 5px; font-size: 10px; min-height: 52px; }
+  nav button span { display: block; line-height: 1; }
+  nav button svg { width: 22px; height: 22px; }
+  nav button::after { display: none; }
+  nav button.active { color: var(--teal-strong); }
+  nav button:disabled { opacity: 0.35; }
+  body { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
+  .focus body, body.focus { padding-bottom: 0; }
+  body.focus .nav-wrap { display: none; }
+  footer { display: none; }
+  #toast { bottom: calc(78px + env(safe-area-inset-bottom)); }
+  /* Escribir: herramientas en una sola fila deslizable; barra de formato pegada arriba. */
+  .chapter-tools { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .chapter-tools::-webkit-scrollbar { display: none; }
+  .chapter-tools .eyebrow { display: none; }
+  .chapter-tools button { flex-shrink: 0; }
+  .fmt-bar {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    background: var(--paper);
+    box-shadow: 0 6px 12px -10px rgb(0 0 0 / 0.3);
+  }
+  .fmt-bar::-webkit-scrollbar { display: none; }
+  .fmt-bar .fmt { flex-shrink: 0; min-width: 40px; min-height: 40px; }
+  .manuscript { padding: 18px 16px; border-radius: 12px; }
+  .chapter-details summary { flex-wrap: wrap; row-gap: 4px; }
+  /* Pizarrón: filtros en una fila deslizable. */
+  .map-tools .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; max-width: 100%; }
+  .map-tools .chips::-webkit-scrollbar { display: none; }
+  .map-tools .chips .chip { flex-shrink: 0; }
+  .map-stage { height: 62vh; }
+  .map-panel { width: calc(100% - 20px); }
+  /* Tarjetas y diálogos a todo lo ancho */
+  .library-dialog, dialog.library-dialog { width: calc(100vw - 16px); max-width: none; margin: 8px auto; }
+  h1 { font-size: 24px; }
 }
